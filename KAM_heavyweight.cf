@@ -1,0 +1,33 @@
+#https://raptor.pccc.com/free_spam_consultation.cgim
+
+#
+#Copyright (c) 2020 Kevin A. McGrail and the McGrail Foundation
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+
+# These use ~15% of scanning time for almost no yield
+meta    __FILL_THIS_FORM_SHORT2         0
+meta    __FILL_THIS_FORM_LONG2          0
+#score   KAM_ADVERT2                     0
+#meta   __KAM_ADDRESS1                  0
+#need to check KAM_BADNAME for impact as weell
+meta    __KAM_WEIGHT4                   0
+meta    __FILL_THIS_FORM_FRAUD_PHISH1   0
+meta    __KAM_SKIN3                     0
+meta    __KAM_DISH3                     0
+meta    __KAM_ALARM3                    0
+meta    __FILL_THIS_FORM_LOAN1          0
+
+#2019-05-01 Note 57981 - This rule can take 11-13 minutes to scan a 1MB js file
+#score	HIDE_WIN_STATUS			0
