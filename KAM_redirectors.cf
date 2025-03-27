@@ -1,0 +1,283 @@
+#KAM GOOGLE SPAM
+uri           __KAM_GOOGLE_REDIR      /^https?:\/\/(?:www\.)?google\..{2,6}\/(?:url\?q=|amp\/(?:s\/)?)/i
+
+uri           __FACEBOOK_SHARER      m;https?://(?:www\.)?facebook\.com/sharer/sharer\.php;i
+
+if (version >= 4.000000)
+  ifplugin Mail::SpamAssassin::Plugin::Redirectors
+    url_redirector_timeout 2
+
+    url_redirector .allaincemh.com
+    url_redirector .australia4wdrentals.com
+    url_redirector .awstrack.me
+    url_redirector .benchurl.com
+    url_redirector .blob.core.windows.net
+    url_redirector .cc.rs6.net
+    url_redirector .hosted.phplist.com
+    url_redirector .href.li
+    url_redirector .maverickcrm.com
+    url_redirector .msn.com
+    url_redirector .msn.com.br
+    url_redirector .yandex.net
+    url_redirector .yandex.ru
+    url_redirector auctiva.com
+    url_redirector bing.com
+    url_redirector cdn.dragon.cere.network
+    url_redirector email.mail.bloom.io
+    url_redirector links.e.shopmyexchange.com
+    url_redirector mccarthysearch.com
+    url_redirector_get .pstmrk.it
+    url_redirector_get followup.cc
+    url_redirector_get google.ae
+    url_redirector_get google.al
+    url_redirector_get google.be
+    url_redirector_get google.co.uk
+    url_redirector_get google.com
+    url_redirector_get google.com.af
+    url_redirector_get google.com.ag
+    url_redirector_get google.cz
+    url_redirector_get google.de
+    url_redirector_get google.es
+    url_redirector_get google.it
+    url_redirector_get googleadservices.com
+    url_redirector_get t.nypost.com
+
+    body __GEN_REDIR_URLB          eval:redir_url()
+    meta GB_GEN_REDIR_URL          __GEN_REDIR_URLB && !__FACEBOOK_SHARER
+    describe GB_GEN_REDIR_URL      Message has one or more redirected URLs
+    score GB_GEN_REDIR_URL         0.5
+
+    body GB_REDIR_URL_CHAINED      eval:redir_url_chained()
+    describe GB_REDIR_URL_CHAINED  Message has redirected URL chained to other redirectors
+    score GB_REDIR_URL_CHAINED     0.5
+
+    body GB_REDIR_URL_MAXCHAIN     eval:redir_url_maxchain()
+    describe GB_REDIR_URL_MAXCHAIN Message has redirected URL that causes too many redirections
+    score GB_REDIR_URL_MAXCHAIN    0.001
+
+    body GB_REDIR_URL_LOOP         eval:redir_url_loop()
+    describe GB_REDIR_URL_LOOP     Message has redirected URL that loops back to itself
+    score GB_REDIR_URL_LOOP        0.001
+
+    # meta rule for generic redirector
+    meta            __GB_ANY_REDIR          GB_GEN_REDIR_URL
+    describe        __GB_ANY_REDIR          Redirector found
+else
+    header          __GB_FROM_GCAL0         From:addr =~ /calendar\-notification\@google\.com/
+    uri             __GB_FROM_GCAL1         /mailto\:calendar\-notification\@google\.com/
+    meta            KAM_GOOGLE_REDIR        ( __KAM_GOOGLE_REDIR && !__GB_FROM_GCAL0 && !__GB_FROM_GCAL1 )
+    # meta          KAM_GOOGLE_REDIR        __KAM_GOOGLE_REDIR 
+    describe        KAM_GOOGLE_REDIR        Use of Google redir
+    score           KAM_GOOGLE_REDIR        1.5
+
+    #MSN Brasil REDIRECTOR - Known exploit since at least 2007!! http://www.xssed.com/mirror/14129/
+    uri             KAM_MSNBR_REDIR         /g.msn.com.br\/BR9\/1369.0/i
+    describe        KAM_MSNBR_REDIR         Use of MSN Brasil Redirector for Spam seen in 2011
+    score           KAM_MSNBR_REDIR         5.0
+
+    # Adobe redirector
+    uri             GB_ADOBE_REDIR          m|^https?://\w+\-rt\-prod\d+\-t.campaign.adobe.com/r/\?id=.{8,24}&p1=|i
+    describe        GB_ADOBE_REDIR          Adobe redirector
+    score           GB_ADOBE_REDIR          1.5
+
+    # Bing redirector
+    uri             GB_BING_REDIR           m|^https?://(?:www.)?bing.com/ck/a\?!&&p=.{32,128}&ptn=\d+&|i
+    describe        GB_BING_REDIR           Microsoft Bing redirector
+    score           GB_BING_REDIR           1.5
+
+    # Bizzabo redirector
+    uri             GB_BIZZABO_REDIR        m|^https?://events.bizzabo.com/auth/emailAssociatedLogin/verifyTokenAndRedirect\?token=.{10,128}&redirectUrl=|i
+    describe        GB_BIZZABO_REDIR        Bizzabo redirector
+    score           GB_BIZZABO_REDIR        1.5
+
+    # Windows redirector
+    uri             GB_WINDOWS_REDIR        m|^https?://\w+.blob.core.windows.net/\w+/\w+.html?\#\w{2}/\d{5}_md/\d+/|i
+    describe        GB_WINDOWS_REDIR        Windows redirector
+    score           GB_WINDOWS_REDIR        4.5
+
+    # Disq.us redirector
+    uri             GB_DISQUS_REDIR         m|^https?://(?:www\.)?disq.us/?\?url=https?:|i
+    describe        GB_DISQUS_REDIR         Disq.us redirector
+    score           GB_DISQUS_REDIR         1.5
+
+    # Yandex redirector
+    uri             GB_YANDEX_REDIR         m;^https?://[^/]*sba\.yandex\.(?:net|ru)/redirect\?;i
+    describe        GB_YANDEX_REDIR         Yandex redirect used to obscure spamvertised website
+    score           GB_YANDEX_REDIR         1.5
+
+    # Flashtalking redirector
+    uri             GB_FLASHTALK_REDIR      m;^https?://servedby\.flashtalking\.com/click/.{16,256}&url=https?://;i
+    describe        GB_FLASHTALK_REDIR      Flashtalking redirector
+    score           GB_FLASHTALK_REDIR      1.5
+
+    # RetailRocket redirector
+    uri             GB_RETAILROCKET_REDIR   m;^https?://clickproxy\.retailrocket\.net/\?url\.aspx.{1,32}url=http;i
+    describe        GB_RETAILROCKET_REDIR   RetailRocket redirector
+    score           GB_RETAILROCKET_REDIR   1.5
+
+    # ShopMyExchange redirector
+    uri             GB_SHOPMYEXC_REDIR      m;^https?://links\.e\.shopmyexchange\.com/.{4,128}&kd=;i
+    describe        GB_SHOPMYEXC_REDIR      ShopMyExchange redirector
+    score           GB_SHOPMYEXC_REDIR      1.5
+
+    # Allaincemh redirector
+    uri             GB_ALLAINCEMH_REDIR     m;^https?://url\d+\.allaincemh\.com/ls/click\?;i
+    describe        GB_ALLAINCEMH_REDIR     Allaincemh redirector
+    score           GB_ALLAINCEMH_REDIR     1.5
+
+    # Bloom.io redirector
+    uri             GB_BLOOMIO_REDIR        m;^https?://email\.mail\.bloom\.io/c/.{256,512};i
+    describe        GB_BLOOMIO_REDIR        bloom.io redirector
+    score           GB_BLOOMIO_REDIR        1.5
+
+    # Dell redirector
+    uri             GB_DELL_REDIR           m;^https?://\w\.\w{2}\.home\.dell\.com/r/\?.{8,128}\&p1=;i
+    describe        GB_DELL_REDIR           Dell redirector
+    score           GB_DELL_REDIR           1.5
+
+    # Oneclick redirector
+    uri             GB_ONECLICK_REDIR       m;^https?://go\.onelink\.me/\d+\?pid=InProduct.{16,128}&af_web_dp=https?://;i
+    describe        GB_ONECLICK_REDIR       Oneclick redirector
+    score           GB_ONECLICK_REDIR       1.5
+
+    # Powerobjects redirector
+    uri             GB_POWEROBJECTS_REDIR   m;^https?://pocloudcentral\.crm\.powerobjects\.net/PowerEmailWebsite/GetUrl\d+\.aspx\?.{16,128}\&pval=https?://;i
+    describe        GB_POWEROBJECTS_REDIR   Powerobjects redirector
+    score           GB_POWEROBJECTS_REDIR   1.5
+
+    # Kmail-lists redirector
+    uri             GB_KMAIL_LISTS_REDIR    m;^https?://manage\.kmail\-lists\.com/subscriptions/subscribe/update\?.{16,128}&r=https?;i
+    describe        GB_KMAIL_LISTS_REDIR    Kmail-lists redirector
+    score           GB_KMAIL_LISTS_REDIR    1.5
+
+    # Emlnk redirector
+    uri		GB_EMLNK_REDIR		m;^https?://\w+\.\w+\.emlnk\.com/Prod/link\-tracker\?.{4,64}&redirectUrl=;i
+    describe	GB_EMLNK_REDIR		Emlnk redirector
+    score		GB_EMLNK_REDIR		1.5
+
+    # Benchurl redirector
+    uri		GB_BENCH_REDIR		m;^https?://clt\d{4,16}\.benchurl\.com/c/l\?.{8,64}&email\=;i
+    describe	GB_BENCH_REDIR		Benchurl redirector
+    score		GB_BENCH_REDIR		1.5
+
+    # Originsmarket redirector
+    uri             GB_ORIGINSMARKET_REDIR  m;https?://sp\-track\.originsmarket\.com\.au/api/v1/track/click/\d+/\d+/.{32,64}\?redirecturl=https?://;i
+    describe        GB_ORIGINSMARKET_REDIR  Originsmarket redirector
+    score           GB_ORIGINSMARKET_REDIR  1.5
+
+    # Contactmonkey redirector
+    uri		GB_CONTACTMONKEY_REDIR		m;^https?://contactmonkey\.com/api/v1/tracker.{32,256}\&cm_destination=https?://;i
+    describe	GB_CONTACTMONKEY_REDIR		Contactmonkey redirector
+    score		GB_CONTACTMONKEY_REDIR		1.5
+
+    # Turkmenportal redirector
+    uri		GB_TURKMEN_REDIR	m;^https?://turkmenportal\.com/\w{2}/banner/\w/leave\?url=(?:https?:)?//;i
+    describe	GB_TURKMEN_REDIR	Turkmenportal redirector
+    score		GB_TURKMEN_REDIR	1.5
+
+    # Zafos redirector
+    uri		GB_ZAFOS_REDIR		m;^https?://zafos\.com/app/newsletter/tracklink\?.{8,32}\&tid=https?://;i
+    describe	GB_ZAFOS_REDIR		Zafos redirector
+    score		GB_ZAFOS_REDIR		1.5
+
+    # SleadTrack redirector
+    uri		GB_SLEAD_REDIR		m;^https?://click\.sleadtrack\.com/link\?.{32,128}\&url=https?;i
+    describe	GB_SLEAD_REDIR		SleadTrack redirector
+    score		GB_SLEAD_REDIR		1.5
+
+    # editions-legislatives.fr redirector
+    uri		GB_EDLEG_REDIR		m;^https?://\w{2}\.\w{1}\.editions\-legislatives\.fr/r/\?.{16,64}\&p1=\w+\.\w+;i
+    describe	GB_EDLEG_REDIR		editions-legislatives.fr redirector
+    score		GB_EDLEG_REDIR		1.5
+
+    # Exactag redirector
+    uri		GB_EXACTAG_REDIR	m;^https?://(?:m\.|www\.)?exactag\.com/ai\.aspx\?.{8,64}&url=;i
+    describe	GB_EXACTAG_REDIR	Exactag redirector
+    score		GB_EXACTAG_REDIR	1.5
+
+    # Awstrack redirector
+    uri		GB_AWSTRACK_REDIR	m;^https?://\w+\.\w\.[a-z0-9-]+\.awstrack\.me/\w{2}/https?:;i
+    describe	GB_AWSTRACK_REDIR	Awstrack redirector
+    score		GB_AWSTRACK_REDIR	1.5
+
+    # Vnuspa redirector
+    uri		GB_VNUSPA_REDIR		m;^https?://(?:www\.)?vnuspa\.org/\w{2}/go\.php\?url=https?://;i
+    describe	GB_VNUSPA_REDIR		Vnuspa redirector
+    score		GB_VNUSPA_REDIR		1.5
+
+    # Lnks redirector
+    uri		GB_LNKS_REDIR		m;^https?://lnks\.io/r\.php\?.{16,128}\&destURL=https?;i
+    describe	GB_LNKS_REDIR		Lnks redirector
+    score		GB_LNKS_REDIR		1.5
+
+    # 3D Model Space redirector
+    uri		GB_3DMODEL_REDIR	m;^https?://(?:www\.)3dmodelspace\.com/ad\.jsp\?.{4,16}\&l=https;i
+    describe	GB_3DMODEL_REDIR	3D Model Space redirector
+    score		GB_3DMODEL_REDIR	1.5
+
+    # Generic Php redirector
+    uri             GB_PHP_REDIR            /\.php\?.{0,128}url=https?\:\/\//
+    describe        GB_PHP_REDIR            Php redirector
+    score           GB_PHP_REDIR            1.0
+
+    # href.li abused redirector
+    uri             GB_HREF_LI_REDIR        m;https?://href\.li/\??https?://;i
+    describe        GB_HREF_LI_REDIR        Href.li abused redirector
+    score           GB_HREF_LI_REDIR        2.5
+
+    if (version >= 4.000000)
+      if can(Mail::SpamAssassin::Conf::feature_capture_rules)
+        ifplugin Mail::SpamAssassin::Plugin::AskDNS
+          uri           __GAD_REDIR_URL         m;(?:adclick\.\w\.doubleclick\.net/pcs/click|(?:www)?\.googleadservices\.com/pagead/aclk)\?.{64,1024}\&adurl=https?//(?<GAD_REDIR_URL>.*)/;
+          askdns        GB_GAD_REDIR            _GAD_REDIR_URL_.wild.pccc.com A 127.0.0.4
+          describe      GB_GAD_REDIR            Abused Google Ads redirector
+          score         GB_GAD_REDIR            9.0
+ 
+          uri           __G_REDIR_URL           m;https?://(?:www\.)?google\..{2,6}/(?:amp/(?:s/)?|url\?q=)(?:https://)?(?<G_REDIR_URL>[a-z0-9\-_\.]+)(?:/|\?|$);i
+          askdns        GB_G_REDIR              _G_REDIR_URL_.wild.pccc.com A 127.0.0.4
+          describe      GB_G_REDIR              Abused Google search redirector
+          score         GB_G_REDIR              9.0
+        endif
+      endif
+    endif
+
+    # meta rule for non generic redirector
+    meta            __GB_NOTGEN_REDIR          ( KAM_GOOGLE_REDIR || KAM_MSNBR_REDIR || GB_ADOBE_REDIR || GB_BING_REDIR || GB_BIZZABO_REDIR || GB_WINDOWS_REDIR || GB_DISQUS_REDIR || GB_YANDEX_REDIR || GB_FLASHTALK_REDIR || GB_RETAILROCKET_REDIR || GB_SHOPMYEXC_REDIR || GB_ALLAINCEMH_REDIR || GB_BLOOMIO_REDIR || GB_DELL_REDIR || GB_ONECLICK_REDIR || GB_POWEROBJECTS_REDIR || GB_KMAIL_LISTS_REDIR || GB_EMLNK_REDIR || GB_BENCH_REDIR || GB_ORIGINSMARKET_REDIR || GB_CONTACTMONKEY_REDIR || GB_TURKMEN_REDIR || GB_ZAFOS_REDIR || GB_SLEAD_REDIR || GB_EDLEG_REDIR || GB_EXACTAG_REDIR || GB_AWSTRACK_REDIR || GB_VNUSPA_REDIR || GB_LNKS_REDIR || GB_3DMODEL_REDIR || GB_PHP_REDIR || GB_HREF_LI_REDIR )
+    describe        __GB_NOTGEN_REDIR          Non generic redirector found
+
+    if can(Mail::SpamAssassin::Conf::feature_capture_rules)
+      ifplugin Mail::SpamAssassin::Plugin::AskDNS
+        uri           __GEN_REDIR_URL        m;https?://.{8,512}(?:\?|\&)(?:adurl|af_web_dp|cm_destination|destination|destURL|l|location|p1|pval|r|_?(?:redir(?:ect)?(?:to)?|return)(?:Url)?|ret_url|referer|scl_url|service|tid|u|url)+\=(?:https?)?(?:\:?//)?(?:\%3A\%2F\%2F|\%253A)?(?:www\.)?(?<GEN_REDIR_URL>[a-z0-9\-_]+\.[a-z0-9\-_\.]+);i
+        meta          GB_GEN_REDIR_URL       __GEN_REDIR_URL && !__FACEBOOK_SHARER
+        describe      GB_GEN_REDIR_URL       Redirector found in href link
+        score         GB_GEN_REDIR_URL       0.5
+
+        # XXX only generic rule should hit
+        askdns        __GB_GEN_REDIR         _GEN_REDIR_URL_.wild.pccc.com A 127.0.0.4
+        meta          GB_GEN_REDIR           ( __GB_GEN_REDIR && !__GB_NOTGEN_REDIR )
+        describe      GB_GEN_REDIR           Abused redirected uri found on Wild RBL
+        score         GB_GEN_REDIR           1.5 # limit 9.0
+        tflags        GB_GEN_REDIR           net
+      endif
+    endif
+
+    # meta rule for generic redirector
+    meta            __GB_ANY_REDIR          ( KAM_GOOGLE_REDIR || KAM_MSNBR_REDIR || GB_ADOBE_REDIR || GB_BING_REDIR || GB_BIZZABO_REDIR || GB_WINDOWS_REDIR || GB_DISQUS_REDIR || GB_YANDEX_REDIR || GB_FLASHTALK_REDIR || GB_RETAILROCKET_REDIR || GB_SHOPMYEXC_REDIR || GB_ALLAINCEMH_REDIR || GB_BLOOMIO_REDIR || GB_DELL_REDIR || GB_ONECLICK_REDIR || GB_POWEROBJECTS_REDIR || GB_KMAIL_LISTS_REDIR || GB_EMLNK_REDIR || GB_BENCH_REDIR || GB_ORIGINSMARKET_REDIR || GB_CONTACTMONKEY_REDIR || GB_TURKMEN_REDIR || GB_ZAFOS_REDIR || GB_SLEAD_REDIR || GB_EDLEG_REDIR || GB_EXACTAG_REDIR || GB_AWSTRACK_REDIR || GB_VNUSPA_REDIR || GB_LNKS_REDIR || GB_3DMODEL_REDIR || GB_PHP_REDIR || GB_HREF_LI_REDIR )
+    describe        __GB_ANY_REDIR          Redirector found
+  endif
+endif
+
+uri             __GB_DOUBLE_GREDIR      /https:\/\/google\..{2,6}\/amp\/s\/.{3,64}/
+tflags          __GB_DOUBLE_GREDIR      multiple maxhits=2
+meta            GB_DOUBLE_GREDIR        ( __GB_DOUBLE_GREDIR >= 2 )
+describe        GB_DOUBLE_GREDIR        Email with more then two Google redirectors
+score           GB_DOUBLE_GREDIR        5.0
+
+meta            KAM_GOOGLE_FRESH_REDIR  __GB_ANY_REDIR && ( FROM_FMBLA_NEWDOM || SEM_FRESH )
+describe        KAM_GOOGLE_FRESH_REDIR  Redirector found on email sent by a new domain
+score           KAM_GOOGLE_FRESH_REDIR  2.0
+tflags          KAM_GOOGLE_FRESH_REDIR  net
+
+meta		GB_REDIR_EXEURI		( __GB_ANY_REDIR && KAM_EXEURI )
+describe	GB_REDIR_EXEURI		Redirector and uri to a .exe file
+score		GB_REDIR_EXEURI		1.5
