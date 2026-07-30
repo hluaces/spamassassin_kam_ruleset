@@ -1,0 +1,106 @@
+name: Sync KAM ruleset
+
+on:
+  schedule:
+    # Daily. mcgrail.com/downloads/ is a small personal/nonprofit site and
+    # these are a handful of small text files, so daily is cheap and polite.
+    - cron: "17 6 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Discover current upstream ruleset files
+        id: discover
+        run: |
+          set -euo pipefail
+          curl -sSfL https://mcgrail.com/downloads/ \
+            | grep -oE 'href="[^"]+"' \
+            | sed -E 's/href="//; s/"$//' \
+            | grep -E '^(KAM[^/"?]*\.(cf|pm|conf)|nonKAMrules\.cf)$' \
+            | sort -u > /tmp/upstream-files.txt
+          echo "Upstream ruleset files:"
+          cat /tmp/upstream-files.txt
+          if [ ! -s /tmp/upstream-files.txt ]; then
+            echo "::error::No KAM_*/nonKAMrules.cf files found in the downloads index -- the page layout may have changed. Refusing to proceed with an empty file list." >&2
+            exit 1
+          fi
+
+      - name: Fetch fresh copies
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/kam-fresh
+          while IFS= read -r name; do
+            echo "Fetching $name"
+            curl -sSfL "https://mcgrail.com/downloads/$name" -o "/tmp/kam-fresh/$name"
+          done < /tmp/upstream-files.txt
+
+      - name: Diff against tracked copies (additions, changes, and removals)
+        id: diff
+        run: |
+          set -euo pipefail
+          changed=0
+          summary=""
+
+          # Added or changed: anything upstream that's new or differs from what's tracked.
+          while IFS= read -r name; do
+            if [ ! -f "$name" ]; then
+              echo "New upstream file: $name"
+              summary="${summary}- add \`$name\`"$'\n'
+              changed=1
+            elif ! cmp -s "/tmp/kam-fresh/$name" "$name"; then
+              echo "Changed: $name"
+              summary="${summary}- update \`$name\`"$'\n'
+              changed=1
+            fi
+            cp "/tmp/kam-fresh/$name" "$name"
+          done < /tmp/upstream-files.txt
+
+          # Removed: tracked ruleset files no longer present upstream (README/workflow excluded).
+          git ls-files -- 'KAM*' 'nonKAMrules.cf' | while IFS= read -r tracked; do
+            if ! grep -qxF "$tracked" /tmp/upstream-files.txt; then
+              echo "No longer upstream, removing: $tracked"
+              echo "- remove \`$tracked\` (no longer present upstream)" >> /tmp/removed-summary.txt
+              git rm -q -- "$tracked"
+            fi
+          done
+          if [ -f /tmp/removed-summary.txt ]; then
+            summary="${summary}$(cat /tmp/removed-summary.txt)"$'\n'
+            changed=1
+          fi
+
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+          {
+            echo "summary<<EOF"
+            echo "$summary"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Open PR if anything changed
+        if: steps.diff.outputs.changed == '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          branch="kam-sync/$(date -u +%Y-%m-%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add -- KAM* nonKAMrules.cf
+          git commit -m "chore: sync KAM ruleset $(date -u +%Y-%m-%d)"
+          git push origin "$branch"
+          gh pr create \
+            --title "Sync KAM ruleset $(date -u +%Y-%m-%d)" \
+            --body "Automated sync from https://mcgrail.com/downloads/.
+
+          ${{ steps.diff.outputs.summary }}
+
+          This is verbatim upstream content, not vetted -- review before merging." \
+            --base main --head "$branch"
