@@ -2,6 +2,9 @@ ifplugin Mail::SpamAssassin::Plugin::DecodeShortURLs
 
 # Url shorteners list, shorteners included in KAM.cf
 # ruleset with lot of addictions
+if can(Mail::SpamAssassin::Plugin::DecodeShortURLs::has_custom_user_agent)
+  url_shortener_custom_user_agent t.co curl/8.6.0
+endif
 
 url_shortener .app.link
 url_shortener .crezla.click
@@ -65,6 +68,7 @@ url_shortener azc.cc
 url_shortener azqq.com
 url_shortener b.link
 url_shortener b23.ru
+url_shortener b2a.kz
 url_shortener b2l.me
 url_shortener b65.com
 url_shortener b65.us
@@ -106,6 +110,7 @@ url_shortener chzb.gr
 url_shortener cl.lk
 url_shortener cl.ly
 url_shortener clck.ru
+url_shortener cli.re
 url_shortener cli.gs
 url_shortener cliccami.info
 url_shortener clickthru.ca
@@ -178,7 +183,8 @@ url_shortener firsturl.de
 url_shortener firsturl.net
 url_shortener flic.kr
 url_shortener flingk.com
-url_shortener flowcode.com
+# redirector
+# url_shortener flowcode.com
 url_shortener flq.us
 url_shortener fly2.ws
 url_shortener fon.gs
@@ -215,6 +221,8 @@ url_shortener goshrink.com
 url_shortener gplus.to
 url_shortener .graphic.com.gh
 url_shortener gri.ms
+url_shortener gtly.link
+url_shortener gtly.net
 url_shortener gurl.es
 url_shortener han.gl
 url_shortener hao.jp
@@ -222,6 +230,7 @@ url_shortener hellotxt.com
 url_shortener hex.io
 url_shortener hiderefer.com
 url_shortener hmm.ph
+url_shortener hoo.be
 url_shortener hop.im
 url_shortener hopclicks.com
 url_shortener hotredirect.com
@@ -296,6 +305,7 @@ url_shortener liurl.cn
 url_shortener livesi.de
 url_shortener lix.in
 url_shortener lk.ht
+url_shortener ln.run
 url_shortener ln-s.net
 url_shortener ln-s.ru
 url_shortener lnk.by
@@ -416,6 +426,7 @@ url_shortener qlnk.net
 url_shortener qoiob.com
 url_shortener qr.cx
 url_shortener qrcc.me
+url_shortener qrcd.org
 url_shortener qrco.de
 url_shortener qte.me
 url_shortener qu.tc
@@ -439,6 +450,7 @@ url_shortener redirx.com
 url_shortener ref.az
 url_shortener relyt.us
 url_shortener retwt.me
+url_shortener reurl.cc
 url_shortener ri.ms
 url_shortener rickroll.it
 url_shortener rivva.de
@@ -466,6 +478,7 @@ url_shortener sed.cx
 url_shortener sfu.ca
 url_shortener shadyurl.com
 url_shortener shar.es
+url_shortener share.google
 url_shortener shim.net
 url_shortener shink.de
 url_shortener shorl.com
@@ -535,6 +548,7 @@ url_shortener soo.gd
 url_shortener song.ly
 url_shortener sp2.ro
 url_shortener spedr.com
+url_shortener sprl.in
 url_shortener sqze.it
 url_shortener srnk.net
 url_shortener srs.li
@@ -548,6 +562,7 @@ url_shortener surl.co.uk
 url_shortener surl.hu
 url_shortener surl.it
 url_shortener surl.li
+url_shortener swiy.co
 url_shortener t.cn
 url_shortener t.co
 url_shortener t.lh.com
@@ -570,6 +585,7 @@ url_shortener tiny.cc
 url_shortener tiny.ly
 url_shortener tiny.pl
 url_shortener tinyarro.ws
+url_shortener tinyl.io
 url_shortener tinylink.com
 url_shortener tinylink.in
 url_shortener tinypl.us
@@ -756,6 +772,7 @@ url_shortener yfrog.com
 url_shortener yhoo.it
 url_shortener yiyd.com
 url_shortener youtu.be
+url_shortener ytube.io
 url_shortener yuarel.com
 url_shortener z.pe
 url_shortener z0p.de
@@ -768,6 +785,7 @@ url_shortener zip.li
 url_shortener zipmyurl.com
 url_shortener zite.to
 url_shortener zootit.com
+url_shortener zpr.io
 url_shortener zud.me
 url_shortener zurl.ws
 url_shortener zz.gd

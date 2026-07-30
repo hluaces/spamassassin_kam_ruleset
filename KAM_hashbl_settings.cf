@@ -306,6 +306,7 @@ if (version >= 3.004003)
     hashbl_acl_freemail blida.info
     hashbl_acl_freemail blink182.net
     hashbl_acl_freemail blue.devils.com
+    hashbl_acl_freemail blu.it
     hashbl_acl_freemail bluebottle.com
     hashbl_acl_freemail bluemail.ch
     hashbl_acl_freemail blumail.org
@@ -1166,6 +1167,7 @@ if (version >= 3.004003)
     hashbl_acl_freemail ipermitmail.com
     hashbl_acl_freemail iphon.biz
     hashbl_acl_freemail iqemail.com
+    hashbl_acl_freemail iqmailer.net
     hashbl_acl_freemail iquebec.com
     hashbl_acl_freemail ir.ae
     hashbl_acl_freemail iran.com
@@ -1425,6 +1427,7 @@ if (version >= 3.004003)
     hashbl_acl_freemail mailbox.co.za
     hashbl_acl_freemail mailbox.gr
     hashbl_acl_freemail mailbox.hu
+    hashbl_acl_freemail mailbox.org
     hashbl_acl_freemail mailbox.sk
     hashbl_acl_freemail mailc.net
     hashbl_acl_freemail mailcan.com
@@ -1869,6 +1872,7 @@ if (version >= 3.004003)
     hashbl_acl_freemail post.sk
     hashbl_acl_freemail posta.ge
     hashbl_acl_freemail postaccesslite.com
+    hashbl_acl_freemail	posteo.us
     hashbl_acl_freemail postiloota.net
     hashbl_acl_freemail postinbox.com
     hashbl_acl_freemail postino.ch
@@ -1946,6 +1950,7 @@ if (version >= 3.004003)
     hashbl_acl_freemail rbcmail.ru
     hashbl_acl_freemail rbox.co
     hashbl_acl_freemail rbox.me
+    hashbl_acl_freemail rcn.com
     hashbl_acl_freemail real.ro
     hashbl_acl_freemail realbookfan.com
     hashbl_acl_freemail realemail.net
@@ -2049,6 +2054,7 @@ if (version >= 3.004003)
     hashbl_acl_freemail scotlandmail.com
     hashbl_acl_freemail scoutmail.com
     hashbl_acl_freemail scrapbookscrapbook.com
+    hashbl_acl_freemail seanet.com
     hashbl_acl_freemail seapole.com
     hashbl_acl_freemail search417.com
     hashbl_acl_freemail seark.com
@@ -2217,6 +2223,7 @@ if (version >= 3.004003)
     hashbl_acl_freemail swissmail.net
     hashbl_acl_freemail switched.com
     hashbl_acl_freemail switzerland.org
+    hashbl_acl_freemail nb.sympatico.ca
     hashbl_acl_freemail syom.com
     hashbl_acl_freemail syriamail.com
     hashbl_acl_freemail t-mail.com

@@ -1,0 +1,95 @@
+# RESCORE - Lowering for FPs
+# score set prior to 2025-07-03 unless otherwise specified
+score           AC_FROM_MANY_DOTS       1.1
+score           AC_HTML_NONSENSE_TAGS   2.0
+score           ADVANCE_FEE_3_NEW               1.5
+score           AMAZON_IMG_NOT_RCVD_AMZN        1.5
+score           CHARSET_FARAWAY_HEADER  1.6
+# DEAR_FRIEND score updated on 07/02/2026
+score		DEAR_FRIEND		0.75
+score           ENA_SUBJ_ONLY_FWD               1.5
+#score           EWG_BAD_40              1.5
+#score           EWG_BAD_47              1.5
+#score           EWG_BAD_54              1.5
+score           FH_FROM_CASH            2.0
+score           FREEMAIL_ENVFROM_END_DIGIT      1.0
+score           FREEMAIL_FORGED_REPLYTO         1.0
+score           FREEMAIL_REPLYTO        1.0
+score           FROM_IN_TO_AND_SUBJ     0
+score           FROM_LONG_DOM           0.75
+score           FROM_LONG_DOM_MINFP     1.25
+score           FSL_HAS_TINYURL                 0.5
+score           GOOG_REDIR_NOTRDNS              0.5
+score           HK_RAMDOM_ENVFROM               0.5
+score           HK_RAMDOM_FROM                  0.5
+# HTML_IMAGE_ONLY_* updated on 07/24/2026, score is too high
+score           HTML_IMAGE_ONLY_04              0.25
+score           HTML_IMAGE_ONLY_08              0.25
+score           HTML_IMAGE_ONLY_12              0.5 
+score           HTML_IMAGE_ONLY_16              0.5 
+score           HTML_IMAGE_ONLY_20              0.5 
+score           HTML_IMAGE_ONLY_24              0.5 
+score           HTML_IMAGE_ONLY_28              0.5 
+score           HTML_IMAGE_ONLY_32              0.75 
+# HTML_OBFUSCATE_10_20 updated on 07/13/2026, only Network + noBayes score is too high
+# bz https://bz.apache.org/SpamAssassin/show_bug.cgi?id=8404
+ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
+  score         HTML_OBFUSCATE_05_10            0.01
+  score         HTML_OBFUSCATE_10_20            0.1
+  score         HTML_OBFUSCATE_20_30            0.25
+  score         HTML_OBFUSCATE_30_40            0
+  score         HTML_OBFUSCATE_50_60            0
+  score         HTML_OBFUSCATE_70_80            0
+  score         HTML_OBFUSCATE_90_100           0.5
+endif
+score           HOSTED_IMG_MULTI_PUB_01         1.5
+score           KHOP_BIG_TO_CC          1.5
+score           IMG_ONLY_FM_DOM_INFO    0.25
+score           MIME_CHARSET_FARAWAY    1.25
+score           MPART_ALT_DIFF                  0.3
+score           PDS_OTHER_BAD_TLD               0.75
+score           RCVD_IN_DNSWL_HI 0 -5 0 -5
+score           RCVD_IN_DNSWL_LOW 0 -0.7 0 -0.7
+score           RCVD_IN_DNSWL_MED 0 -2.3 0 -2.3
+score           RCVD_IN_DNSWL_NONE 0 -0.0001 0 -0.0001
+score           RCVD_IN_IADB_COURT              -10.0
+score           RCVD_IN_IADB_LEG_MAND           -10.0
+#score          SARE_GIF_ATTACH         3.0
+score           SCC_10_SHORT_WORD_LINES         0.25
+score           SCC_20_SHORT_WORD_LINES         0.25
+score           SCC_35_SHORT_WORD_LINES         0.25
+score           SCC_5_SHORT_WORD_LINES          0.25
+score           SCC_BODY_URI_ONLY               1.5
+score           SHOPIFY_IMG_NOT_RCVD_SFY        0.5
+score           SUSPICIOUS_RECIPS               2.0
+# THIS_AD score updated on 07/21/2026
+score		THIS_AD				1.25
+score           TVD_PH_1                        1.75
+score           URIBL_CT_SURBL                  0.1
+score           URIBL_DBL_SPAM          5.0
+score           URIBL_GREY                      0 0.75 0 0.4
+score           URI_DOTEDU                      0.5
+score           URI_DOTEDU_ENTITY               0.25
+score           URI_NO_WWW_INFO_CGI             0.5
+score		URI_TRY_3LD			0.5
+# UPPERCASE_URI score updated on 05/26/2026
+score           UPPERCASE_URI                   0.5
+score           URI_WP_HACKED_2                 4.0
+score           URI_WP_HACKED                   5.0
+# WIKI_IMG score updated on 05/15/2026
+score           WIKI_IMG                        1.0
+# WORD_INVIS score updated on 10/07/2025
+score           WORD_INVIS                      2.0
+
+if can(Mail::SpamAssassin::Conf::feature_welcomelist_blocklist)
+  score USER_IN_WELCOMELIST_TO          -18
+
+  if !can(Mail::SpamAssassin::Conf::compat_welcomelist_blocklist)
+    score USER_IN_WHITELIST_TO          -18
+    score USER_IN_WELCOMELIST_TO        -0.01
+  endif
+endif
+if !can(Mail::SpamAssassin::Conf::feature_welcomelist_blocklist)
+  score USER_IN_WELCOMELIST_TO          -0.01
+  score USER_IN_WHITELIST_TO            -18
+endif
