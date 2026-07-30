@@ -87,6 +87,12 @@ jobs:
         if: steps.diff.outputs.changed == '1'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Passed as an env var, not spliced into the script text below, so
+          # bash performs exactly one expansion pass on it -- backticks in
+          # the summary (from the markdown-styled filenames) would otherwise
+          # be re-parsed as command substitution once GHA's ${{ }} splice
+          # lands the raw text inside a double-quoted string.
+          SUMMARY: ${{ steps.diff.outputs.summary }}
         run: |
           set -euo pipefail
           branch="kam-sync/$(date -u +%Y-%m-%d)"
@@ -96,11 +102,12 @@ jobs:
           git add -- KAM* nonKAMrules.cf
           git commit -m "chore: sync KAM ruleset $(date -u +%Y-%m-%d)"
           git push origin "$branch"
+          body="Automated sync from https://mcgrail.com/downloads/.
+
+          $SUMMARY
+
+          This is verbatim upstream content, not vetted -- review before merging."
           gh pr create \
             --title "Sync KAM ruleset $(date -u +%Y-%m-%d)" \
-            --body "Automated sync from https://mcgrail.com/downloads/.
-
-          ${{ steps.diff.outputs.summary }}
-
-          This is verbatim upstream content, not vetted -- review before merging." \
+            --body "$body" \
             --base main --head "$branch"
