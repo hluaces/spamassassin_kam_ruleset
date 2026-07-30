@@ -305,6 +305,7 @@ if (version >= 3.004003)
     freemail_domains blida.info
     freemail_domains blink182.net
     freemail_domains blue.devils.com
+    freemail_domains blu.it
     freemail_domains bluebottle.com
     freemail_domains bluemail.ch
     freemail_domains blumail.org
@@ -1165,6 +1166,7 @@ if (version >= 3.004003)
     freemail_domains ipermitmail.com
     freemail_domains iphon.biz
     freemail_domains iqemail.com
+    freemail_domains iqmailer.net
     freemail_domains iquebec.com
     freemail_domains ir.ae
     freemail_domains iran.com
@@ -1424,6 +1426,7 @@ if (version >= 3.004003)
     freemail_domains mailbox.co.za
     freemail_domains mailbox.gr
     freemail_domains mailbox.hu
+    freemail_domains mailbox.org
     freemail_domains mailbox.sk
     freemail_domains mailc.net
     freemail_domains mailcan.com
@@ -1868,6 +1871,7 @@ if (version >= 3.004003)
     freemail_domains post.sk
     freemail_domains posta.ge
     freemail_domains postaccesslite.com
+    freemail_domains	posteo.us
     freemail_domains postiloota.net
     freemail_domains postinbox.com
     freemail_domains postino.ch
@@ -1945,6 +1949,7 @@ if (version >= 3.004003)
     freemail_domains rbcmail.ru
     freemail_domains rbox.co
     freemail_domains rbox.me
+    freemail_domains rcn.com
     freemail_domains real.ro
     freemail_domains realbookfan.com
     freemail_domains realemail.net
@@ -2048,6 +2053,7 @@ if (version >= 3.004003)
     freemail_domains scotlandmail.com
     freemail_domains scoutmail.com
     freemail_domains scrapbookscrapbook.com
+    freemail_domains seanet.com
     freemail_domains seapole.com
     freemail_domains search417.com
     freemail_domains seark.com
@@ -2216,6 +2222,7 @@ if (version >= 3.004003)
     freemail_domains swissmail.net
     freemail_domains switched.com
     freemail_domains switzerland.org
+    freemail_domains nb.sympatico.ca
     freemail_domains syom.com
     freemail_domains syriamail.com
     freemail_domains t-mail.com

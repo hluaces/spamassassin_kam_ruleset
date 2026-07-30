@@ -5,41 +5,96 @@ uri           __FACEBOOK_SHARER      m;https?://(?:www\.)?facebook\.com/sharer/s
 
 if (version >= 4.000000)
   ifplugin Mail::SpamAssassin::Plugin::Redirectors
-    url_redirector_timeout 2
+    url_redirector_timeout 1
+    url_redirector_params (?:adurl|af_web_dp|cm_destination|continue|destination|destURL|goto|h|l|login|location|p1|pval|r|redir|redirect|redirectTo|ret_url|return|returnUrl|referer|service|target|tid|u|url)=(.*)
 
     url_redirector .allaincemh.com
     url_redirector .australia4wdrentals.com
     url_redirector .awstrack.me
     url_redirector .benchurl.com
-    url_redirector .blob.core.windows.net
+    if !can(Mail::SpamAssassin::Plugin::Redirectors::has_url_redirector_path)
+      url_redirector .blob.core.windows.net
+      url_redirector app.getresponse.com
+    endif
+    if can(Mail::SpamAssassin::Plugin::Redirectors::has_url_redirector_path)
+      url_redirector cgi.members.interq.or.jp/tiger/kagetora/yomi-search
+      url_redirector shoutout.wix.com/so
+    endif
     url_redirector .cc.rs6.net
+    url_redirector .exactag.com
     url_redirector .hosted.phplist.com
     url_redirector .href.li
+    url_redirector .ittihad-institute.com
     url_redirector .maverickcrm.com
+    url_redirector .medbook.ucsc.edu
     url_redirector .msn.com
     url_redirector .msn.com.br
+    url_redirector .pionerboat.se
     url_redirector .yandex.net
     url_redirector .yandex.ru
     url_redirector auctiva.com
+    url_redirector awin1.com
     url_redirector bing.com
+    url_redirector ccbclibrary.ccbcmd.edu
+    url_redirector cqbbs.cc
     url_redirector cdn.dragon.cere.network
+    url_redirector channelchief.varindia.com
+    url_redirector clickeu.crmact.com
     url_redirector email.mail.bloom.io
+    url_redirector email.mg.evista.hu
+    url_redirector flac24bitsearch.com
+    url_redirector iplogger.com
+    url_redirector link.sowl.to
     url_redirector links.e.shopmyexchange.com
+    url_redirector linklock.titanhq.com
+    url_redirector mandrillapp.com
     url_redirector mccarthysearch.com
+    url_redirector notifications.googleapis.com
+    url_redirector post.spmailtechnolo.com
+    url_redirector retailerfeed.karmaautomotive.com
+    url_redirector s.kemkes.go.id
+    url_redirector secure-web.cisco.com
+    url_redirector yoylink.com
+    url_redirector tracemail.enima.online
+    url_redirector trackingservice.monday.com
+    url_redirector tracking.skandha.edu.in
+    url_redirector trk.thesiden.com
     url_redirector_get .pstmrk.it
+    url_redirector_get .defend.egress.com
+    url_redirector_get .protection.sophos.com
+    url_redirector_get .trustyshopping.su
+    url_redirector_get docsend.com
+    url_redirector_get email.double.serviceautopilot.com
+    url_redirector_get email.idxhome.co
+    url_redirector_get email.mail.track123.com
+    url_redirector_get flowcode.com
     url_redirector_get followup.cc
     url_redirector_get google.ae
     url_redirector_get google.al
     url_redirector_get google.be
+    url_redirector_get google.ca
+    url_redirector_get google.co.ls
     url_redirector_get google.co.uk
     url_redirector_get google.com
     url_redirector_get google.com.af
     url_redirector_get google.com.ag
+    url_redirector_get google.com.cu
     url_redirector_get google.cz
     url_redirector_get google.de
     url_redirector_get google.es
     url_redirector_get google.it
+    url_redirector_get google.kz
     url_redirector_get googleadservices.com
+    url_redirector_get hdaud.io
+    url_redirector_get inst.mastrtag.com
+    url_redirector_get linksmail.geosolinc.com
+    # Works only with Selenium since 07/23/2026
+    # url_redirector_get login.microsoftonline.com
+    url_redirector_get main.comweb.com
+    url_redirector_get main.plieo.eu
+    url_redirector_get rewardlink.com
+    url_redirector_get share.google
+    url_redirector_get shared.outlook.inky.com
     url_redirector_get t.nypost.com
 
     body __GEN_REDIR_URLB          eval:redir_url()
