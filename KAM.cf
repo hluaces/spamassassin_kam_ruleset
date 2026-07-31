@@ -9534,7 +9534,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules   __GB_BADGSTORAGEURIS
   uri             __GB_BADGSTORAGEURIS   /https?:\/\/(www\.)?\.storage\.googleapis\.com\/<BADGSTORAGEURIS>(?:\/|\?|\b|$)/i
 
-  replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO)
+  replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO|6IYXOtcD7gLgGRcRJ)
   replace_rules   __GB_BADSHARE_GOOGLE
   uri             __GB_BADSHARE_GOOGLE   /https?:\/\/share\.google\/<BADSHAREGOOGLEURIS>(?:\/|\?|\b|$)/i
 
