@@ -9458,7 +9458,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules	__KAM_BADFIVERR
   uri		__KAM_BADFIVERR		/https?\:\/\/(www\.)?fiverr\.com\/<BADFIVERRURIS>(?:\/|\?|\b|$)/i
 
-  replace_tag     BADGSITESURIS           (?:33344455666|rfdzxgffg|whvfcgd29|bvcgevfg02|vxcdgcv28|mhcvgdf25|jvcgdvfg08|shddgdghsdhjsb|uvfcxdsf10|writmoline)
+  replace_tag     BADGSITESURIS           (?:33344455666|rfdzxgffg|whvfcgd29|bvcgevfg02|vxcdgcv28|mhcvgdf25|jvcgdvfg08|shddgdghsdhjsb|uvfcxdsf10|writmoline|ycvgcvdw15)
   replace_rules   __KAM_BADGSITES         
   uri             __KAM_BADGSITES         /https?\:\/\/sites\.google\.com\/view\/<BADGSITESURIS>(?:\/|\?|\b|$)/i
 
@@ -9530,7 +9530,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules   __KAM_BADCOGNITOFORMURIS 
   uri             __KAM_BADCOGNITOFORMURIS	/https?\:\/\/(www.)?cognitoforms\.com\/<BADCOGNITOFORMURIS>\/file/i
 
-  replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8)
+  replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi)
   replace_rules   __GB_BADGSTORAGEURIS
   uri             __GB_BADGSTORAGEURIS   /https?:\/\/(www\.)?\.storage\.googleapis\.com\/<BADGSTORAGEURIS>(?:\/|\?|\b|$)/i
 

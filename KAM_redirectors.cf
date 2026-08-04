@@ -19,6 +19,7 @@ if (version >= 4.000000)
     if can(Mail::SpamAssassin::Plugin::Redirectors::has_url_redirector_path)
       url_redirector cgi.members.interq.or.jp/tiger/kagetora/yomi-search
       url_redirector shoutout.wix.com/so
+      url_redirector curztq.soundestlink.com/ce/c
     endif
     url_redirector .cc.rs6.net
     url_redirector .exactag.com
