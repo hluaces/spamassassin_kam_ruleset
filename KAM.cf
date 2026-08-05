@@ -7236,7 +7236,7 @@ score		KAM_BENEFICIARY		10.5
 
 meta            KAM_BENEFICIARYLOW       ((LOTS_OF_MONEY + __KAM_BENEFICIARY5 >=1) + (KAM_BLANKSUBJECT + __KAM_BENEFICIARY1 >=1) + __KAM_BENEFICIARY2 + __KAM_BENEFICIARY3 + __KAM_BENEFICIARY4 + __KAM_BENEFICIARY6 + FREEMAIL_FROM >= 5) && !KAM_BENEFICIARY && !__KAM_NPO1 && (__KAM_BENEFICIARY3A + EXTRACTTEXT <= 0)
 describe        KAM_BENEFICIARYLOW      Beneficiary scams (Lower Confidence)
-score           KAM_BENEFICIARYLOW      6.0
+score           KAM_BENEFICIARYLOW      4.75
 
 #NPO
 body		__KAM_NPO1		/501\(?c\)?\(?3\)?|501 c 3/i
@@ -8520,7 +8520,8 @@ if (version >= 4.000000)
           describe      GB_PHONE_RBL_RAW      Message contains phone number found on blocklist (https://raptor.pccc.com/RBL)
           score         GB_PHONE_RBL_RAW      10.0
         endif
-        meta            T_GB_HAS_PHONE        __GB_PHONE
+        # XXX keep in sync with __GB_PHONE rule
+        body            T_GB_HAS_PHONE        /(?<![1-9A-Za-z])((?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[ .\-()]){0,4}){8,13}\d)(?![\dA-Za-z])/
         describe        T_GB_HAS_PHONE        Email body contains a phone number
       else
         body          GB_PHONE_RBL          eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/num/', '(?<![1-9A-Za-z])((?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[ .\-()]){0,4}){8,13}\d)(?![\dA-Za-z])', '127.0.1.16')
@@ -9534,7 +9535,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules   __GB_BADGSTORAGEURIS
   uri             __GB_BADGSTORAGEURIS   /https?:\/\/(www\.)?\.storage\.googleapis\.com\/<BADGSTORAGEURIS>(?:\/|\?|\b|$)/i
 
-  replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO|6IYXOtcD7gLgGRcRJ|yvKOJjPzKKYTrNTYC|9sr0urs78RhA27vsH|1LfEHg6Eh8KAvtpA8)
+  replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO|6IYXOtcD7gLgGRcRJ|yvKOJjPzKKYTrNTYC|9sr0urs78RhA27vsH|1LfEHg6Eh8KAvtpA8|19W5MO9Zs8i6dShpF)
   replace_rules   __GB_BADSHARE_GOOGLE
   uri             __GB_BADSHARE_GOOGLE   /https?:\/\/share\.google\/<BADSHAREGOOGLEURIS>(?:\/|\?|\b|$)/i
 
