@@ -83,7 +83,7 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Open PR if anything changed
+      - name: Open and merge PR if anything changed
         if: steps.diff.outputs.changed == '1'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -106,8 +106,11 @@ jobs:
 
           $SUMMARY
 
-          This is verbatim upstream content, not vetted -- review before merging."
-          gh pr create \
+          This is verbatim upstream content, not vetted -- it is merged
+          automatically, so review the merged diff if anything misbehaves."
+          url=$(gh pr create \
             --title "Sync KAM ruleset $(date -u +%Y-%m-%d)" \
             --body "$body" \
-            --base main --head "$branch"
+            --base main --head "$branch")
+          
+          gh pr merge "$url" --merge --delete-branch
