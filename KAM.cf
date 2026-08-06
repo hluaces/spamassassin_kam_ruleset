@@ -10517,7 +10517,7 @@ uri		__KAM_APP_ABUSE_1		/\w\.(vercel\.app|netlify\.app|replit\.app|glitch\.me|pa
 
 meta		KAM_APP_ABUSE			( __KAM_APP_ABUSE_1 >= 1 )
 describe	KAM_APP_ABUSE			Rampant abuse of legitimate app builders in phishing scams.  This is why we can't have nice things.
-score		KAM_APP_ABUSE			5.0
+score		KAM_APP_ABUSE			3.9
 
 #PayPal BTC
   #BTC
