@@ -86,6 +86,7 @@ ifplugin Mail::SpamAssassin::Plugin::URIDNSBL
     util_rb_3tld my.site.com
     util_rb_3tld nyc3.digitaloceanspaces.com
     util_rb_3tld s3.amazonaws.com
+    util_rb_3tld storage.googleapis.com
     util_rb_3tld trk.elasticemail.com
     util_rb_3tld na1.hubspotlinks.com
     util_rb_3tld us12.list-manage.com

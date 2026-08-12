@@ -2613,6 +2613,7 @@ if (version >= 3.004003)
     hashbl_acl_freemail zmail.ru
     hashbl_acl_freemail zoho.com
     hashbl_acl_freemail zohomail.com
+    hashbl_acl_freemail zohomail.eu
     hashbl_acl_freemail zona-andina.net
     hashbl_acl_freemail zonai.com
     hashbl_acl_freemail zoneview.net
