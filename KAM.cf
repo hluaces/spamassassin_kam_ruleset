@@ -9621,7 +9621,7 @@ describe	KAM_FAKE_SAFESENDER	Email shows up with a safe sender notice
 score		KAM_FAKE_SAFESENDER	1.0
 
 #CHECKFILE
-body		__KAM_CHECKFILE1	/(File|Document)\: https?\:\/\/.{8,128}\/.{2,5}\/\?/i
+body		__KAM_CHECKFILE1	/(^|\b)(File|Document)\: https?\:\/\/.{8,128}\/.{2,5}\/\?/i
 
 meta		KAM_CHECKFILE		( __KAM_CHECKFILE1 >= 1)
 describe	KAM_CHECKFILE		Likely File link abuse

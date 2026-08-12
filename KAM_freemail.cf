@@ -2612,6 +2612,7 @@ if (version >= 3.004003)
     freemail_domains zmail.ru
     freemail_domains zoho.com
     freemail_domains zohomail.com
+    freemail_domains zohomail.eu
     freemail_domains zona-andina.net
     freemail_domains zonai.com
     freemail_domains zoneview.net
