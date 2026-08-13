@@ -7777,7 +7777,11 @@ else
 endif
 #HTML FORM ATTACHED
 rawbody         __GB_HTML_FORM          /\<form\s+.{1,250}(?:method\=|action\=|id\=).{0,100}>/is
-meta            GB_HTML_FORM            ( __GB_HTML_FORM && ( T_HTML_ATTACH || OBFU_HTML_ATTACH || UNICODE_OBFU_ASC ) )
+ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
+  meta            GB_HTML_FORM          ( __GB_HTML_FORM && ( T_HTML_ATTACH || OBFU_HTML_ATTACH || UNICODE_OBFU_ASC ) && !__GB_RAPTOR_ZERO_P )
+else
+  meta            GB_HTML_FORM          ( __GB_HTML_FORM && ( T_HTML_ATTACH || OBFU_HTML_ATTACH || UNICODE_OBFU_ASC ) )
+endif
 describe        GB_HTML_FORM            Html form attached
 score           GB_HTML_FORM            4.0
 
@@ -10567,13 +10571,13 @@ score		KAM_TIKTOKSHOP	4.0
 
 #FAMILYOFFICEMANDA
  #SUBJ
-header		__KAM_FAMILYOFFICEMANDA1	Subject =~ /purchase|Investment|acquisition|meeting/i
+header		__KAM_FAMILYOFFICEMANDA1	Subject =~ /purchase|Investment|acquisition|meeting|family office looking/i
  #FAMILY OFFICE
 body		__KAM_FAMILYOFFICEMANDA2	/family office|(private equity|PE) Firm/i
  #ACQUIRE/PURCHASE
 body		__KAM_FAMILYOFFICEMANDA3	/(making an offer on|acquiring|investing in) (business|compan)|interest(ed)? in making an investment|looking at (acquiring|investing)|interested in (invest|acqui)/i
  #BRAND
-body		__KAM_FAMILYOFFICEMANDA4	/Synergy Advisors|Meridian|(evergreen|Riverside|bluestone) Advisory/i
+body		__KAM_FAMILYOFFICEMANDA4	/Synergy Advisors|Meridian|(evergreen|Riverside|bluestone|private capital) Advisory/i
  #TITLE
 body		__KAM_FAMILYOFFICEMANDA5	/Mergers \& Acquisitions|Investment Banking|(sell.?side|Markets?|Capital|capital markets?) Advisory|analyst, acquisitions|mergers? (\&|and) acquisition/i
 
