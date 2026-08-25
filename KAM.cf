@@ -525,7 +525,7 @@ body		__KAM_STOCKTIP169 /(\b|^)E.?C.?G.?R(\b|$)/s
 
 
 body            __KAM_STOCKOTC  /(OTC|OTC ?BB|OTC Pink Sheets|NASDAQ|NYSE|StockWatch):/is
-body            __KAM_STOCKSYM  /\b(?:S[ ]?[iy][ ]?m[ ]?[ßb8][ ]?[o0][ ]?[l1]|Siymbol)\b/i
+body            __KAM_STOCKSYM  /\b(?:S[ ]?[iy][ ]?m[ ]?[\x{DF}b8][ ]?[o0][ ]?[l1]|Siymbol)\b/i
 body            __KAM_STOCKSYM2 /(SYM[ ]?[-\:]|\bTicker|Pr+ice\s*\:|Volume\s*\:|Target\s*\:|Current(ly)? ?\??:|Projected:|Smybol:|Stcok\s*\:|Stock\s*\:|S\s*t\s*o\s*c\s*k\s*\:|Trad[ ]?e\:|short\-?sell|book value|S\.umbol|Action:|Symb\s?[-:]|Price Today:|SYmN\-|Lookup:|RADAR:|PK PAPER:|PINKSHEETS:|f[o0]rward ?l[0o]{2}king)/i
 body		__KAM_STOCKSHR	/\b(Shares|Investments|invest|Stock|acquisitions?|broker|joint[ -]?venture|underperforming|(uncap|ventilated|public(ity)?) on friday|dividend opportunities|set your buy|financial safe haven|before the bell)\b/i
 body		__KAM_STOCKBULL /bull (run|market)|very.rich|high.return/is
@@ -1042,7 +1042,7 @@ ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   score           KAM_RPTR_BADHOST        9.0
 
   #NOTLS WELCOMELIST
-  enlist_addrlist (WLNOTLS)               *@4imprint.com *@bellnet.ca *@berglist.com *@enom.com *@name-services.com *@trust-guard.com *@vzwpix.com *@trick-tools.com *@tictactel.net *@COSCON.com *@intelcom.ca *@jeffmartinauctioneers.com *@hlag.com *@cbsa-asfc.gc.ca *@kpneuscommercial.ca *@central-insurance.com *@services.capitalgroup.com *@williamsfoodequipment.com *@cn.gree.com *@nsaarc.net *@smigroup.net *@news1.naylorconnect.com *@rose.net *@smigroup.net *@bluemountain.com *@actsst.com *@connectwise.userecho.com *@kegland.cn *@bell.net *@email.crayola.com *@daemarinc.com *@power-link.ca *@e.johnnyseeds.com *@station-22.com *@survivalfootball.com *@mapyourshow.com *@vzwpix.com *@a25csc.com *@anchorglass.com *@nfpa.org *@paulpedneaultinc.com *@plomberielatulippe.ca *@cogecomedia.com *@transportag.com *@whmcs.com *@usgbc.org *@liverani.com *@crutchfield.com *@psmj.com *@initialpublications.com *@studentaid.gov *@sympatico.ca *@boisaco.com *@charityengine.net *@mvpbanking.com *@nutraingredients.com *@bloomingdalecom.net *@yamata.com.tr *@tulsachain.com *@ooma.com *@retirement.adprsportal.com *@cm01.charityengine.net *@CenturyLink.net 
+  enlist_addrlist (WLNOTLS)               *@4imprint.com *@bellnet.ca *@berglist.com *@enom.com *@name-services.com *@trust-guard.com *@vzwpix.com *@trick-tools.com *@tictactel.net *@COSCON.com *@intelcom.ca *@jeffmartinauctioneers.com *@hlag.com *@cbsa-asfc.gc.ca *@kpneuscommercial.ca *@central-insurance.com *@services.capitalgroup.com *@williamsfoodequipment.com *@cn.gree.com *@nsaarc.net *@smigroup.net *@news1.naylorconnect.com *@rose.net *@smigroup.net *@bluemountain.com *@actsst.com *@connectwise.userecho.com *@kegland.cn *@bell.net *@email.crayola.com *@daemarinc.com *@power-link.ca *@e.johnnyseeds.com *@station-22.com *@survivalfootball.com *@mapyourshow.com *@vzwpix.com *@a25csc.com *@anchorglass.com *@nfpa.org *@paulpedneaultinc.com *@plomberielatulippe.ca *@cogecomedia.com *@transportag.com *@whmcs.com *@usgbc.org *@liverani.com *@crutchfield.com *@psmj.com *@initialpublications.com *@studentaid.gov *@sympatico.ca *@boisaco.com *@charityengine.net *@mvpbanking.com *@nutraingredients.com *@bloomingdalecom.net *@yamata.com.tr *@tulsachain.com *@ooma.com *@retirement.adprsportal.com *@cm01.charityengine.net *@CenturyLink.net *@mail.duluthtrading.com
   header          __WLNOTLS               eval:check_from_in_list('WLNOTLS')
 
   #NOTLS - For example, Google now also doesn't allow email without TLS: https://support.google.com/a/answer/81126?hl=en
@@ -3138,16 +3138,16 @@ replace_tag     NUM1    (?:\xf0\x9d\x9f\x8f|\xf0\x9d\x9f\xad)
 replace_tag     NUM8    (?:\xf0\x9d\x9f\x96)
 
 #NUMBERS
-replace_tag     N0      (?:0|O|\xf0\x9d\x9f\x8e)
-replace_tag     N1      (?:1|l|I|\xf0\x9d\x9f\x8a|\xf0\x9d\x9f\xadf)
-replace_tag     N2      (?:2|\xf0\x9d\x9f\x90)
-replace_tag     N3      (?:3|\xf0\x9d\x9f\x91)
-replace_tag     N4      (?:4|\xf0\x9d\x9f\x92)
-replace_tag     N5      (?:5|\xf0\x9d\x9f\x93)
-replace_tag     N6      (?:6|\xf0\x9d\x9f\x94)
-replace_tag     N7      (?:7|\xf0\x9d\x9f\x95)
-replace_tag     N8      (?:8|\xf0\x9d\x9f\x96)
-replace_tag     N9      (?:9|\xf0\x9d\x9f\x97)
+replace_tag     N0      (?:0|O|\xf0\x9d\x9f\x8e|\xf0\x9d\x9f\x98|\xf0\x9d\x9f\xa2|\xf0\x9d\x9f\xac|\xf0\x9d\x9f\xb6|\xef\xbc\x90)
+replace_tag     N1      (?:1|l|I|\xf0\x9d\x9f\x8f|\xf0\x9d\x9f\x99|\xf0\x9d\x9f\xa3|\xf0\x9d\x9f\xad|\xf0\x9d\x9f\xb7|\xef\xbc\x91)
+replace_tag     N2      (?:2|\xf0\x9d\x9f\x90|\xf0\x9d\x9f\x9a|\xf0\x9d\x9f\xa4|\xf0\x9d\x9f\xae|\xf0\x9d\x9f\xb8|\xef\xbc\x92)
+replace_tag     N3      (?:3|\xf0\x9d\x9f\x91|\xf0\x9d\x9f\x9b|\xf0\x9d\x9f\xa5|\xf0\x9d\x9f\xaf|\xf0\x9d\x9f\xb9|\xef\xbc\x93)
+replace_tag     N4      (?:4|\xf0\x9d\x9f\x92|\xf0\x9d\x9f\x9c|\xf0\x9d\x9f\xa6|\xf0\x9d\x9f\xb0|\xf0\x9d\x9f\xba|\xef\xbc\x94)
+replace_tag     N5      (?:5|\xf0\x9d\x9f\x93|\xf0\x9d\x9f\x9d|\xf0\x9d\x9f\xa7|\xf0\x9d\x9f\xb1|\xf0\x9d\x9f\xbb|\xef\xbc\x95)
+replace_tag     N6      (?:6|\xf0\x9d\x9f\x94|\xf0\x9d\x9f\x9e|\xf0\x9d\x9f\xa8|\xf0\x9d\x9f\xb2|\xf0\x9d\x9f\xbc|\xef\xbc\x96)
+replace_tag     N7      (?:7|\xf0\x9d\x9f\x95|\xf0\x9d\x9f\x9f|\xf0\x9d\x9f\xa9|\xf0\x9d\x9f\xb3|\xf0\x9d\x9f\xbd|\xef\xbc\x97)
+replace_tag     N8      (?:8|\xf0\x9d\x9f\x96|\xf0\x9d\x9f\xa0|\xf0\x9d\x9f\xaa|\xf0\x9d\x9f\xb4|\xf0\x9d\x9f\xbe|\xef\xbc\x98)
+replace_tag     N9      (?:9|\xf0\x9d\x9f\x97|\xf0\x9d\x9f\xa1|\xf0\x9d\x9f\xab|\xf0\x9d\x9f\xb5|\xf0\x9d\x9f\xbf|\xef\xbc\x99)
 
 header          __KAM_CREDIT6   Subject =~ /<C1>ompl<I1>mentary (<C1>red<I1>t|EXPERIAN|Transunion|Equifax)/i
 header          __KAM_CREDIT7   From =~ /<S1>core.?<S1>ense/i
@@ -3243,8 +3243,8 @@ replace_rules   __GB_FRAUD_PAYPAL
   header          __GB_FROM_ADOBE         From:addr =~ /\@adobe(?:sign)?\.com/
   header          __GB_FROM_YOUSIGN       From:addr =~ /\@yousign\.(?:app|com)/
   header          __GB_FROM_INTUIT        From:addr =~ /\@notification\.intuit\.com/
-  # match on invisible UTF-8 chars and literal separators (., space, -, parens) as well
-  body            __GB_PHONE              /(?<![1-9A-Za-z])((?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[ .\-()]){0,4}){8,13}\d)(?![\dA-Za-z])/
+  # match on invisible UTF-8 chars and literal separators (., -, parens) as well
+  body            __GB_PHONE              /(?<![1-9A-Za-z])((?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])/
   body            __GB_FRAUD_PAYPAL       /Fraud\s+Alert|<O2><R2><D2><E2><R2>|recognize\s+the\s+seller|Quickly\s+inform\s+us|(?:PayPal)(?:Support)?(?:Team)?\s+Immediately|we do\s?n.{1,3}t (?:hear|receive any communication) from you|unauthorized charge|made in error|BTC order|Crypto currency|do.{1,3}t hesitate to contact us immediately|did\s?n.{1,3}t made this order|seconds? for your account to reflect this transaction|Bitcoin|Blockchain/i
 endif
 ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
@@ -6419,9 +6419,6 @@ describe	KAM_SWIFT		SWIFT payment scam
 score		KAM_SWIFT		3.0
 
 ifplugin Mail::SpamAssassin::Plugin::FromNameSpoof
-  # Custom score
-  score         FROMNAME_SPOOFED_EMAIL 0.3
-
   meta     GB_FROMNAME_SPOOF_EQUALS_TO  (PDS_FROMNAME_SPOOFED_EMAIL && __PLUGIN_FROMNAME_EQUALS_TO)
   describe GB_FROMNAME_SPOOF_EQUALS_TO From:name is spoof to look like To: address
   score    GB_FROMNAME_SPOOF_EQUALS_TO 0.3
@@ -8509,8 +8506,8 @@ if (version >= 4.000000)
           if can(Mail::SpamAssassin::Plugin::RaptorOnly::has_hashbl_bodyre_phone)
             replace_rules GB_PHONE_RBL
             # body          GB_PHONE_RBL          eval:check_hashbl_bodyre_phone('wild.pccc.com', 'raw/max=10/shuffle/num/case/replace', '(?<![1-9])((?:(?:\+)?(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){1,3}[^a-zA-Z0-9]{0,2})?(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){2,3}[^a-zA-Z0-9]*(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){3,4}[^a-zA-Z0-9]*(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){4,6})(?!\d)', '127.0.1.16')
-            # match on invisible UTF-8 chars and literal separators (., space, -, parens) as well
-            body          GB_PHONE_RBL          eval:check_hashbl_bodyre_phone('wild.pccc.com', 'raw/max=10/shuffle/num/case/replace', '(?<![1-9A-Za-z])((?:\+)?(?:(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>)(?:\xe2\x80[\x8e-\x8f\x91]|[ .\-()]){0,4}){8,13}(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>))(?![\dA-Za-z])', '127.0.1.16')
+            # match on invisible UTF-8 chars and literal separators (., -, parens) as well
+            body          GB_PHONE_RBL          eval:check_hashbl_bodyre_phone('wild.pccc.com', 'raw/max=10/shuffle/num/case/replace', '(?<![1-9A-Za-z])((?:\+)?(?:(?:(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>)(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()]){0,4}){8,13}(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>)|(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){9,15}))(?![\dA-Za-z])', '127.0.1.16')
             priority      GB_PHONE_RBL          -100
             tflags        GB_PHONE_RBL          net
             describe      GB_PHONE_RBL          Message contains phone number found on blocklist (https://raptor.pccc.com/RBL)
@@ -8525,10 +8522,10 @@ if (version >= 4.000000)
           score         GB_PHONE_RBL_RAW      10.0
         endif
         # XXX keep in sync with __GB_PHONE rule
-        body            T_GB_HAS_PHONE        /(?<![1-9A-Za-z])((?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[ .\-()]){0,4}){8,13}\d)(?![\dA-Za-z])/
+        body            T_GB_HAS_PHONE        /(?<![1-9A-Za-z])((?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])/
         describe        T_GB_HAS_PHONE        Email body contains a phone number
       else
-        body          GB_PHONE_RBL          eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/num/', '(?<![1-9A-Za-z])((?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[ .\-()]){0,4}){8,13}\d)(?![\dA-Za-z])', '127.0.1.16')
+        body          GB_PHONE_RBL          eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/num/', '(?<![1-9A-Za-z])((?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])', '127.0.1.16')
         priority      GB_PHONE_RBL          -100
         tflags        GB_PHONE_RBL          net
         describe      GB_PHONE_RBL          Message contains phone number found on blocklist (https://raptor.pccc.com/RBL)

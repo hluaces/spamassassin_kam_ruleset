@@ -390,7 +390,7 @@ ifplugin Mail::SpamAssassin::Plugin::FromNameSpoof
 
   meta     PDS_FROMNAME_SPOOFED_EMAIL  (__PLUGIN_FROMNAME_SPOOF && !__VIA_ML && !__VIA_RESIGNER && !__RP_MATCHES_RCVD)
   describe PDS_FROMNAME_SPOOFED_EMAIL From:name doesn't match From:address
-  score    PDS_FROMNAME_SPOOFED_EMAIL 0.2
+  score    PDS_FROMNAME_SPOOFED_EMAIL 0.3
 
 endif
 endif
