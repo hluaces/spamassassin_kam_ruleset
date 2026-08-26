@@ -5033,7 +5033,7 @@ describe KAM_CHICKEN Spam for chicken coops
 rawbody  __KAM_LINEPADDING /(\n[^\n]){8}/
 
 meta     KAM_LINEPADDING ( __KAM_LINEPADDING && !__CBJ_GiveMeABreak1 && !__CBJ_GiveMeABreak2 )
-score    KAM_LINEPADDING 1.2
+score    KAM_LINEPADDING 0.75
 describe KAM_LINEPADDING Spam that tries to get past blank line filters
 
 # DRAPES SPAM
