@@ -2980,11 +2980,11 @@ ifplugin Mail::SpamAssassin::Plugin::DecodeShortURLs
     tflags        __KAM_SHORT      net
   else
     #OLDER RULE, SHOULD USE DecodeShortURLS and the kam_urlshorterners.cf which is more comprehensive than this.
-    uri		__KAM_SHORT	/^https?:\/\/(?:bit\.(do|ly)|tinyurl\.com|ow\.ly|is\.gd|tumblr\.com|formspring\.me|ff\.im|youtu\.be|tl\.gd|plurk\.com|migre\.me|j\.mp|cli\.gs|urlshortener\.teams\.microsoft\.com|goo\.gl|yfrog\.com|lnk\.ms|su\.pr|fb\.me|alturl\.com|wp\.me|ping\.fm|chatter\.com|post\.ly|twurl\.nl|tiny\.cc|4sq\.com|ustre\.am|short\.to|u\.nu|flic\.kr|budurl\.com|digg\.com|twitvid\.com|gowal\.la|om\.ly|justin\.tv|icio\.us|p\.gs|loopt\.us|tcrn\.ch|xrl\.us|wpo\.st|bkite\.com|t\.cn|t\.co|x\.co|hop\.kz|urla\.ru|fw\.to|back\.ly|justpaste\.it|l\.linklyhq\.com)\/[^\/]{3}\/?/
+    # uri		__KAM_SHORT	/^https?:\/\/(?:bit\.(do|ly)|tinyurl\.com|ow\.ly|is\.gd|tumblr\.com|formspring\.me|ff\.im|youtu\.be|tl\.gd|plurk\.com|migre\.me|j\.mp|cli\.gs|urlshortener\.teams\.microsoft\.com|goo\.gl|yfrog\.com|lnk\.ms|su\.pr|fb\.me|alturl\.com|wp\.me|ping\.fm|chatter\.com|post\.ly|twurl\.nl|tiny\.cc|4sq\.com|ustre\.am|short\.to|u\.nu|flic\.kr|budurl\.com|digg\.com|twitvid\.com|gowal\.la|om\.ly|justin\.tv|icio\.us|p\.gs|loopt\.us|tcrn\.ch|xrl\.us|wpo\.st|bkite\.com|t\.cn|t\.co|x\.co|hop\.kz|urla\.ru|fw\.to|back\.ly|justpaste\.it|l\.linklyhq\.com)\/[^\/]{3}\/?/
   endif
 else
   #OLDER RULE, SHOULD USE DecodeShortURLS and the kam_urlshorterners.cf which is more comprehensive than this.
-  uri		__KAM_SHORT	/^https?:\/\/(?:bit\.(do|ly)|tinyurl\.com|ow\.ly|is\.gd|tumblr\.com|formspring\.me|ff\.im|youtu\.be|tl\.gd|plurk\.com|migre\.me|j\.mp|cli\.gs|urlshortener\.teams\.microsoft\.com|goo\.gl|yfrog\.com|lnk\.ms|su\.pr|fb\.me|alturl\.com|wp\.me|ping\.fm|chatter\.com|post\.ly|twurl\.nl|tiny\.cc|4sq\.com|ustre\.am|short\.to|u\.nu|flic\.kr|budurl\.com|digg\.com|twitvid\.com|gowal\.la|om\.ly|justin\.tv|icio\.us|p\.gs|loopt\.us|tcrn\.ch|xrl\.us|wpo\.st|bkite\.com|t\.cn|t\.co|x\.co|hop\.kz|urla\.ru|fw\.to|back\.ly|justpaste\.it|l\.linklyhq\.com)\/[^\/]{3}\/?/
+  # uri		__KAM_SHORT	/^https?:\/\/(?:bit\.(do|ly)|tinyurl\.com|ow\.ly|is\.gd|tumblr\.com|formspring\.me|ff\.im|youtu\.be|tl\.gd|plurk\.com|migre\.me|j\.mp|cli\.gs|urlshortener\.teams\.microsoft\.com|goo\.gl|yfrog\.com|lnk\.ms|su\.pr|fb\.me|alturl\.com|wp\.me|ping\.fm|chatter\.com|post\.ly|twurl\.nl|tiny\.cc|4sq\.com|ustre\.am|short\.to|u\.nu|flic\.kr|budurl\.com|digg\.com|twitvid\.com|gowal\.la|om\.ly|justin\.tv|icio\.us|p\.gs|loopt\.us|tcrn\.ch|xrl\.us|wpo\.st|bkite\.com|t\.cn|t\.co|x\.co|hop\.kz|urla\.ru|fw\.to|back\.ly|justpaste\.it|l\.linklyhq\.com)\/[^\/]{3}\/?/
 endif
 
 # GENERIC RULE FOR TINY DOMAINS, WHICH WILL LIKELY BE URL SHORTENERS
@@ -9532,7 +9532,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules   __KAM_BADCOGNITOFORMURIS 
   uri             __KAM_BADCOGNITOFORMURIS	/https?\:\/\/(www.)?cognitoforms\.com\/<BADCOGNITOFORMURIS>\/file/i
 
-  replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi|neuropeakbrain\-y42x|slimsodadiet\-e7gh|corerelief\-9fuj|cogniflobrainhealth\-dxvq|cogniflobrainhealth\-uuyi|corerelief\-4oa2|mnrbuds)
+  replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi|neuropeakbrain\-y42x|slimsodadiet\-e7gh|corerelief\-9fuj|cogniflobrainhealth\-dxvq|cogniflobrainhealth\-uuyi|corerelief\-4oa2|mnrbuds|cloudmaslin)
   replace_rules   __GB_BADGSTORAGEURIS
   uri             __GB_BADGSTORAGEURIS   /https?:\/\/(www\.)?\.storage\.googleapis\.com\/<BADGSTORAGEURIS>(?:\/|\?|\b|$)/i
 
