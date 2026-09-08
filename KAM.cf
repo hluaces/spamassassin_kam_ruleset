@@ -2953,12 +2953,14 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   meta          __GB_NN_USCIS   ( __GB_EN_USCIS && DKIM_VALID_AU && SPF_PASS && DMARC_PASS )
   header        __GB_EN_ASHARP  EnvelopeFrom =~ /\@astonsharp\.com/
   meta          __GB_NN_ASHARP  ( __GB_EN_ASHARP && DKIM_VALID_AU && SPF_PASS && DMARC_PASS )
+  header        __GB_EN_OCCUSC  EnvelopeFrom =~ /\@occuscreen\.com/
+  meta          __GB_NN_OCCUSC  ( __GB_EN_OCCUSC && DKIM_VALID_AU && SPF_PASS && DMARC_PASS )
 
-  meta          KAM_MAILBOX     ( (__KAM_MAILBOX1 + __KAM_MAILBOX2 + (__KAM_MAILBOX3 && !__KAM_MAILBOX3FP) >=2) && (T_FREEMAIL_DOC_PDF + (KAM_SENDGRID + KAM_SENDGRID2 >= 1) + HTML_MIME_NO_HTML_TAG + T_HTML_ATTACH + __KAM_WPADMIN) >= 2 ) && !__GB_NN_CLOUDFL && !__GB_NN_ALONDE && !__GB_NN_AME && !__GB_NN_BOX && !__GB_NN_NOLIM && !__GB_NN_PAIRD && !__GB_NN_FITBIT && !__GB_NN_USCIS && !__GB_NN_ASHARP
+  meta          KAM_MAILBOX     ( (__KAM_MAILBOX1 + __KAM_MAILBOX2 + (__KAM_MAILBOX3 && !__KAM_MAILBOX3FP) >=2) && (T_FREEMAIL_DOC_PDF + (KAM_SENDGRID + KAM_SENDGRID2 >= 1) + HTML_MIME_NO_HTML_TAG + T_HTML_ATTACH + __KAM_WPADMIN) >= 2 ) && !__GB_NN_CLOUDFL && !__GB_NN_ALONDE && !__GB_NN_AME && !__GB_NN_BOX && !__GB_NN_NOLIM && !__GB_NN_PAIRD && !__GB_NN_FITBIT && !__GB_NN_USCIS && !__GB_NN_ASHARP && !__GB_NN_OCCUSC
   score         KAM_MAILBOX     8.75
   describe      KAM_MAILBOX     Mailbox Quota Phishing Scams
 
-  meta          KAM_MAILBOX2    (__KAM_MAILBOX1 + __KAM_MAILBOX2 + (__KAM_MAILBOX3 && !__KAM_MAILBOX3FP) + KAM_SHORT >= 3) && !KAM_MAILBOX && !__GB_NN_CLOUDFL && !__GB_NN_ALONDE && !__GB_NN_AME && !__GB_NN_BOX && !__GB_NN_NOLIM && !__GB_NN_PAIRD && !__GB_NN_FITBIT && !__GB_NN_USCIS && !__GB_NN_ASHARP
+  meta          KAM_MAILBOX2    (__KAM_MAILBOX1 + __KAM_MAILBOX2 + (__KAM_MAILBOX3 && !__KAM_MAILBOX3FP) + KAM_SHORT >= 3) && !KAM_MAILBOX && !__GB_NN_CLOUDFL && !__GB_NN_ALONDE && !__GB_NN_AME && !__GB_NN_BOX && !__GB_NN_NOLIM && !__GB_NN_PAIRD && !__GB_NN_FITBIT && !__GB_NN_USCIS && !__GB_NN_ASHARP && !__GB_NN_OCCUSC
   score         KAM_MAILBOX2    5.5
   describe      KAM_MAILBOX2    Mailbox Quota Phishing Scams
 
@@ -7083,10 +7085,15 @@ describe        GB_URI_FLEEK_STO_HTM    Html file stored on Fleek cloud
 score           GB_URI_FLEEK_STO_HTM    4.25
 tflags          GB_URI_FLEEK_STO_HTM    multiple maxhits=5
 
-uri             GB_URI_BACKBLAZE_HTM    m,^https?://(?:\w+.s3.\w{2}\-\w+\-|\w)\d{3}\.backblazeb2\.com/.*\.html?,i
+uri             GB_URI_BACKBLAZE_HTM    m;^https?://(?:\w+.s3.\w{2}\-\w+\-|\w)\d{3}\.backblazeb2\.com/.{1,128}\.html?;i
 describe        GB_URI_BACKBLAZE_HTM    Html file stored on Backblaze
 score           GB_URI_BACKBLAZE_HTM    4.25
 tflags          GB_URI_BACKBLAZE_HTM    multiple maxhits=5
+
+uri             GB_URI_BACKBLAZE_DWN	m;^https?://\w\d{3}\.backblazeb2\.com/b2api/v\d/b2_download_file_by_id\?.{1,128}\#%{GB_TO_ADDR};i
+describe        GB_URI_BACKBLAZE_DWN    Custom download uri stored on Backblaze
+score           GB_URI_BACKBLAZE_DWN    2.0
+tflags          GB_URI_BACKBLAZE_DWN    multiple maxhits=5
 
 uri             GB_URI_IONOS_HTM        m,^https?://\w+.s3.(?:\w+\-\w+\-\d+).ionoscloud.com/.*\.html?,i
 describe        GB_URI_IONOS_HTM        Html file stored on Ionoscloud
