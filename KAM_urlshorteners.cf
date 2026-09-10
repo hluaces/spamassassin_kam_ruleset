@@ -478,7 +478,8 @@ url_shortener sed.cx
 url_shortener sfu.ca
 url_shortener shadyurl.com
 url_shortener shar.es
-url_shortener share.google
+# share.google is a redirector
+# url_shortener share.google
 url_shortener shim.net
 url_shortener shink.de
 url_shortener shorl.com
