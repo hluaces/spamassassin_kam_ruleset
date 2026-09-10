@@ -7090,10 +7090,14 @@ describe        GB_URI_BACKBLAZE_HTM    Html file stored on Backblaze
 score           GB_URI_BACKBLAZE_HTM    4.25
 tflags          GB_URI_BACKBLAZE_HTM    multiple maxhits=5
 
-uri             GB_URI_BACKBLAZE_DWN	m;^https?://\w\d{3}\.backblazeb2\.com/b2api/v\d/b2_download_file_by_id\?.{1,128}\#%{GB_TO_ADDR};i
-describe        GB_URI_BACKBLAZE_DWN    Custom download uri stored on Backblaze
-score           GB_URI_BACKBLAZE_DWN    2.0
-tflags          GB_URI_BACKBLAZE_DWN    multiple maxhits=5
+if (version >= 4.000000)
+  if can(Mail::SpamAssassin::Conf::feature_capture_rules)
+    uri             GB_URI_BACKBLAZE_DWN    m;^https?://\w\d{3}\.backblazeb2\.com/b2api/v\d/b2_download_file_by_id\?.{1,128}\#%{GB_TO_ADDR};i
+    describe        GB_URI_BACKBLAZE_DWN    Custom download uri stored on Backblaze
+    score           GB_URI_BACKBLAZE_DWN    2.0
+    tflags          GB_URI_BACKBLAZE_DWN    multiple maxhits=5
+  endif
+endif
 
 uri             GB_URI_IONOS_HTM        m,^https?://\w+.s3.(?:\w+\-\w+\-\d+).ionoscloud.com/.*\.html?,i
 describe        GB_URI_IONOS_HTM        Html file stored on Ionoscloud
@@ -9539,7 +9543,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules   __KAM_BADCOGNITOFORMURIS 
   uri             __KAM_BADCOGNITOFORMURIS	/https?\:\/\/(www.)?cognitoforms\.com\/<BADCOGNITOFORMURIS>\/file/i
 
-  replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi|neuropeakbrain\-y42x|slimsodadiet\-e7gh|corerelief\-9fuj|cogniflobrainhealth\-dxvq|cogniflobrainhealth\-uuyi|corerelief\-4oa2|mnrbuds|cloudmaslin|herzp1smartscale\-ulql)
+  replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi|neuropeakbrain\-y42x|slimsodadiet\-e7gh|corerelief\-9fuj|cogniflobrainhealth\-dxvq|cogniflobrainhealth\-uuyi|corerelief\-4oa2|mnrbuds|cloudmaslin|herzp1smartscale\-ulql|smartscale\-kdz3|smartband\-c8qn)
   replace_rules   __GB_BADGSTORAGEURIS
   uri             __GB_BADGSTORAGEURIS   /https?:\/\/(www\.)?\.storage\.googleapis\.com\/<BADGSTORAGEURIS>(?:\/|\?|\b|$)/i
 

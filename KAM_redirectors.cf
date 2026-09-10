@@ -17,6 +17,7 @@ if (version >= 4.000000)
       url_redirector app.getresponse.com
     endif
     if can(Mail::SpamAssassin::Plugin::Redirectors::has_url_redirector_path)
+      url_redirector_get .mjt.lu/lnk
       url_redirector cgi.members.interq.or.jp/tiger/kagetora/yomi-search
       url_redirector shoutout.wix.com/so
       url_redirector curztq.soundestlink.com/ce/c
