@@ -4024,8 +4024,9 @@ score           KAM_REHAB    3.0
 header          __KAM_HAIRTRANS1 Subject =~ /hair restoration|man look as young|losing your hair|hair ?loss|consultations?.available/i
 header          __KAM_HAIRTRANS2 From =~ /Bosley|hair restoration|hair.loss.expert/i
 body            __KAM_HAIRTRANS3 /hair restoration|man look as young|losing your hair|hair ?loss|get.your.hair|(look|feel).younger/i
+tflags		__KAM_HAIRTRANS3 nosubject
 
-meta            KAM_HAIRTRANS    (__KAM_HAIRTRANS1 + __KAM_HAIRTRANS2 + __KAM_HAIRTRANS3 + KAM_GIFT >= 2)
+meta            KAM_HAIRTRANS    (__KAM_HAIRTRANS1 + __KAM_HAIRTRANS2 + __KAM_HAIRTRANS3 + KAM_GIFT >= 3)
 describe        KAM_HAIRTRANS    Spam for Hair Restoration
 score           KAM_HAIRTRANS    3.5
 
@@ -9555,7 +9556,11 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules   __GB_BADVULTROBJ
   uri             __GB_BADVULTROBJ       /https?:\/\/\w+\d\.vultrobjects\.com\/<BADVULTROBJ>(?:\/|\?|\b|$)/i
 
-  meta		KAM_BADDOMAINURI	(__KAM_BADCALENDLY + __KAM_BADIG + __KAM_BADYT + __KAM_BADVIMEO + __KAM_BADMEDIUM + __KAM_BADFIVERR + __KAM_BADGSITES + __KAM_BADDYNAMICS + __KAM_BADTELEGRAMURIS + __KAM_BADSKYPEURIS + __KAM_BADWHATSAPPURIS + __KAM_BADFLOWCODEURIS + __KAM_BADBOXURIS + __KAM_BADHUBSPOTURIS + __KAM_BADLOOKERURIS + __KAM_BADYESWAREURIS + __KAM_BADXURIS + __KAM_BADLINKEDINURIS + __KAM_BADREBRANDLYURIS + __KAM_BADNOWMEDIAURIS + __KAM_BADSALESLOFTURIS + __GB_BADCPANELSITE + __KAM_BADCOGNITOFORMURIS + __GB_BADGSTORAGEURIS + __GB_BADZOHOPUBLIC + __GB_BADSHARE_GOOGLE + __GB_BADVULTROBJ >= 1)
+  replace_tag     BADAZUREURIS		(?:agabit\.z13|cunepiyuy\.z36)
+  replace_rules   __GB_BADAZUREURIS	
+  uri             __GB_BADAZUREURIS	/https?:\/\/<BADAZUREURIS>\.web\.core\.windows\.net(?:\/|\?|\b|$)/i
+
+  meta		KAM_BADDOMAINURI	(__KAM_BADCALENDLY + __KAM_BADIG + __KAM_BADYT + __KAM_BADVIMEO + __KAM_BADMEDIUM + __KAM_BADFIVERR + __KAM_BADGSITES + __KAM_BADDYNAMICS + __KAM_BADTELEGRAMURIS + __KAM_BADSKYPEURIS + __KAM_BADWHATSAPPURIS + __KAM_BADFLOWCODEURIS + __KAM_BADBOXURIS + __KAM_BADHUBSPOTURIS + __KAM_BADLOOKERURIS + __KAM_BADYESWAREURIS + __KAM_BADXURIS + __KAM_BADLINKEDINURIS + __KAM_BADREBRANDLYURIS + __KAM_BADNOWMEDIAURIS + __KAM_BADSALESLOFTURIS + __GB_BADCPANELSITE + __KAM_BADCOGNITOFORMURIS + __GB_BADGSTORAGEURIS + __GB_BADZOHOPUBLIC + __GB_BADSHARE_GOOGLE + __GB_BADVULTROBJ + __GB_BADAZUREURIS >= 1)
   describe	KAM_BADDOMAINURI	Blocked domain/uri combo
   score		KAM_BADDOMAINURI	9.0
 endif
