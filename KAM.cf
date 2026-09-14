@@ -9544,7 +9544,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules   __KAM_BADCOGNITOFORMURIS 
   uri             __KAM_BADCOGNITOFORMURIS	/https?\:\/\/(www.)?cognitoforms\.com\/<BADCOGNITOFORMURIS>\/file/i
 
-  replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi|neuropeakbrain\-y42x|slimsodadiet\-e7gh|corerelief\-9fuj|cogniflobrainhealth\-dxvq|cogniflobrainhealth\-uuyi|corerelief\-4oa2|mnrbuds|cloudmaslin|herzp1smartscale\-ulql|smartscale\-kdz3|smartband\-c8qn)
+  replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi|neuropeakbrain\-y42x|slimsodadiet\-e7gh|corerelief\-9fuj|cogniflobrainhealth\-dxvq|cogniflobrainhealth\-uuyi|corerelief\-4oa2|mnrbuds|cloudmaslin|herzp1smartscale\-ulql|smartscale\-kdz3|smartband\-c8qn|mnrbuds|trugglest)
   replace_rules   __GB_BADGSTORAGEURIS
   uri             __GB_BADGSTORAGEURIS   /https?:\/\/(www\.)?\.storage\.googleapis\.com\/<BADGSTORAGEURIS>(?:\/|\?|\b|$)/i
 
@@ -9942,6 +9942,12 @@ ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
     header      GB_ATTACH_CISCO         X-ExtractText-Uris =~ /https?:\/\/secure\-web\.cisco\.com\//i 
     describe    GB_ATTACH_CISCO         Cisco secure-web link on attached document
     score       GB_ATTACH_CISCO         6.0
+
+    header      __QR_NO_HTTPURI         X-ExtractText-Uris !~ /^(?:https?|mailto)\:/i
+    meta        QR_NO_HTTPURI           ( __GB_QR_CODE && __QR_NO_HTTPURI )
+    describe    QR_NO_HTTPURI           Qr code doesn't redirect to an url
+    score       QR_NO_HTTPURI           -1.0
+
   endif
   ifplugin Mail::SpamAssassin::Plugin::PDFInfo
     if can(Mail::SpamAssassin::Plugin::PDFInfo::has_pdf_uri_regex)
