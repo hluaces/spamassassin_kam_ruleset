@@ -3246,7 +3246,7 @@ replace_rules   __GB_FRAUD_PAYPAL
   header          __GB_FROM_YOUSIGN       From:addr =~ /\@yousign\.(?:app|com)/
   header          __GB_FROM_INTUIT        From:addr =~ /\@notification\.intuit\.com/
   # match on invisible UTF-8 chars and literal separators (., -, parens) as well
-  body            __GB_PHONE              /(?<![1-9A-Za-z])((?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])/
+  body            __GB_PHONE              /(?<![1-9A-Za-z])((?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()\s]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])/
   body            __GB_FRAUD_PAYPAL       /Fraud\s+Alert|<O2><R2><D2><E2><R2>|recognize\s+the\s+seller|Quickly\s+inform\s+us|(?:PayPal)(?:Support)?(?:Team)?\s+Immediately|we do\s?n.{1,3}t (?:hear|receive any communication) from you|unauthorized charge|made in error|BTC order|Crypto currency|do.{1,3}t hesitate to contact us immediately|did\s?n.{1,3}t made this order|seconds? for your account to reflect this transaction|Bitcoin|Blockchain/i
 endif
 ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
@@ -8519,7 +8519,7 @@ if (version >= 4.000000)
             replace_rules GB_PHONE_RBL
             # body          GB_PHONE_RBL          eval:check_hashbl_bodyre_phone('wild.pccc.com', 'raw/max=10/shuffle/num/case/replace', '(?<![1-9])((?:(?:\+)?(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){1,3}[^a-zA-Z0-9]{0,2})?(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){2,3}[^a-zA-Z0-9]*(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){3,4}[^a-zA-Z0-9]*(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){4,6})(?!\d)', '127.0.1.16')
             # match on invisible UTF-8 chars and literal separators (., -, parens) as well
-            body          GB_PHONE_RBL          eval:check_hashbl_bodyre_phone('wild.pccc.com', 'raw/max=10/shuffle/num/case/replace', '(?<![1-9A-Za-z])((?:\+)?(?:(?:(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>)(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()]){0,4}){8,13}(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>)|(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){9,15}))(?![\dA-Za-z])', '127.0.1.16')
+            body          GB_PHONE_RBL          eval:check_hashbl_bodyre_phone('wild.pccc.com', 'raw/max=10/shuffle/num/case/replace', '(?<![1-9A-Za-z])((?:\+)?(?:(?:(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>)(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()\s]){0,4}){8,13}(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>)|(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){9,15}))(?![\dA-Za-z])', '127.0.1.16')
             priority      GB_PHONE_RBL          -100
             tflags        GB_PHONE_RBL          net
             describe      GB_PHONE_RBL          Message contains phone number found on blocklist (https://raptor.pccc.com/RBL)
@@ -8534,10 +8534,10 @@ if (version >= 4.000000)
           score         GB_PHONE_RBL_RAW      10.0
         endif
         # XXX keep in sync with __GB_PHONE rule
-        body            T_GB_HAS_PHONE        /(?<![1-9A-Za-z])((?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])/
+        body            T_GB_HAS_PHONE        /(?<![1-9A-Za-z])((?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()\s]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])/
         describe        T_GB_HAS_PHONE        Email body contains a phone number
       else
-        body          GB_PHONE_RBL          eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/num/', '(?<![1-9A-Za-z])((?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])', '127.0.1.16')
+        body          GB_PHONE_RBL          eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/num/', '(?<![1-9A-Za-z])((?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()\s]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])', '127.0.1.16')
         priority      GB_PHONE_RBL          -100
         tflags        GB_PHONE_RBL          net
         describe      GB_PHONE_RBL          Message contains phone number found on blocklist (https://raptor.pccc.com/RBL)
@@ -9544,7 +9544,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules   __KAM_BADCOGNITOFORMURIS 
   uri             __KAM_BADCOGNITOFORMURIS	/https?\:\/\/(www.)?cognitoforms\.com\/<BADCOGNITOFORMURIS>\/file/i
 
-  replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi|neuropeakbrain\-y42x|slimsodadiet\-e7gh|corerelief\-9fuj|cogniflobrainhealth\-dxvq|cogniflobrainhealth\-uuyi|corerelief\-4oa2|mnrbuds|cloudmaslin|herzp1smartscale\-ulql|smartscale\-kdz3|smartband\-c8qn|mnrbuds|trugglest)
+  replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi|neuropeakbrain\-y42x|slimsodadiet\-e7gh|corerelief\-9fuj|cogniflobrainhealth\-dxvq|cogniflobrainhealth\-uuyi|corerelief\-4oa2|mnrbuds|cloudmaslin|herzp1smartscale\-ulql|smartscale\-kdz3|smartband\-c8qn|mnrbuds|trugglest|hinukijellysticks\-kq21|stopwatt\-ittt|cloudstorage\-kizi)
   replace_rules   __GB_BADGSTORAGEURIS
   uri             __GB_BADGSTORAGEURIS   /https?:\/\/(www\.)?\.storage\.googleapis\.com\/<BADGSTORAGEURIS>(?:\/|\?|\b|$)/i
 
