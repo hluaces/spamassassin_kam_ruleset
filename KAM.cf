@@ -7687,15 +7687,15 @@ meta		KAM_VEST		(__KAM_VEST1 + __KAM_VEST2 + __KAM_VEST3 >= 3)
 describe	KAM_VEST		Spam Du Jour for Vests
 score		KAM_VEST		4.5
 
-#FAKE CVS
+#FAKE CVS - Fixed FP 2026-09-15 from Dave Wreski
 header		__KAM_CVS1		From =~ /CVS Pharm/i
-header		__KAM_CVS1A		From:addr !~ /\@cvs.com/i
+header		__KAM_CVS1A		From:addr !~ /\@.*\.?cvs\.com/i
 body		__KAM_CVS2		/CVS/
 tflags		__KAM_CVS2		nosubject
 header		__KAM_CVS3		Subject =~ /CVS Pharm/i
 
 meta		KAM_CVS			((__KAM_CVS1 + (FREEMAIL_FROM + __KAM_CVS1A >= 1) >= 2) + __KAM_CVS2 + __KAM_CVS3 >= 3)
-describe	KAM_CVS			Fake CVS Spams
+describe	KAM_CVS			Fake CVS Pharmacy Spams
 score		KAM_CVS			6.0
 
 #HACKED EXPLOIT
@@ -8888,13 +8888,38 @@ header		__KAM_ONMICROSOFT1	From =~ /[-\.]onmicrosoft\.com/i
 header		__KAM_ONMICROSOFT2	Reply-To =~ /[-\.]onmicrosoft\.com/i
 header		__KAM_ONMICROSOFT3	Resent-from =~ /[-\.]onmicrosoft\.com/i
 
-meta		KAM_ONMICROSOFT		(( __KAM_ONMICROSOFT1 + __KAM_ONMICROSOFT2 >= 1) && !__AUTOREPLY_ASU )
-describe	KAM_ONMICROSOFT		Mail From or Reply-to an unprovisioned domain on Microsoft 365
-score		KAM_ONMICROSOFT		6.0
+meta		  KAM_ONMICROSOFT		  (( __KAM_ONMICROSOFT1 + __KAM_ONMICROSOFT2 >= 1) && !__AUTOREPLY_ASU )
+describe	KAM_ONMICROSOFT		  Mail From or Reply-to an unprovisioned domain on Microsoft 365
+score		  KAM_ONMICROSOFT		  6.0
 
-meta		KAM_ONMICROSOFT_RF	( __KAM_ONMICROSOFT3 && !__AUTOREPLY_ASU )
+meta		  KAM_ONMICROSOFT_RF	( __KAM_ONMICROSOFT3 && !__AUTOREPLY_ASU )
 describe	KAM_ONMICROSOFT_RF	Mail Resent-from an unprovisioned domain on Microsoft 365
-score		KAM_ONMICROSOFT_RF	0.001
+score		  KAM_ONMICROSOFT_RF	0.001
+
+#GB_MSAUTHSOURCE
+header		GB_MSAUTHSOURCE_INDIA		  X-MS-Exchange-CrossTenant-AuthSource =~ /^INDP/i
+describe	GB_MSAUTHSOURCE_INDIA		  Mail authenticated via Microsoft India (INDP) datacenter
+score		  GB_MSAUTHSOURCE_INDIA		  0.01
+
+header		GB_MSAUTHSOURCE_NORTHAM	  X-MS-Exchange-CrossTenant-AuthSource =~ /^NAMP/i
+describe	GB_MSAUTHSOURCE_NORTHAM	  Mail authenticated via Microsoft North America (NAMP) datacenter
+score		  GB_MSAUTHSOURCE_NORTHAM	  0.01
+
+header		GB_MSAUTHSOURCE_EUROPE		X-MS-Exchange-CrossTenant-AuthSource =~ /^EURP/i
+describe	GB_MSAUTHSOURCE_EUROPE		Mail authenticated via Microsoft Europe (EURP) datacenter
+score		  GB_MSAUTHSOURCE_EUROPE		0.01
+
+header		GB_MSAUTHSOURCE_APAC		  X-MS-Exchange-CrossTenant-AuthSource =~ /^APCP/i
+describe	GB_MSAUTHSOURCE_APAC		  Mail authenticated via Microsoft Asia-Pacific (APCP) datacenter
+score		  GB_MSAUTHSOURCE_APAC		  0.01
+
+header		GB_MSAUTHSOURCE_CANADA		X-MS-Exchange-CrossTenant-AuthSource =~ /^CANP/i
+describe	GB_MSAUTHSOURCE_CANADA		Mail authenticated via Microsoft Canada (CANP) datacenter
+score		  GB_MSAUTHSOURCE_CANADA		0.01
+
+header		GB_MSAUTHSOURCE_AUSTRALIA	X-MS-Exchange-CrossTenant-AuthSource =~ /^AUSP/i
+describe	GB_MSAUTHSOURCE_AUSTRALIA	Mail authenticated via Microsoft Australia (AUSP) datacenter
+score		  GB_MSAUTHSOURCE_AUSTRALIA	0.01
 
 # real Microsoft authorize links only honor the
 # pre-registered "redirect_uri"; a "redirect_url" (or similar look-alike)
@@ -9544,7 +9569,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules   __KAM_BADCOGNITOFORMURIS 
   uri             __KAM_BADCOGNITOFORMURIS	/https?\:\/\/(www.)?cognitoforms\.com\/<BADCOGNITOFORMURIS>\/file/i
 
-  replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi|neuropeakbrain\-y42x|slimsodadiet\-e7gh|corerelief\-9fuj|cogniflobrainhealth\-dxvq|cogniflobrainhealth\-uuyi|corerelief\-4oa2|mnrbuds|cloudmaslin|herzp1smartscale\-ulql|smartscale\-kdz3|smartband\-c8qn|mnrbuds|trugglest|hinukijellysticks\-kq21|stopwatt\-ittt|cloudstorage\-kizi)
+  replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi|neuropeakbrain\-y42x|slimsodadiet\-e7gh|corerelief\-9fuj|cogniflobrainhealth\-dxvq|cogniflobrainhealth\-uuyi|corerelief\-4oa2|mnrbuds|cloudmaslin|herzp1smartscale\-ulql|smartscale\-kdz3|smartband\-c8qn|mnrbuds|trugglest|hinukijellysticks\-kq21|stopwatt\-ittt|cloudstorage\-kizi|neurosalt\-t133)
   replace_rules   __GB_BADGSTORAGEURIS
   uri             __GB_BADGSTORAGEURIS   /https?:\/\/(www\.)?\.storage\.googleapis\.com\/<BADGSTORAGEURIS>(?:\/|\?|\b|$)/i
 
@@ -9813,9 +9838,9 @@ score           KAM_FAKE_WALGREENS        4.0
   #score           KAM_FAKE_ACEHARDWARE2        8.0
 
 #FAKE_CVS
- #domain - Fixed FP on 2023-10-06 from Joel Risberg
+ #domain - Fixed FP on 2023-10-06 from Joel Risberg - and another 2026-09-15 from Dave Wreski
 header          __KAM_FAKE_CVS_1A    From:name =~ /CVS(care|extra|octoberreward|reward|bonus|stores|savr|save)|CVS(\b|\$)|CVS.*dea[1|i|l]s/i
-header          __KAM_FAKE_CVS_1B    From:addr !~ /cvs(health)?\.com|caremark\.com/i
+header          __KAM_FAKE_CVS_1B    From:addr !~ /\@.*\.?(cvs(health)?\.com|caremark\.com)/i
 
 meta            KAM_FAKE_CVS        ( __KAM_FAKE_CVS_1A + __KAM_FAKE_CVS_1B >= 2 )
 describe        KAM_FAKE_CVS        Fake CVS message
