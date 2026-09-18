@@ -60,6 +60,7 @@ ifplugin Mail::SpamAssassin::Plugin::URIDNSBL
     util_rb_2tld onrender.com
     util_rb_2tld onthewifi.com
     util_rb_2tld mdbgo.io
+    util_rb_2tld pipedrive.email
     util_rb_2tld pxf.io
     util_rb_2tld rf.gd
     util_rb_2tld rsbemktg.com
