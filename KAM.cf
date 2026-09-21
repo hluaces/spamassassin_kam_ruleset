@@ -2955,12 +2955,14 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   meta          __GB_NN_ASHARP  ( __GB_EN_ASHARP && DKIM_VALID_AU && SPF_PASS && DMARC_PASS )
   header        __GB_EN_OCCUSC  EnvelopeFrom =~ /\@occuscreen\.com/
   meta          __GB_NN_OCCUSC  ( __GB_EN_OCCUSC && DKIM_VALID_AU && SPF_PASS && DMARC_PASS )
+  header        __GB_EN_WPENG   EnvelopeFrom =~ /\@wpengine\.com/
+  meta          __GB_NN_WPENG   ( __GB_EN_WPENG && DKIM_VALID_AU && SPF_PASS && DMARC_PASS )
 
-  meta          KAM_MAILBOX     ( (__KAM_MAILBOX1 + __KAM_MAILBOX2 + (__KAM_MAILBOX3 && !__KAM_MAILBOX3FP) >=2) && (T_FREEMAIL_DOC_PDF + (KAM_SENDGRID + KAM_SENDGRID2 >= 1) + HTML_MIME_NO_HTML_TAG + T_HTML_ATTACH + __KAM_WPADMIN) >= 2 ) && !__GB_NN_CLOUDFL && !__GB_NN_ALONDE && !__GB_NN_AME && !__GB_NN_BOX && !__GB_NN_NOLIM && !__GB_NN_PAIRD && !__GB_NN_FITBIT && !__GB_NN_USCIS && !__GB_NN_ASHARP && !__GB_NN_OCCUSC
+  meta          KAM_MAILBOX     ( (__KAM_MAILBOX1 + __KAM_MAILBOX2 + (__KAM_MAILBOX3 && !__KAM_MAILBOX3FP) >=2) && (T_FREEMAIL_DOC_PDF + (KAM_SENDGRID + KAM_SENDGRID2 >= 1) + HTML_MIME_NO_HTML_TAG + T_HTML_ATTACH + __KAM_WPADMIN) >= 2 ) && !__GB_NN_CLOUDFL && !__GB_NN_ALONDE && !__GB_NN_AME && !__GB_NN_BOX && !__GB_NN_NOLIM && !__GB_NN_PAIRD && !__GB_NN_FITBIT && !__GB_NN_USCIS && !__GB_NN_ASHARP && !__GB_NN_OCCUSC && !__GB_NN_WPENG
   score         KAM_MAILBOX     8.75
   describe      KAM_MAILBOX     Mailbox Quota Phishing Scams
 
-  meta          KAM_MAILBOX2    (__KAM_MAILBOX1 + __KAM_MAILBOX2 + (__KAM_MAILBOX3 && !__KAM_MAILBOX3FP) + KAM_SHORT >= 3) && !KAM_MAILBOX && !__GB_NN_CLOUDFL && !__GB_NN_ALONDE && !__GB_NN_AME && !__GB_NN_BOX && !__GB_NN_NOLIM && !__GB_NN_PAIRD && !__GB_NN_FITBIT && !__GB_NN_USCIS && !__GB_NN_ASHARP && !__GB_NN_OCCUSC
+  meta          KAM_MAILBOX2    (__KAM_MAILBOX1 + __KAM_MAILBOX2 + (__KAM_MAILBOX3 && !__KAM_MAILBOX3FP) + KAM_SHORT >= 3) && !KAM_MAILBOX && !__GB_NN_CLOUDFL && !__GB_NN_ALONDE && !__GB_NN_AME && !__GB_NN_BOX && !__GB_NN_NOLIM && !__GB_NN_PAIRD && !__GB_NN_FITBIT && !__GB_NN_USCIS && !__GB_NN_ASHARP && !__GB_NN_OCCUSC && !__GB_NN_WPENG
   score         KAM_MAILBOX2    5.5
   describe      KAM_MAILBOX2    Mailbox Quota Phishing Scams
 
@@ -9585,7 +9587,12 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules   __GB_BADAZUREURIS	
   uri             __GB_BADAZUREURIS	/https?:\/\/<BADAZUREURIS>\.web\.core\.windows\.net(?:\/|\?|\b|$)/i
 
-  meta		KAM_BADDOMAINURI	(__KAM_BADCALENDLY + __KAM_BADIG + __KAM_BADYT + __KAM_BADVIMEO + __KAM_BADMEDIUM + __KAM_BADFIVERR + __KAM_BADGSITES + __KAM_BADDYNAMICS + __KAM_BADTELEGRAMURIS + __KAM_BADSKYPEURIS + __KAM_BADWHATSAPPURIS + __KAM_BADFLOWCODEURIS + __KAM_BADBOXURIS + __KAM_BADHUBSPOTURIS + __KAM_BADLOOKERURIS + __KAM_BADYESWAREURIS + __KAM_BADXURIS + __KAM_BADLINKEDINURIS + __KAM_BADREBRANDLYURIS + __KAM_BADNOWMEDIAURIS + __KAM_BADSALESLOFTURIS + __GB_BADCPANELSITE + __KAM_BADCOGNITOFORMURIS + __GB_BADGSTORAGEURIS + __GB_BADZOHOPUBLIC + __GB_BADSHARE_GOOGLE + __GB_BADVULTROBJ + __GB_BADAZUREURIS >= 1)
+
+  replace_tag     BADCONTABOURIS	(?:a7d95ba368034a0695aafac9cadbd55b)
+  replace_rules   __GB_BADCONTABOURIS	
+  uri             __GB_BADCONTABOURIS	/https?:\/\/\w{3}\d\.contabostorage.com\/<BADCONTABOURIS>\:(?:\/|\?|\b|$)/i
+
+  meta		KAM_BADDOMAINURI	(__KAM_BADCALENDLY + __KAM_BADIG + __KAM_BADYT + __KAM_BADVIMEO + __KAM_BADMEDIUM + __KAM_BADFIVERR + __KAM_BADGSITES + __KAM_BADDYNAMICS + __KAM_BADTELEGRAMURIS + __KAM_BADSKYPEURIS + __KAM_BADWHATSAPPURIS + __KAM_BADFLOWCODEURIS + __KAM_BADBOXURIS + __KAM_BADHUBSPOTURIS + __KAM_BADLOOKERURIS + __KAM_BADYESWAREURIS + __KAM_BADXURIS + __KAM_BADLINKEDINURIS + __KAM_BADREBRANDLYURIS + __KAM_BADNOWMEDIAURIS + __KAM_BADSALESLOFTURIS + __GB_BADCPANELSITE + __KAM_BADCOGNITOFORMURIS + __GB_BADGSTORAGEURIS + __GB_BADZOHOPUBLIC + __GB_BADSHARE_GOOGLE + __GB_BADVULTROBJ + __GB_BADAZUREURIS + __GB_BADCONTABOURIS >= 1)
   describe	KAM_BADDOMAINURI	Blocked domain/uri combo
   score		KAM_BADDOMAINURI	9.0
 endif
@@ -10425,6 +10432,34 @@ header		__KAM_PAYPAL_FRAUD3	Subject =~ /money request|invoice from/i
 meta		KAM_PAYPAL_FRAUD	( __KAM_PAYPAL_FRAUD1 + __KAM_PAYPAL_FRAUD2 + __KAM_PAYPAL_FRAUD3 >= 3)
 describe	KAM_PAYPAL_FRAUD	Fraudulent Payment Scam
 score		KAM_PAYPAL_FRAUD	6.0
+
+# DKIM replay
+header          __ARC_SEALS_GE3         ARC-Seal =~ /\bi=([3-9]|\d{2,})\b/ 
+describe        __ARC_SEALS_GE3         ARC chain has 3 or more seals
+
+header          __ARC_SEALS_GE4         ARC-Seal =~ /\bi=([4-9]|\d{2,})\b/
+describe        __ARC_SEALS_GE4         ARC chain has 4 or more seals
+
+header          __ARC_SEALS_GE6         ARC-Seal =~ /\bi=([6-9]|\d{2,})\b/
+describe        __ARC_SEALS_GE6         ARC chain has 6 or more seals
+
+meta            MANY_ARC_SEALS          (__ARC_SEALS_GE4)
+describe        MANY_ARC_SEALS          Message has an unusually long ARC seal chain (4+ hops)
+score           MANY_ARC_SEALS          1.5
+
+header          __RP_RANDOM_ONMS        Return-Path =~ /bounces\+SRS=.*@[A-Z][a-z]{2,}[A-Z][a-z]{2,}\.onmicrosoft\.com/i
+describe        __RP_RANDOM_ONMS        Bounce path routed through a randomly-person-named M365 tenant
+
+header          __FROM_KNOWN_BRAND      From =~ /\@(order\.)?(dell|paypal|amazon|apple|usps|fedex|ups)\.com/i
+describe        __FROM_KNOWN_BRAND      From header claims a well-known transactional brand domain
+
+meta            DKIM_REPLAY_ARC_CHAIN   (DKIM_VALID && __FROM_KNOWN_BRAND && MANY_ARC_SEALS)
+describe        DKIM_REPLAY_ARC_CHAIN   Brand DKIM-signed mail with abnormally long ARC chain, possible DKIM replay
+score           DKIM_REPLAY_ARC_CHAIN   3.0
+
+meta            DKIM_REPLAY_RONMS       ( DKIM_REPLAY_ARC_CHAIN && __RP_RANDOM_ONMS )
+describe        DKIM_REPLAY_RONMS       DKIM replay from random M365 domain
+score           DKIM_REPLAY_RONMS       2.5
 
 #E-BIKE
 body            __GB_EBIKE              /\b(?:(?:e|electric|electirc|e\-city) (?:bicycle|bike|velo)s?|e\-bike|Elektromopeds|E(?:lektro)?(?:\-|\s)?fahrr(?:\x{c3}\x{a4}|ae)d(?:er(?:n)?)?)\b/i
