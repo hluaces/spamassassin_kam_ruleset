@@ -8901,27 +8901,27 @@ describe	KAM_ONMICROSOFT_RF	Mail Resent-from an unprovisioned domain on Microsof
 score		  KAM_ONMICROSOFT_RF	0.001
 
 #GB_MSAUTHSOURCE
-header		GB_MSAUTHSOURCE_INDIA		  X-MS-Exchange-CrossTenant-AuthSource =~ /^INDP/i
+header		GB_MSAUTHSOURCE_INDIA		  X-MS-Exchange-CrossTenant-AuthSource =~ /(?:^|\.)INDP/i
 describe	GB_MSAUTHSOURCE_INDIA		  Mail authenticated via Microsoft India (INDP) datacenter
 score		  GB_MSAUTHSOURCE_INDIA		  0.01
 
-header		GB_MSAUTHSOURCE_NORTHAM	  X-MS-Exchange-CrossTenant-AuthSource =~ /^NAMP/i
+header		GB_MSAUTHSOURCE_NORTHAM	  X-MS-Exchange-CrossTenant-AuthSource =~ /(?:^|\.)NAMP/i
 describe	GB_MSAUTHSOURCE_NORTHAM	  Mail authenticated via Microsoft North America (NAMP) datacenter
 score		  GB_MSAUTHSOURCE_NORTHAM	  0.01
 
-header		GB_MSAUTHSOURCE_EUROPE		X-MS-Exchange-CrossTenant-AuthSource =~ /^EURP/i
+header		GB_MSAUTHSOURCE_EUROPE		X-MS-Exchange-CrossTenant-AuthSource =~ /(?:^|\.)EURP/i
 describe	GB_MSAUTHSOURCE_EUROPE		Mail authenticated via Microsoft Europe (EURP) datacenter
 score		  GB_MSAUTHSOURCE_EUROPE		0.01
 
-header		GB_MSAUTHSOURCE_APAC		  X-MS-Exchange-CrossTenant-AuthSource =~ /^APCP/i
+header		GB_MSAUTHSOURCE_APAC		  X-MS-Exchange-CrossTenant-AuthSource =~ /(?:^|\.)APCP/i
 describe	GB_MSAUTHSOURCE_APAC		  Mail authenticated via Microsoft Asia-Pacific (APCP) datacenter
 score		  GB_MSAUTHSOURCE_APAC		  0.01
 
-header		GB_MSAUTHSOURCE_CANADA		X-MS-Exchange-CrossTenant-AuthSource =~ /^CANP/i
+header		GB_MSAUTHSOURCE_CANADA		X-MS-Exchange-CrossTenant-AuthSource =~ /(?:^|\.)CANP/i
 describe	GB_MSAUTHSOURCE_CANADA		Mail authenticated via Microsoft Canada (CANP) datacenter
 score		  GB_MSAUTHSOURCE_CANADA		0.01
 
-header		GB_MSAUTHSOURCE_AUSTRALIA	X-MS-Exchange-CrossTenant-AuthSource =~ /^AUSP/i
+header		GB_MSAUTHSOURCE_AUSTRALIA	X-MS-Exchange-CrossTenant-AuthSource =~ /(?:^|\.)AUSP/i
 describe	GB_MSAUTHSOURCE_AUSTRALIA	Mail authenticated via Microsoft Australia (AUSP) datacenter
 score		  GB_MSAUTHSOURCE_AUSTRALIA	0.01
 
