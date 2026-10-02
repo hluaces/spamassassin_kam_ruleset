@@ -9501,7 +9501,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules	__KAM_BADFIVERR
   uri		__KAM_BADFIVERR		/https?\:\/\/(www\.)?fiverr\.com\/<BADFIVERRURIS>(?:\/|\?|\b|$)/i
 
-  replace_tag     BADGSITESURIS           (?:33344455666|rfdzxgffg|whvfcgd29|bvcgevfg02|vxcdgcv28|mhcvgdf25|jvcgdvfg08|shddgdghsdhjsb|uvfcxdsf10|writmoline|ycvgcvdw15)
+  replace_tag     BADGSITESURIS           (?:33344455666|rfdzxgffg|whvfcgd29|bvcgevfg02|vxcdgcv28|mhcvgdf25|jvcgdvfg08|shddgdghsdhjsb|uvfcxdsf10|writmoline|ycvgcvdw15|angelucci\-trasporti\-srl)
   replace_rules   __KAM_BADGSITES         
   uri             __KAM_BADGSITES         /https?\:\/\/sites\.google\.com\/view\/<BADGSITESURIS>(?:\/|\?|\b|$)/i
 
@@ -9573,9 +9573,10 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules   __KAM_BADCOGNITOFORMURIS 
   uri             __KAM_BADCOGNITOFORMURIS	/https?\:\/\/(www.)?cognitoforms\.com\/<BADCOGNITOFORMURIS>\/file/i
 
-  replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi|neuropeakbrain\-y42x|slimsodadiet\-e7gh|corerelief\-9fuj|cogniflobrainhealth\-dxvq|cogniflobrainhealth\-uuyi|corerelief\-4oa2|mnrbuds|cloudmaslin|herzp1smartscale\-ulql|smartscale\-kdz3|smartband\-c8qn|mnrbuds|trugglest|hinukijellysticks\-kq21|stopwatt\-ittt|cloudstorage\-kizi|neurosalt\-t133|sugarreset\-rntg|corestrength\-tleo|corerelief\-tu7o)
-  replace_rules   __GB_BADGSTORAGEURIS
-  uri             __GB_BADGSTORAGEURIS   /https?:\/\/(www\.)?\.storage\.googleapis\.com\/<BADGSTORAGEURIS>(?:\/|\?|\b|$)/i
+  # replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi|neuropeakbrain\-y42x|slimsodadiet\-e7gh|corerelief\-9fuj|cogniflobrainhealth\-dxvq|cogniflobrainhealth\-uuyi|corerelief\-4oa2|mnrbuds|cloudmaslin|herzp1smartscale\-ulql|smartscale\-kdz3|smartband\-c8qn|mnrbuds|trugglest|hinukijellysticks\-kq21|stopwatt\-ittt|cloudstorage\-kizi|neurosalt\-t133|sugarreset\-rntg|corestrength\-tleo|corerelief\-tu7o)
+  # replace_rules   __GB_BADGSTORAGEURIS
+  # uri             __GB_BADGSTORAGEURIS   /https?:\/\/(www\.)?storage\.googleapis\.com\/<BADGSTORAGEURIS>(?:\/|\?|\b|$)/i
+  body            __GB_BADGSTORAGEURIS   eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/md5', 'https?:\/\/(?:www\.)?storage\.googleapis\.com\/(.{2,32})\/', '127.0.2.1')
 
   replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO|6IYXOtcD7gLgGRcRJ|yvKOJjPzKKYTrNTYC|9sr0urs78RhA27vsH|1LfEHg6Eh8KAvtpA8|19W5MO9Zs8i6dShpF)
   replace_rules   __GB_BADSHARE_GOOGLE
