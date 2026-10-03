@@ -79,11 +79,10 @@ url_shortener beacons.ai
 url_shortener bgl.me
 url_shortener binged.it
 url_shortener bit.do
-if can(Mail::SpamAssassin::Plugin::DecodeShortURLs::has_get)
-  url_shortener_get bit.ly
-  url_shortener_get bitly.com
-  url_shortener_get bitly.ws
-endif
+# urls present in ASF rules
+# url_shortener bit.ly
+# url_shortener bitly.com
+# url_shortener bitly.ws
 url_shortener bizj.us
 url_shortener bkite.com
 url_shortener blippr.com
