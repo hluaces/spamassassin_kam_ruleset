@@ -970,7 +970,7 @@ header          __KAM_SOMETLD_ARE_BAD_TLD_FROM_PRESS          From:addr =~ /\.pr
 uri             __KAM_SOMETLD_ARE_BAD_TLD_URI_PRESS           /:\/{2}([a-z0-9-\.]+)\.press($|\/|\:)/i
 
 #FPs
-uri		__KAM_SOMETLD_ARE_BAD_TLD_URI_NEGATIVE	/(^|\b)(input|td|lev)\.date|de[b|l]\.date|div\.top($|\/)|enable\.work|\/smart\.link|\.emailprotection\.link\/|\.goat\.com\/|\/mark\.link|\/square\.link\/|\.sng\.link\/|\.page\.link\/|\.app\.link|\.adm\.date|enjeux\.date|www\.link|preview\-beefree\.space|canva\.link($|\/)/i
+uri		__KAM_SOMETLD_ARE_BAD_TLD_URI_NEGATIVE	/(^|\b)(input|td|lev)\.date|de[b|l]\.date|div\.top($|\/)|enable\.work|\/smart\.link|\.emailprotection\.link\/|\.goat\.com\/|\/mark\.link|\/square\.link\/|\.sng\.link\/|\.page\.link\/|\.app\.link|\.adm\.date|enjeux\.date|www\.link|preview\-beefree\.space|canva\.link($|\/)|nysun\.link/i
 body		__KAM_SOMETLD_ARE_BAD_TLD_PROGRAM_REF   /\.date ?\{/i
 
 
