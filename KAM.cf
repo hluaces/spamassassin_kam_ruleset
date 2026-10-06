@@ -9576,7 +9576,10 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   # replace_tag     BADGSTORAGEURIS        (?:networksolution\-webhelp|brainhealth\-q5ms|cloudstorage\-2st8|cloudstorage\-q0qi|corestrengthus\-8dv8|corestrength\-rbae|cloudupdate\-gxta|cloudstorage\-q0qi|neuropeakbrain\-y42x|slimsodadiet\-e7gh|corerelief\-9fuj|cogniflobrainhealth\-dxvq|cogniflobrainhealth\-uuyi|corerelief\-4oa2|mnrbuds|cloudmaslin|herzp1smartscale\-ulql|smartscale\-kdz3|smartband\-c8qn|mnrbuds|trugglest|hinukijellysticks\-kq21|stopwatt\-ittt|cloudstorage\-kizi|neurosalt\-t133|sugarreset\-rntg|corestrength\-tleo|corerelief\-tu7o)
   # replace_rules   __GB_BADGSTORAGEURIS
   # uri             __GB_BADGSTORAGEURIS   /https?:\/\/(www\.)?storage\.googleapis\.com\/<BADGSTORAGEURIS>(?:\/|\?|\b|$)/i
-  body            __GB_BADGSTORAGEURIS   eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/md5', 'https?:\/\/(?:www\.)?storage\.googleapis\.com\/(.{2,32})\/', '127.0.2.1')
+  body            GB_BADGSTORAGEURIS     eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/md5', 'https?:\/\/(?:www\.)?storage\.googleapis\.com\/(.{2,32})\/', '127.0.2.1')
+  describe        GB_BADGSTORAGEURIS     Bad Google storage endpoint
+  score           GB_BADGSTORAGEURIS     9.0
+  tflags          GB_BADGSTORAGEURIS     net      
 
   replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO|6IYXOtcD7gLgGRcRJ|yvKOJjPzKKYTrNTYC|9sr0urs78RhA27vsH|1LfEHg6Eh8KAvtpA8|19W5MO9Zs8i6dShpF)
   replace_rules   __GB_BADSHARE_GOOGLE
@@ -9595,7 +9598,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules   __GB_BADCONTABOURIS	
   uri             __GB_BADCONTABOURIS	/https?:\/\/\w{3}\d\.contabostorage.com\/<BADCONTABOURIS>\:(?:\/|\?|\b|$)/i
 
-  meta		KAM_BADDOMAINURI	(__KAM_BADCALENDLY + __KAM_BADIG + __KAM_BADYT + __KAM_BADVIMEO + __KAM_BADMEDIUM + __KAM_BADFIVERR + __KAM_BADGSITES + __KAM_BADDYNAMICS + __KAM_BADTELEGRAMURIS + __KAM_BADSKYPEURIS + __KAM_BADWHATSAPPURIS + __KAM_BADFLOWCODEURIS + __KAM_BADBOXURIS + __KAM_BADHUBSPOTURIS + __KAM_BADLOOKERURIS + __KAM_BADYESWAREURIS + __KAM_BADXURIS + __KAM_BADLINKEDINURIS + __KAM_BADREBRANDLYURIS + __KAM_BADNOWMEDIAURIS + __KAM_BADSALESLOFTURIS + __GB_BADCPANELSITE + __KAM_BADCOGNITOFORMURIS + __GB_BADGSTORAGEURIS + __GB_BADZOHOPUBLIC + __GB_BADSHARE_GOOGLE + __GB_BADVULTROBJ + __GB_BADAZUREURIS + __GB_BADCONTABOURIS >= 1)
+  meta		KAM_BADDOMAINURI	(__KAM_BADCALENDLY + __KAM_BADIG + __KAM_BADYT + __KAM_BADVIMEO + __KAM_BADMEDIUM + __KAM_BADFIVERR + __KAM_BADGSITES + __KAM_BADDYNAMICS + __KAM_BADTELEGRAMURIS + __KAM_BADSKYPEURIS + __KAM_BADWHATSAPPURIS + __KAM_BADFLOWCODEURIS + __KAM_BADBOXURIS + __KAM_BADHUBSPOTURIS + __KAM_BADLOOKERURIS + __KAM_BADYESWAREURIS + __KAM_BADXURIS + __KAM_BADLINKEDINURIS + __KAM_BADREBRANDLYURIS + __KAM_BADNOWMEDIAURIS + __KAM_BADSALESLOFTURIS + __GB_BADCPANELSITE + __KAM_BADCOGNITOFORMURIS + __GB_BADZOHOPUBLIC + __GB_BADSHARE_GOOGLE + __GB_BADVULTROBJ + __GB_BADAZUREURIS + __GB_BADCONTABOURIS >= 1)
   describe	KAM_BADDOMAINURI	Blocked domain/uri combo
   score		KAM_BADDOMAINURI	9.0
 endif
@@ -10657,9 +10660,9 @@ header		__KAM_FAMILYOFFICEMANDA1	Subject =~ /purchase|Investment|acquisition|mee
  #FAMILY OFFICE
 body		__KAM_FAMILYOFFICEMANDA2	/family office|(private equity|PE) Firm/i
  #ACQUIRE/PURCHASE
-body		__KAM_FAMILYOFFICEMANDA3	/(making an offer on|acquiring|investing in) (business|compan)|interest(ed)? in making an investment|looking at (acquiring|investing)|interested in (invest|acqui)/i
+body		__KAM_FAMILYOFFICEMANDA3	/(making an offer on|acquiring|investing in) (business|compan)|interest(ed)? in making an investment|looking at (acquiring|investing)|interested in (invest|acqui)|seeking investment/i
  #BRAND
-body		__KAM_FAMILYOFFICEMANDA4	/Synergy Advisors|Meridian|(evergreen|Riverside|bluestone|private capital) Advisory/i
+body		__KAM_FAMILYOFFICEMANDA4	/Synergy Advisors|Meridian|(evergreen|Riverside|bluestone|private capital|capital markets?) Advisory/i
  #TITLE
 body		__KAM_FAMILYOFFICEMANDA5	/Mergers \& Acquisitions|Investment Banking|(sell.?side|Markets?|Capital|capital markets?) Advisory|analyst, acquisitions|mergers? (\&|and) acquisition/i
 
