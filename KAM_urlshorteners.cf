@@ -472,6 +472,9 @@ url_shortener safe.mn
 url_shortener safelinks.ru
 url_shortener sai.ly
 url_shortener sameurl.com
+# XXX scanned.page is not an url shortener
+# listed here to be able to list urls in Wild RBL
+url_shortener scanned.page
 url_shortener sdut.us
 url_shortener sed.cx
 url_shortener sfu.ca
