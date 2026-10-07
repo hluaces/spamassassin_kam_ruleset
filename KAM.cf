@@ -9877,7 +9877,7 @@ score           KAM_FAKE_HOMEDEPOT        5.0
 #FAKE COSTCO
  #domain
 header          __KAM_FAKE_COSTCO_1A    From:name =~ /costco/i
-header          __KAM_FAKE_COSTCO_1B    From:addr !~ /costco\.(com|ca|uk)|costcotravel\.com/i
+header          __KAM_FAKE_COSTCO_1B    From:addr !~ /(\.|\@)(costco\.(com|ca|uk)|costcotravel\.com|costcochecks\.com)($|\b)/i
 
 meta            KAM_FAKE_COSTCO2       ( __KAM_FAKE_COSTCO_1A + __KAM_FAKE_COSTCO_1B >= 2 )
 describe        KAM_FAKE_COSTCO2       Fake Costco message
