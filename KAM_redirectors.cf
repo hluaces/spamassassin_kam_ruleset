@@ -23,6 +23,7 @@ if (version >= 4.000000)
       url_redirector curztq.soundestlink.com/ce/c
       url_redirector link.mail.beehiiv.com/ls/click
       url_redirector links.notification.intuit.com/ls/click
+      url_redirector linkprotect.cudasvc.com/url
     endif
     url_redirector .cc.rs6.net
     url_redirector .exactag.com
@@ -57,6 +58,7 @@ if (version >= 4.000000)
     url_redirector post.spmailtechnolo.com
     url_redirector retailerfeed.karmaautomotive.com
     url_redirector s.kemkes.go.id
+    url_redirector scanner.topsec.com
     url_redirector secure-web.cisco.com
     url_redirector yoylink.com
     url_redirector tracemail.enima.online

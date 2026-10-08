@@ -10656,11 +10656,11 @@ score		KAM_TIKTOKSHOP	4.0
 
 #FAMILYOFFICEMANDA
  #SUBJ
-header		__KAM_FAMILYOFFICEMANDA1	Subject =~ /purchase|Investment|acquisition|meeting|family office looking/i
+header		__KAM_FAMILYOFFICEMANDA1	Subject =~ /purchase|Invest(or|ment)|acquisition|meeting|family office looking/i
  #FAMILY OFFICE
-body		__KAM_FAMILYOFFICEMANDA2	/family office|(private equity|PE) Firm/i
+body		__KAM_FAMILYOFFICEMANDA2	/family.?office|(private equity|PE) Firm/i
  #ACQUIRE/PURCHASE
-body		__KAM_FAMILYOFFICEMANDA3	/(making an offer on|acquiring|investing in) (business|compan)|interest(ed)? in making an investment|looking at (acquiring|investing)|interested in (invest|acqui)|seeking investment/i
+body		__KAM_FAMILYOFFICEMANDA3	/(making an offer on|acquiring|investing in) (business|compan)|interest(ed)? in making an investment|looking at (acquiring|investing)|interested in (invest|acqui)|seeking (to invest|investment)/i
  #BRAND
 body		__KAM_FAMILYOFFICEMANDA4	/Synergy Advisors|Meridian|(evergreen|Riverside|bluestone|private capital|capital markets?) Advisory/i
  #TITLE
