@@ -8531,7 +8531,7 @@ if (version >= 4.000000)
           endif
 
           replace_rules GB_PHONE_RBL_RAW
-          rawbody       GB_PHONE_RBL_RAW      eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/num/case/replace', 'tel:(?:\+)?((?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){10,13})', '127.0.1.16')
+          rawbody       GB_PHONE_RBL_RAW      eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/num/case/replace', '(?|tel:(?:\+)?((?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){10,13})|(?:wa\.me/|whatsapp\.com/send/?\?(?:[^\s<>]*?[&;])?phone=)(?:\+)?((?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){8,15})(?!\d))', '127.0.1.16')
           priority      GB_PHONE_RBL_RAW      -100
           tflags        GB_PHONE_RBL_RAW      net
           describe      GB_PHONE_RBL_RAW      Message contains phone number found on blocklist (https://raptor.pccc.com/RBL)
@@ -8547,7 +8547,7 @@ if (version >= 4.000000)
         describe      GB_PHONE_RBL          Message contains phone number found on blocklist (https://raptor.pccc.com/RBL)
         score         GB_PHONE_RBL          10.0
 
-        rawbody       GB_PHONE_RBL_RAW      eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/num', 'tel:(?:\+)?([0-9]{10,13})', '127.0.1.16')
+        rawbody       GB_PHONE_RBL_RAW      eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/num', '(?|tel:(?:\+)?([0-9]{10,13})|(?:wa\.me/|whatsapp\.com/send/?\?(?:[^\s<>]*?[&;])?phone=)(?:\+)?([0-9]{8,15})(?!\d))', '127.0.1.16')
         priority      GB_PHONE_RBL_RAW      -100
         tflags        GB_PHONE_RBL_RAW      net
         describe      GB_PHONE_RBL_RAW      Message contains phone number found on blocklist (https://raptor.pccc.com/RBL)

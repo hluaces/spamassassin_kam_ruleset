@@ -24,6 +24,7 @@ if (version >= 4.000000)
       url_redirector link.mail.beehiiv.com/ls/click
       url_redirector links.notification.intuit.com/ls/click
       url_redirector linkprotect.cudasvc.com/url
+      url_redirector_get securelinks.cloud-security.net/v
     endif
     url_redirector .cc.rs6.net
     url_redirector .exactag.com
@@ -69,6 +70,7 @@ if (version >= 4.000000)
     url_redirector_get .defend.egress.com
     url_redirector_get .protection.sophos.com
     url_redirector_get .trustyshopping.su
+    url_redirector_get atpscan.global.hornetsecurity.com
     url_redirector_get docsend.com
     url_redirector_get email.double.serviceautopilot.com
     url_redirector_get email.idxhome.co
