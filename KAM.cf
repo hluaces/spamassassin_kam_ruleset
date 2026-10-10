@@ -10449,23 +10449,27 @@ describe        __ARC_SEALS_GE4         ARC chain has 4 or more seals
 header          __ARC_SEALS_GE6         ARC-Seal =~ /\bi=([6-9]|\d{2,})\b/
 describe        __ARC_SEALS_GE6         ARC chain has 6 or more seals
 
-meta            MANY_ARC_SEALS          (__ARC_SEALS_GE4)
-describe        MANY_ARC_SEALS          Message has an unusually long ARC seal chain (4+ hops)
-score           MANY_ARC_SEALS          1.5
+meta            GB_MANY_ARC_SEALS       (__ARC_SEALS_GE4)
+describe        GB_MANY_ARC_SEALS       Message has an unusually long ARC seal chain (4+ hops)
+score           GB_MANY_ARC_SEALS       3.0
 
 header          __RP_RANDOM_ONMS        Return-Path =~ /bounces\+SRS=.*@[A-Z][a-z]{2,}[A-Z][a-z]{2,}\.onmicrosoft\.com/i
 describe        __RP_RANDOM_ONMS        Bounce path routed through a randomly-person-named M365 tenant
 
-header          __FROM_KNOWN_BRAND      From =~ /\@(order\.)?(dell|paypal|amazon|apple|usps|fedex|ups)\.com/i
+header          __FROM_KNOWN_BRAND      From =~ /\@(order\.|store\.)?(dell|epson|paypal|amazon|apple|usps|fedex|ups)\.com/i
 describe        __FROM_KNOWN_BRAND      From header claims a well-known transactional brand domain
 
-meta            DKIM_REPLAY_ARC_CHAIN   (DKIM_VALID && __FROM_KNOWN_BRAND && MANY_ARC_SEALS)
-describe        DKIM_REPLAY_ARC_CHAIN   Brand DKIM-signed mail with abnormally long ARC chain, possible DKIM replay
-score           DKIM_REPLAY_ARC_CHAIN   3.0
+meta            GB_DKIM_REPLAY_ARC_CHAIN   (DKIM_VALID && __FROM_KNOWN_BRAND && MANY_ARC_SEALS)
+describe        GB_DKIM_REPLAY_ARC_CHAIN   Brand DKIM-signed mail with abnormally long ARC chain, possible DKIM replay
+score           GB_DKIM_REPLAY_ARC_CHAIN   4.5
 
-meta            DKIM_REPLAY_RONMS       ( DKIM_REPLAY_ARC_CHAIN && __RP_RANDOM_ONMS )
-describe        DKIM_REPLAY_RONMS       DKIM replay from random M365 domain
-score           DKIM_REPLAY_RONMS       2.5
+meta            GB_DKIM_REPLAY_RONMS    ( GB_DKIM_REPLAY_ARC_CHAIN && __RP_RANDOM_ONMS )
+describe        GB_DKIM_REPLAY_RONMS    DKIM replay from random M365 domain
+score           GB_DKIM_REPLAY_RONMS    4.0
+
+meta            GB_DKIM_REPLAY_SUSP     (DKIM_VALID && __FROM_KNOWN_BRAND && __ARC_SEALS_GE3 && FORGED_SPF_HELO && (__RP_RANDOM_ONMS || __GB_TO_ONMICROSOFT))
+describe        GB_DKIM_REPLAY_SUSP     Brand DKIM-signed mail with abnormally long ARC chain, suspect DKIM replay
+score           GB_DKIM_REPLAY_SUSP     4.0
 
 #E-BIKE
 body            __GB_EBIKE              /\b(?:(?:e|electric|electirc|e\-city) (?:bicycle|bike|velo)s?|e\-bike|Elektromopeds|E(?:lektro)?(?:\-|\s)?fahrr(?:\x{c3}\x{a4}|ae)d(?:er(?:n)?)?)\b/i
