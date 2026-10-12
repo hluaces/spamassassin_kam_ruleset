@@ -41,6 +41,7 @@ ifplugin Mail::SpamAssassin::Plugin::URIDNSBL
     util_rb_2tld framer.ai
     util_rb_2tld freeddns.org
     util_rb_2tld fwh.is
+    util_rb_2tld iceiy.com
     util_rb_2tld intelycare.com
     util_rb_2tld it.com
     util_rb_2tld mailjindo.com
