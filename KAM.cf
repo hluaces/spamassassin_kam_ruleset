@@ -1929,7 +1929,7 @@ endif
 #EMAIL BLACKLIST CHECK FOR PCCC WILD RBL
 if (version >= 3.004003)
   ifplugin Mail::SpamAssassin::Plugin::HashBL
-    header   KAM_MESSAGE_HASHBL_FREEMAIL  eval:check_hashbl_emails('wild.pccc.com', 'md5/max=10/shuffle', 'ALLFROM/Reply-To/Resent-from/body', '^127\.0\.0\.64', 'freemail')
+    header   KAM_MESSAGE_HASHBL_FREEMAIL  eval:check_hashbl_emails('wild.pccc.com', 'md5/max=10/shuffle/notag', 'ALLFROM/Reply-To/Resent-from/body', '^127\.0\.0\.64', 'freemail')
     describe KAM_MESSAGE_HASHBL_FREEMAIL  Message contains freemail address listed in PCCC WILD RBL (https://raptor.pccc.com/RBL)
     tflags   KAM_MESSAGE_HASHBL_FREEMAIL  net
     score    KAM_MESSAGE_HASHBL_FREEMAIL  10.0
@@ -6850,9 +6850,9 @@ if (version >= 3.004003)
     # this rule needs 99_hashbl.cf to work
     ifplugin Mail::SpamAssassin::Plugin::FreeMail
       if can(Mail::SpamAssassin::Plugin::HashBL::has_hashbl_alldomains)
-        header     PCCC_HASHBL_FREEMAIL    eval:check_hashbl_emails('wild.pccc.com', 'md5/alldomains', 'ALLFROM/Reply-To/Resent-from/body', '^127\.', 'freemail')
+        header     PCCC_HASHBL_FREEMAIL    eval:check_hashbl_emails('wild.pccc.com', 'md5/alldomains/notag', 'ALLFROM/Reply-To/Resent-from/body', '^127\.', 'freemail')
       else
-        header     PCCC_HASHBL_FREEMAIL    eval:check_hashbl_emails('wild.pccc.com', 'md5', 'ALLFROM/Reply-To/Resent-from/body', '^127\.', 'freemail')
+        header     PCCC_HASHBL_FREEMAIL    eval:check_hashbl_emails('wild.pccc.com', 'md5/notag', 'ALLFROM/Reply-To/Resent-from/body', '^127\.', 'freemail')
       endif
       describe   PCCC_HASHBL_FREEMAIL    Message contains freemail address in reply-to found on PCCC HashBL (https://raptor.pccc.com/RBL)
       tflags     PCCC_HASHBL_FREEMAIL    net
@@ -6882,7 +6882,7 @@ if (version >= 3.004003)
     priority PCCC_HASHBL_EMAIL         -100   
 
     # Email address in custom email headers found on PCCC HashBL
-    header   PCCC_HASHBL_HDR_EMAIL         eval:check_hashbl_emails('wild.pccc.com', 'md5', 'Reply-To/Resent-from/Disposition-Notification-To/X-Original-Sender/X-Sender', '^127\.', 'all')
+    header   PCCC_HASHBL_HDR_EMAIL         eval:check_hashbl_emails('wild.pccc.com', 'md5/notag', 'Reply-To/Resent-from/Disposition-Notification-To/X-Original-Sender/X-Sender', '^127\.', 'all')
     describe PCCC_HASHBL_HDR_EMAIL         Message contains email address found on PCCC HashBL (https://raptor.pccc.com/RBL)
     tflags   PCCC_HASHBL_HDR_EMAIL         net
     score    PCCC_HASHBL_HDR_EMAIL         3.5
