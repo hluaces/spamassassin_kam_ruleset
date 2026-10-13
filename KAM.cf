@@ -1638,8 +1638,9 @@ score		KAM_THEBAT	1.9
 #MAILER BUGS
 body		__KAM_MAILER1	/\{\!firstname_fix\}|\{\{email\}\}|\{\{name\}\}|\{id1?\}/i
 body		__KAM_MAILER2	/(Hi|Dear) \[Recipient('s name)?\]/i
+body		__KAM_MAILER3	/\[NAME\],/i
 
-meta		KAM_MAILER	( __KAM_MAILER1 + __KAM_MAILER2 >= 1 )
+meta		KAM_MAILER	( __KAM_MAILER1 + __KAM_MAILER2 + __KAM_MAILER3 >= 1 )
 score		KAM_MAILER	2.0
 describe	KAM_MAILER	Automated Mailer Tag Left in Email
 
@@ -10695,12 +10696,12 @@ score           KAM_FAKE_MARRIOTT       6.0
 
 #FAKE AAA
   #from
-  header	__KAM_FAKE_AAA1		From:name =~ /Courtesy kit|Triple A/i
+  header	__KAM_FAKE_AAA1		From:name =~ /(emergency|Courtesy) kit|Triple A/i
   #subj
-  header	__KAM_FAKE_AAA2A	Subject =~ /Complimenta?ry Road.?kit/i
+  header	__KAM_FAKE_AAA2A	Subject =~ /Complimenta?ry Road.?kit|Safety Kit/i
   header	__KAM_FAKE_AAA2B	Subject =~ /(^|\b)AAA($|\b)/
   #gift
-  body		__KAM_FAKE_AAA3		/receive a Premier Roadside Support Kit|AAA Courtesy Bundle/i
+  body		__KAM_FAKE_AAA3		/receive a Premier Roadside Support Kit|AAA Courtesy Bundle|receive car emergency kit/i
   #AAA
   body		__KAM_FAKE_AAA4		/(^|\b)AAA($|\b)/
   tflags	__KAM_FAKE_AAA4		nosubject

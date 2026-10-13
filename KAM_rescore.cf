@@ -18,6 +18,9 @@ score           FREEMAIL_REPLYTO        1.0
 score           FROM_IN_TO_AND_SUBJ     0
 score           FROM_LONG_DOM           0.75
 score           FROM_LONG_DOM_MINFP     1.25
+# FROM_SUSPICIOUS_NTLD* rules overlaps with KAM_SOMETLD_ARE_BAD_*, score updated on 10/13/2026
+score           FROM_SUSPICIOUS_NTLD            0.01
+score           FROM_SUSPICIOUS_NTLD_FP         0.1
 score           FSL_HAS_TINYURL                 0.5
 score           GOOG_REDIR_NOTRDNS              0.5
 score           HK_RAMDOM_ENVFROM               0.5
