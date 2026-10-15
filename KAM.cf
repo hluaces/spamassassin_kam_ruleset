@@ -9424,11 +9424,12 @@ score		GB_SUBJ25		0.25
 
 #Score adjustment for unwanted languages
 ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
-  score 	UNWANTED_LANGUAGE_BODY 	3.3
-  meta		UNWANTED_LB_EXTRACT_CO  ( UNWANTED_LANGUAGE_BODY && EXTRACTTEXT )
-  describe	UNWANTED_LB_EXTRACT_CO  Compensate unwanted language rule score when data are extracted from images 
-  score		UNWANTED_LB_EXTRACT_CO  -2.5
-  tflags	UNWANTED_LB_EXTRACT_CO  nice
+  score 	UNWANTED_LANGUAGE_BODY 	4.1
+  # not needed since check_language() verifies only the body of the email now
+  # meta		UNWANTED_LB_EXTRACT_CO  ( UNWANTED_LANGUAGE_BODY && EXTRACTTEXT )
+  # describe	UNWANTED_LB_EXTRACT_CO  Compensate unwanted language rule score when data are extracted from images 
+  # score		UNWANTED_LB_EXTRACT_CO  -2.5
+  # tflags	UNWANTED_LB_EXTRACT_CO  nice
 endif
 
 #ADVIDS
@@ -10471,6 +10472,25 @@ score           GB_DKIM_REPLAY_RONMS    4.0
 meta            GB_DKIM_REPLAY_SUSP     (DKIM_VALID && __FROM_KNOWN_BRAND && __ARC_SEALS_GE3 && FORGED_SPF_HELO && (__RP_RANDOM_ONMS || __GB_TO_ONMICROSOFT))
 describe        GB_DKIM_REPLAY_SUSP     Brand DKIM-signed mail with abnormally long ARC chain, suspect DKIM replay
 score           GB_DKIM_REPLAY_SUSP     4.0
+
+# --- GitHub push-notification abuse (callback / tech-support phishing) ---
+# Genuine GitHub push notification (repo "Email notifications" webhook)
+header          __GH_FROM_NOREPLY       From:addr =~ /^noreply\@github\.com$/i
+header          __GH_PUSH_MSGID         Message-ID =~ /\/push\/refs\/(?:heads|tags)\/[^>]*\@github\.com>/i
+header          __GH_RCPT_HDR           exists:X-GitHub-Recipient-Address
+meta            __GH_PUSH_NOTIF         __GH_FROM_NOREPLY && (__GH_PUSH_MSGID || __GH_RCPT_HDR)
+
+# Notification sent to several external addresses
+header          __GH_MULTI_RCPT         X-GitHub-Recipient-Address =~ /,/
+
+# Callback-scam content in the commit message
+body            __GH_BRAND              /\b(?:paypal|coinbase|norton|mcafee|geek ?squad|bitcoin|btc|amazon|microsoft|apple)\b/i
+body            __GH_BILLING            /\b(?:invoice (?:number|details)|billing (?:amount|transaction)|payment status|subscription type|grace period|refund)\b/i
+body            __GH_CALLBACK           /\b(?:toll[- ]?free|customer support|support team|service desk|helpline)\b/i
+
+meta            GB_GH_CALLBACK_SCAM     __GH_PUSH_NOTIF && __GB_PHONE && __GH_CALLBACK && (__GH_BRAND || __GH_BILLING)
+describe        GB_GH_CALLBACK_SCAM     GitHub push notification carrying callback-phishing invoice
+score           GB_GH_CALLBACK_SCAM     2.5
 
 #E-BIKE
 body            __GB_EBIKE              /\b(?:(?:e|electric|electirc|e\-city) (?:bicycle|bike|velo)s?|e\-bike|Elektromopeds|E(?:lektro)?(?:\-|\s)?fahrr(?:\x{c3}\x{a4}|ae)d(?:er(?:n)?)?)\b/i
