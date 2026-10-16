@@ -23,6 +23,7 @@ if (version >= 4.000000)
       url_redirector curztq.soundestlink.com/ce/c
       url_redirector link.mail.beehiiv.com/ls/click
       url_redirector links.notification.intuit.com/ls/click
+      url_redirector links.notification.intuit.com/ss/c
       url_redirector linkprotect.cudasvc.com/url
       url_redirector_get securelinks.cloud-security.net/v
     endif
