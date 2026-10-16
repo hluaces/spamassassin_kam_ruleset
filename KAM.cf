@@ -9092,9 +9092,9 @@ ifplugin Mail::SpamAssassin::Plugin::MIMEHeader
 endif
 
 uri             __MONDAY_TRACKER        /trackingservice\.monday\.com/i
-meta            GB_FAKE_DOCUSIGN        ( MXG_SPOOFED_DOCUSIGN && ( __MONDAY_TRACKER || __KAM_FAKE_SHAREPOINT3 ) )
-describe        GB_FAKE_DOCUSIGN        Fake Docusign email with a tracker link
-score           GB_FAKE_DOCUSIGN        3.0
+meta            GB_FAKE_DOCUSIGN_TRACKER        ( MXG_SPOOFED_DOCUSIGN && ( __MONDAY_TRACKER || __KAM_FAKE_SHAREPOINT3 ) )
+describe        GB_FAKE_DOCUSIGN_TRACKER        Fake Docusign email with a tracker link
+score           GB_FAKE_DOCUSIGN_TRACKER        3.0
 
 uri             GB_GOOG_MONDAY_TRK      /google\.com\/url.{4,32}trackingservice\.monday\.com/i
 describe        GB_GOOG_MONDAY_TRK      Google and Monday abused redirectors
