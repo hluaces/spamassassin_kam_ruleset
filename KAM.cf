@@ -963,14 +963,15 @@ score		KAM_TELEWORK	3.0
 
 #SOME TLD ARE BAD
   #.online removed on 2025-04-05
-header 		__KAM_SOMETLD_ARE_BAD_TLD_FROM          From:addr =~ /\.(bar|beauty|buzz|cam|casa|cfd|club|date|guru|link|live|monster|pw|quest|rest|sbs|shop|space|stream|top|trade|wiki|work|xyz)$/i
-uri		__KAM_SOMETLD_ARE_BAD_TLD_URI		/:\/{2}([a-z0-9-\.]+)\.(bar|beauty|buzz|cam|casa|cfd|club|date|guru|link|live|monster|pw|quest|rest|sbs|shop|space|stream|top|trade|wiki|work|xyz)($|\/|\:)/i
+  #.link moved to KAM_LINK_TLD_NEW (RaptorOnly) on 2026-10-20
+header 		__KAM_SOMETLD_ARE_BAD_TLD_FROM          From:addr =~ /\.(bar|beauty|buzz|cam|casa|cfd|club|date|guru|live|monster|pw|quest|rest|sbs|shop|space|stream|top|trade|wiki|work|xyz)$/i
+uri		__KAM_SOMETLD_ARE_BAD_TLD_URI		/:\/{2}([a-z0-9-\.]+)\.(bar|beauty|buzz|cam|casa|cfd|club|date|guru|live|monster|pw|quest|rest|sbs|shop|space|stream|top|trade|wiki|work|xyz)($|\/|\:)/i
 
 header          __KAM_SOMETLD_ARE_BAD_TLD_FROM_PRESS          From:addr =~ /\.press$/i
 uri             __KAM_SOMETLD_ARE_BAD_TLD_URI_PRESS           /:\/{2}([a-z0-9-\.]+)\.press($|\/|\:)/i
 
 #FPs
-uri		__KAM_SOMETLD_ARE_BAD_TLD_URI_NEGATIVE	/(^|\b)(input|td|lev)\.date|de[b|l]\.date|div\.top($|\/)|enable\.work|\/smart\.link|\.emailprotection\.link\/|\.goat\.com\/|\/mark\.link|\/square\.link\/|\.sng\.link\/|\.page\.link\/|\.app\.link|\.adm\.date|enjeux\.date|www\.link|preview\-beefree\.space|canva\.link($|\/)|nysun\.link/i
+uri		__KAM_SOMETLD_ARE_BAD_TLD_URI_NEGATIVE	/(^|\b)(input|td|lev)\.date|de[b|l]\.date|div\.top($|\/)|enable\.work|\.goat\.com\/|\.adm\.date|enjeux\.date|preview\-beefree\.space/i
 body		__KAM_SOMETLD_ARE_BAD_TLD_PROGRAM_REF   /\.date ?\{/i
 
 
@@ -988,11 +989,29 @@ ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   describe	KAM_SOMETLD_ARE_BAD_NEW		new emails from commonly abused domains
   meta		KAM_SOMETLD_ARE_BAD_TLD		( KAM_SOMETLD_ARE_BAD_NNEW || KAM_SOMETLD_ARE_BAD_NEW )
   score		KAM_SOMETLD_ARE_BAD_TLD		0.001
+
+  #.LINK TLD - split from SOME TLD ARE BAD 2026-10-20
+  header	__KAM_LINK_TLD_FROM		From:addr =~ /\.link$/i
+  uri		__KAM_LINK_TLD_URI		/:\/{2}([a-z0-9-\.]+)\.link($|\/|\:)/i
+  #FPs
+  uri		__KAM_LINK_TLD_URI_NEGATIVE	/\/smart\.link|\.emailprotection\.link\/|\/mark\.link|\/square\.link\/|\.sng\.link\/|\.page\.link\/|\.app\.link|www\.link|canva\.link($|\/)|nysun\.link/i
+  meta		KAM_LINK_TLD_NEW		((__KAM_LINK_TLD_FROM || (__KAM_LINK_TLD_URI && !__KAM_LINK_TLD_URI_NEGATIVE)) && !__RAPTOR_NOT_NEW)
+  score		KAM_LINK_TLD_NEW		3.5
+  describe	KAM_LINK_TLD_NEW		New emails using the commonly abused .link TLD
+
+  #MORE TLDS ARE BAD - .de/.co abused by AI-driven spam campaigns 2026-10-20
+  header	__KAM_MORE_TLDS_ARE_BAD_FROM		From:addr =~ /\.(co|de)$/i
+  uri		__KAM_MORE_TLDS_ARE_BAD_URI		/:\/{2}([a-z0-9-\.]+)\.(co|de)($|\/|\:)/i
+  #FPs - never-matching placeholder, add entries as FPs are found
+  uri		__KAM_MORE_TLDS_ARE_BAD_URI_NEGATIVE	/(?!)/
+  meta		KAM_MORE_TLDS_ARE_BAD_NEW		((__KAM_MORE_TLDS_ARE_BAD_FROM || (__KAM_MORE_TLDS_ARE_BAD_URI && !__KAM_MORE_TLDS_ARE_BAD_URI_NEGATIVE)) && !__RAPTOR_NOT_NEW)
+  score		KAM_MORE_TLDS_ARE_BAD_NEW		1.5
+  describe	KAM_MORE_TLDS_ARE_BAD_NEW		New emails using the commonly abused .co/.de TLDs
 else
   meta		KAM_SOMETLD_ARE_BAD_TLD		(__KAM_SOMETLD_ARE_BAD_TLD_FROM + __KAM_SOMETLD_ARE_BAD_TLD_FROM_PRESS >= 1) || ((__KAM_SOMETLD_ARE_BAD_TLD_URI + __KAM_SOMETLD_ARE_BAD_TLD_URI_PRESS >= 1) && !(__KAM_SOMETLD_ARE_BAD_TLD_PROGRAM_REF + __KAM_SOMETLD_ARE_BAD_TLD_URI_NEGATIVE >= 1))
   score         KAM_SOMETLD_ARE_BAD_TLD		5.0
 endif
-describe 	KAM_SOMETLD_ARE_BAD_TLD         .bar, .beauty, .buzz, .cam, .casa, .cfd, .club, .date, .guru, .link, .live, .monster, .press, .pw, .quest, .rest, .sbs, .shop, .stream, .top, .trade, .wiki, .work, .xyz TLD abuse
+describe 	KAM_SOMETLD_ARE_BAD_TLD         .bar, .beauty, .buzz, .cam, .casa, .cfd, .club, .date, .guru, .live, .monster, .press, .pw, .quest, .rest, .sbs, .shop, .stream, .top, .trade, .wiki, .work, .xyz TLD abuse
 
 #2019-11-24 - Test to do the SOMETLD with WLBLEval - Doesn't work because no uri check for the body 
 #ifplugin Mail::SpamAssassin::Plugin::WLBLEval
@@ -6443,7 +6462,7 @@ endif
 ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   header	KAM_RAPTOR_ALTERED	X-Raptor-Alter =~ /True/i
   describe	KAM_RAPTOR_ALTERED	Raptor identified a dangerous, possible zero day attachment risk
-  score		KAM_RAPTOR_ALTERED	2.0
+  score		KAM_RAPTOR_ALTERED	3.0
 
   header	GB_RAPTOR_ZEROSVG	X-Raptor-ZeroDay =~ /svg/i
   describe	GB_RAPTOR_ZEROSVG	Raptor identified a dangerous, possible zero day SVG attachment
@@ -6857,7 +6876,7 @@ if (version >= 3.004003)
       endif
       describe   PCCC_HASHBL_FREEMAIL    Message contains freemail address in reply-to found on PCCC HashBL (https://raptor.pccc.com/RBL)
       tflags     PCCC_HASHBL_FREEMAIL    net
-      score      PCCC_HASHBL_FREEMAIL    4.5
+      score      PCCC_HASHBL_FREEMAIL    6.0
       priority   PCCC_HASHBL_FREEMAIL    -100
     endif
 
@@ -9596,9 +9615,9 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   uri             __GB_BADAZUREURIS	/https?:\/\/<BADAZUREURIS>\.web\.core\.windows\.net(?:\/|\?|\b|$)/i
 
 
-  replace_tag     BADCONTABOURIS	(?:a7d95ba368034a0695aafac9cadbd55b)
+  replace_tag     BADCONTABOURIS	(?:a7d95ba368034a0695aafac9cadbd55b|36b674de2fac41218043b2cd639740d0)
   replace_rules   __GB_BADCONTABOURIS	
-  uri             __GB_BADCONTABOURIS	/https?:\/\/\w{3}\d\.contabostorage.com\/<BADCONTABOURIS>\:(?:\/|\?|\b|$)/i
+  uri             __GB_BADCONTABOURIS	/https?:\/\/\w{2,3}\d\.contabostorage.com\/<BADCONTABOURIS>\:(?:\/|\?|\b|$)/i
 
   meta		KAM_BADDOMAINURI	(__KAM_BADCALENDLY + __KAM_BADIG + __KAM_BADYT + __KAM_BADVIMEO + __KAM_BADMEDIUM + __KAM_BADFIVERR + __KAM_BADGSITES + __KAM_BADDYNAMICS + __KAM_BADTELEGRAMURIS + __KAM_BADSKYPEURIS + __KAM_BADWHATSAPPURIS + __KAM_BADFLOWCODEURIS + __KAM_BADBOXURIS + __KAM_BADHUBSPOTURIS + __KAM_BADLOOKERURIS + __KAM_BADYESWAREURIS + __KAM_BADXURIS + __KAM_BADLINKEDINURIS + __KAM_BADREBRANDLYURIS + __KAM_BADNOWMEDIAURIS + __KAM_BADSALESLOFTURIS + __GB_BADCPANELSITE + __KAM_BADCOGNITOFORMURIS + __GB_BADZOHOPUBLIC + __GB_BADSHARE_GOOGLE + __GB_BADVULTROBJ + __GB_BADAZUREURIS + __GB_BADCONTABOURIS >= 1)
   describe	KAM_BADDOMAINURI	Blocked domain/uri combo

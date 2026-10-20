@@ -66,6 +66,7 @@ ifplugin Mail::SpamAssassin::Plugin::URIDNSBL
     util_rb_2tld rf.gd
     util_rb_2tld rsbemktg.com
     util_rb_2tld sharepoint.com
+    util_rb_2tld smfforfree4.com
     util_rb_2tld softr.app
     util_rb_2tld soy.pe
     util_rb_2tld stackerbee.com
