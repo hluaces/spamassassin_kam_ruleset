@@ -971,7 +971,7 @@ header          __KAM_SOMETLD_ARE_BAD_TLD_FROM_PRESS          From:addr =~ /\.pr
 uri             __KAM_SOMETLD_ARE_BAD_TLD_URI_PRESS           /:\/{2}([a-z0-9-\.]+)\.press($|\/|\:)/i
 
 #FPs
-uri		__KAM_SOMETLD_ARE_BAD_TLD_URI_NEGATIVE	/(^|\b)(input|td|lev)\.date|de[b|l]\.date|div\.top($|\/)|enable\.work|\.goat\.com\/|\.adm\.date|enjeux\.date|preview\-beefree\.space/i
+uri		__KAM_SOMETLD_ARE_BAD_TLD_URI_NEGATIVE	/(^|\b)(input|td|lev)\.date|de[b|l]\.date|div\.top($|\/)|enable\.work|\.goat\.com\/|\.adm\.date|enjeux\.date|preview\-beefree\.space|eder\-homeoffice\.work/i
 body		__KAM_SOMETLD_ARE_BAD_TLD_PROGRAM_REF   /\.date ?\{/i
 
 
@@ -981,12 +981,14 @@ ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   describe	KAM_RAPTOR_NEW			Email from a new domain
   score		KAM_RAPTOR_NEW			0.1
 
-  meta          KAM_SOMETLD_ARE_BAD_NNEW        (((__KAM_SOMETLD_ARE_BAD_TLD_FROM + __KAM_SOMETLD_ARE_BAD_TLD_FROM_PRESS >= 1) || (__KAM_SOMETLD_ARE_BAD_TLD_URI + __KAM_SOMETLD_ARE_BAD_TLD_URI_PRESS >= 1) && !(__KAM_SOMETLD_ARE_BAD_TLD_PROGRAM_REF + __KAM_SOMETLD_ARE_BAD_TLD_URI_NEGATIVE >= 1)) && __RAPTOR_NOT_NEW)
+  meta          KAM_SOMETLD_ARE_BAD_NNEW        (( __KAM_SOMETLD_ARE_BAD_TLD_FROM + __KAM_SOMETLD_ARE_BAD_TLD_FROM_PRESS >= 1 ) || ( __KAM_SOMETLD_ARE_BAD_TLD_URI + __KAM_SOMETLD_ARE_BAD_TLD_URI_PRESS >= 1 )) && !( __KAM_SOMETLD_ARE_BAD_TLD_PROGRAM_REF + __KAM_SOMETLD_ARE_BAD_TLD_URI_NEGATIVE >= 1 ) && ( __RAPTOR_NOT_NEW >= 1 )
   score         KAM_SOMETLD_ARE_BAD_NNEW        2.0
-  describe      KAM_SOMETLD_ARE_BAD_NNEW        not new emails from commonly abused domains
-  meta          KAM_SOMETLD_ARE_BAD_NEW         (((__KAM_SOMETLD_ARE_BAD_TLD_FROM + __KAM_SOMETLD_ARE_BAD_TLD_FROM_PRESS >= 1) || (__KAM_SOMETLD_ARE_BAD_TLD_URI + __KAM_SOMETLD_ARE_BAD_TLD_URI_PRESS >= 1) && !(__KAM_SOMETLD_ARE_BAD_TLD_PROGRAM_REF + __KAM_SOMETLD_ARE_BAD_TLD_URI_NEGATIVE >= 1)) && !__RAPTOR_NOT_NEW)
+  describe      KAM_SOMETLD_ARE_BAD_NNEW        Not new emails from commonly abused domains
+
+  meta          KAM_SOMETLD_ARE_BAD_NEW         (( __KAM_SOMETLD_ARE_BAD_TLD_FROM + __KAM_SOMETLD_ARE_BAD_TLD_FROM_PRESS >= 1 ) || ( __KAM_SOMETLD_ARE_BAD_TLD_URI + __KAM_SOMETLD_ARE_BAD_TLD_URI_PRESS >= 1)) && !( __KAM_SOMETLD_ARE_BAD_TLD_PROGRAM_REF + __KAM_SOMETLD_ARE_BAD_TLD_URI_NEGATIVE + __RAPTOR_NOT_NEW >= 1 )
   score		KAM_SOMETLD_ARE_BAD_NEW		5.0
   describe	KAM_SOMETLD_ARE_BAD_NEW		new emails from commonly abused domains
+
   meta		KAM_SOMETLD_ARE_BAD_TLD		( KAM_SOMETLD_ARE_BAD_NNEW || KAM_SOMETLD_ARE_BAD_NEW )
   score		KAM_SOMETLD_ARE_BAD_TLD		0.001
 
@@ -1006,11 +1008,15 @@ ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   uri		__KAM_MORE_TLDS_ARE_BAD_URI_NEGATIVE	/(?!)/
   meta		KAM_MORE_TLDS_ARE_BAD_NEW		((__KAM_MORE_TLDS_ARE_BAD_FROM || (__KAM_MORE_TLDS_ARE_BAD_URI && !__KAM_MORE_TLDS_ARE_BAD_URI_NEGATIVE)) && !__RAPTOR_NOT_NEW)
   score		KAM_MORE_TLDS_ARE_BAD_NEW		1.5
-  describe	KAM_MORE_TLDS_ARE_BAD_NEW		New emails using the commonly abused .co/.de TLDs
+  describe	KAM_MORE_TLDS_ARE_BAD_NEW		New emails using the commonly abused .co/.de TLDsj
+
 else
-  meta		KAM_SOMETLD_ARE_BAD_TLD		(__KAM_SOMETLD_ARE_BAD_TLD_FROM + __KAM_SOMETLD_ARE_BAD_TLD_FROM_PRESS >= 1) || ((__KAM_SOMETLD_ARE_BAD_TLD_URI + __KAM_SOMETLD_ARE_BAD_TLD_URI_PRESS >= 1) && !(__KAM_SOMETLD_ARE_BAD_TLD_PROGRAM_REF + __KAM_SOMETLD_ARE_BAD_TLD_URI_NEGATIVE >= 1))
+  #NON RAPTOR KAM_SOMETLD_ARE_BAD_TLD 
+  meta		KAM_SOMETLD_ARE_BAD_TLD		(( __KAM_SOMETLD_ARE_BAD_TLD_FROM + __KAM_SOMETLD_ARE_BAD_TLD_FROM_PRESS >= 1 ) || ( __KAM_SOMETLD_ARE_BAD_TLD_URI + __KAM_SOMETLD_ARE_BAD_TLD_URI_PRESS >= 1 )) && !( __KAM_SOMETLD_ARE_BAD_TLD_PROGRAM_REF + __KAM_SOMETLD_ARE_BAD_TLD_URI_NEGATIVE >= 1 )
   score         KAM_SOMETLD_ARE_BAD_TLD		5.0
 endif
+
+#RAPTOR AND NON RAPTOR KAM_SOMETLD_ARE_BAD_TLD  DESCRIPTION
 describe 	KAM_SOMETLD_ARE_BAD_TLD         .bar, .beauty, .buzz, .cam, .casa, .cfd, .club, .date, .guru, .live, .monster, .press, .pw, .quest, .rest, .sbs, .shop, .stream, .top, .trade, .wiki, .work, .xyz TLD abuse
 
 #2019-11-24 - Test to do the SOMETLD with WLBLEval - Doesn't work because no uri check for the body 
@@ -1061,7 +1067,7 @@ ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   score           KAM_RPTR_BADHOST        9.0
 
   #NOTLS WELCOMELIST
-  enlist_addrlist (WLNOTLS)               *@4imprint.com *@bellnet.ca *@berglist.com *@enom.com *@name-services.com *@trust-guard.com *@vzwpix.com *@trick-tools.com *@tictactel.net *@COSCON.com *@intelcom.ca *@jeffmartinauctioneers.com *@hlag.com *@cbsa-asfc.gc.ca *@kpneuscommercial.ca *@central-insurance.com *@services.capitalgroup.com *@williamsfoodequipment.com *@cn.gree.com *@nsaarc.net *@smigroup.net *@news1.naylorconnect.com *@rose.net *@smigroup.net *@bluemountain.com *@actsst.com *@connectwise.userecho.com *@kegland.cn *@bell.net *@email.crayola.com *@daemarinc.com *@power-link.ca *@e.johnnyseeds.com *@station-22.com *@survivalfootball.com *@mapyourshow.com *@vzwpix.com *@a25csc.com *@anchorglass.com *@nfpa.org *@paulpedneaultinc.com *@plomberielatulippe.ca *@cogecomedia.com *@transportag.com *@whmcs.com *@usgbc.org *@liverani.com *@crutchfield.com *@psmj.com *@initialpublications.com *@studentaid.gov *@sympatico.ca *@boisaco.com *@charityengine.net *@mvpbanking.com *@nutraingredients.com *@bloomingdalecom.net *@yamata.com.tr *@tulsachain.com *@ooma.com *@retirement.adprsportal.com *@cm01.charityengine.net *@CenturyLink.net *@mail.duluthtrading.com *@cst-l.com
+  enlist_addrlist (WLNOTLS)               *@4imprint.com *@bellnet.ca *@berglist.com *@enom.com *@name-services.com *@trust-guard.com *@vzwpix.com *@trick-tools.com *@tictactel.net *@COSCON.com *@intelcom.ca *@jeffmartinauctioneers.com *@hlag.com *@cbsa-asfc.gc.ca *@kpneuscommercial.ca *@central-insurance.com *@services.capitalgroup.com *@williamsfoodequipment.com *@cn.gree.com *@nsaarc.net *@smigroup.net *@news1.naylorconnect.com *@rose.net *@smigroup.net *@bluemountain.com *@actsst.com *@connectwise.userecho.com *@kegland.cn *@bell.net *@email.crayola.com *@daemarinc.com *@power-link.ca *@e.johnnyseeds.com *@station-22.com *@survivalfootball.com *@mapyourshow.com *@vzwpix.com *@a25csc.com *@anchorglass.com *@nfpa.org *@paulpedneaultinc.com *@plomberielatulippe.ca *@cogecomedia.com *@transportag.com *@whmcs.com *@usgbc.org *@liverani.com *@crutchfield.com *@psmj.com *@initialpublications.com *@studentaid.gov *@sympatico.ca *@boisaco.com *@charityengine.net *@mvpbanking.com *@nutraingredients.com *@bloomingdalecom.net *@yamata.com.tr *@tulsachain.com *@ooma.com *@retirement.adprsportal.com *@cm01.charityengine.net *@CenturyLink.net *@mail.duluthtrading.com *@cst-l.com *@allstarhealth.com
   header          __WLNOTLS               eval:check_from_in_list('WLNOTLS')
 
   #NOTLS - For example, Google now also doesn't allow email without TLS: https://support.google.com/a/answer/81126?hl=en
@@ -8577,6 +8583,19 @@ if (version >= 4.000000)
   endif
 endif
 
+# extract bank accounts (routing:account pairs and IBANs) from text
+ifplugin Mail::SpamAssassin::Plugin::HashBL
+  ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
+    if can(Mail::SpamAssassin::Plugin::RaptorOnly::has_hashbl_bank)
+      body          GB_BANK_RBL           eval:check_hashbl_bank('wild.pccc.com', 'md5/max=10/shuffle', '127.0.1.17')
+      priority      GB_BANK_RBL           -100
+      tflags        GB_BANK_RBL           net
+      describe      GB_BANK_RBL           Message contains bank account found on blocklist (https://raptor.pccc.com/RBL)
+      score         GB_BANK_RBL           5.0
+    endif
+  endif
+endif
+
 #FAKE PRODUCTS USING SHAREPOINT
 body		__KAM_FAKE_SHAREPOINT_PRODUCTS1	/bitdefender security cloud/i
 body		__KAM_FAKE_SHAREPOINT_PRODUCTS2 /renewed/i
@@ -10735,12 +10754,12 @@ score           KAM_FAKE_MARRIOTT       6.0
 
 #FAKE AAA
   #from
-  header	__KAM_FAKE_AAA1		From:name =~ /(emergency|Courtesy) kit|Triple A/i
+  header	__KAM_FAKE_AAA1		From:name =~ /(emergency|Courtesy) kit|Triple A|Congrats/i
   #subj
   header	__KAM_FAKE_AAA2A	Subject =~ /Complimenta?ry Road.?kit|Safety Kit/i
   header	__KAM_FAKE_AAA2B	Subject =~ /(^|\b)AAA($|\b)/
   #gift
-  body		__KAM_FAKE_AAA3		/receive a Premier Roadside Support Kit|AAA Courtesy Bundle|receive car emergency kit/i
+  body		__KAM_FAKE_AAA3		/receive a Premier Roadside Support Kit|AAA Courtesy Bundle|receive car emergency kit|win a.{1,100}|AAA winter safety kit/i
   #AAA
   body		__KAM_FAKE_AAA4		/(^|\b)AAA($|\b)/
   tflags	__KAM_FAKE_AAA4		nosubject
