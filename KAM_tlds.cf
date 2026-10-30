@@ -49,6 +49,7 @@ ifplugin Mail::SpamAssassin::Plugin::URIDNSBL
     util_rb_2tld go2cloud.org
     util_rb_2tld jimdosite.com 
     util_rb_2tld jmsend.com
+    util_rb_2tld logowanietauron.app
     util_rb_2tld lovable.app
     util_rb_2tld maillist-manage.com
     util_rb_2tld mdbgo.io

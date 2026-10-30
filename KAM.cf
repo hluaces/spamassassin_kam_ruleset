@@ -7104,20 +7104,10 @@ meta		KAM_STORAGE_GOOGLE      ( __KAM_STORAGE_GOOGLE && !__URI_GOOG_STO_IMG )
 describe	KAM_STORAGE_GOOGLE	Google Storage API being abused by spammers
 score		KAM_STORAGE_GOOGLE	1.70
 
-uri             GB_STORAGE_GOOGLE_HTM   m;^https?://storage\.googleapis\.com/.{1,64}/.{1,32}\.html?;i
-describe        GB_STORAGE_GOOGLE_HTM   Html file stored on Google cloud
-score           GB_STORAGE_GOOGLE_HTM   2.5
-tflags          GB_STORAGE_GOOGLE_HTM   multiple maxhits=1
-
 uri             GB_URI_FLEEK_STO_HTM    m,^https?://storageapi\.fleek\.co/.*\.html?,i
 describe        GB_URI_FLEEK_STO_HTM    Html file stored on Fleek cloud
 score           GB_URI_FLEEK_STO_HTM    4.25
 tflags          GB_URI_FLEEK_STO_HTM    multiple maxhits=5
-
-uri             GB_URI_BACKBLAZE_HTM    m;^https?://(?:\w+.s3.\w{2}\-\w+\-|\w)\d{3}\.backblazeb2\.com/.{1,128}\.html?;i
-describe        GB_URI_BACKBLAZE_HTM    Html file stored on Backblaze
-score           GB_URI_BACKBLAZE_HTM    4.25
-tflags          GB_URI_BACKBLAZE_HTM    multiple maxhits=5
 
 if (version >= 4.000000)
   if can(Mail::SpamAssassin::Conf::feature_capture_rules)
@@ -7128,12 +7118,7 @@ if (version >= 4.000000)
   endif
 endif
 
-uri             GB_URI_IONOS_HTM        m,^https?://\w+.s3.(?:\w+\-\w+\-\d+).ionoscloud.com/.*\.html?,i
-describe        GB_URI_IONOS_HTM        Html file stored on Ionoscloud
-score           GB_URI_IONOS_HTM        4.25
-tflags          GB_URI_IONOS_HTM        multiple maxhits=5
-
-uri             GB_URI_IONOS_ZIP        m,^https?://\w+.s3.(?:\w+\-\w+\-\d+).ionoscloud.com/.*\.zip,i
+uri             GB_URI_IONOS_ZIP        m,^https?://\w+\.s3[.-](?:\w+\-\w+\-\d+)\.ionoscloud\.com/.*\.zip,i
 describe        GB_URI_IONOS_ZIP        Zip file stored on Ionoscloud
 score           GB_URI_IONOS_ZIP        0.01
 tflags          GB_URI_IONOS_ZIP        multiple maxhits=5
@@ -9388,7 +9373,7 @@ body		__KAM_PASSEXP1		/expires today|about to expire/i
  #ACTION
 body		__KAM_PASSEXP2		/(continue with|Keep my) same password/i
  #URI
-uri		__KAM_PASSEXP3		/s3\.amazonaws\.com\/.{1,10}\.html?/i
+uri		__KAM_PASSEXP3		/\.?s3[.-](?:[a-z0-9-]+\.)?amazonaws\.com\/.{1,64}\.html?/i
 
 meta		KAM_PASSEXP		( __KAM_PASSEXP1 + __KAM_PASSEXP2 + ( KAM_IPFS + __KAM_PASSEXP3 >= 1 ) >= 3 )
 describe	KAM_PASSEXP		Credential Scam
@@ -9621,9 +9606,9 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   score           GB_BADGSTORAGEURIS     9.0
   tflags          GB_BADGSTORAGEURIS     net      
 
-  replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO|6IYXOtcD7gLgGRcRJ|yvKOJjPzKKYTrNTYC|9sr0urs78RhA27vsH|1LfEHg6Eh8KAvtpA8|19W5MO9Zs8i6dShpF)
+  replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO|6IYXOtcD7gLgGRcRJ|yvKOJjPzKKYTrNTYC|9sr0urs78RhA27vsH|1LfEHg6Eh8KAvtpA8|19W5MO9Zs8i6dShpF|hkGn2sK4R4ZG6QNwn|xxsGrwrRx4uXvQFtc)
   replace_rules   __GB_BADSHARE_GOOGLE
-  uri             __GB_BADSHARE_GOOGLE   /https?:\/\/share\.google\/<BADSHAREGOOGLEURIS>(?:\/|\?|\b|$)/i
+  uri             __GB_BADSHARE_GOOGLE   /https?:\/\/(?:share\.google\/|(?:www\.)?google\.[a-z.]{2,6}\/share\.google\?q=)<BADSHAREGOOGLEURIS>(?:\/|\?|&|\b|$)/i
 
   replace_tag     BADVULTROBJ            (?:logon\-auth\-workspace\-sp05082026docs047protected749docs048ws|https-workspace-webmail14-mycloudmailbox-owa-auth)
   replace_rules   __GB_BADVULTROBJ
@@ -10051,12 +10036,35 @@ score		KAM_TLDSCHINA		5.0
 uri             __GB_S3_HTM1            /^https?:\/\/.{3,64}\.s3\..{3,16}\.amazonaws\.com\/.{3,128}\.s?html?(?![^\/]*?(?:%24|\$|\?X\-Amz\-))/i
 uri             __GB_S3_HTM2            /^https?:\/\/(?:\w+\.)?s3\.amazonaws\.com\/(?!.*(?:Un)?subscribe\.html?)(?:.{3,16}\/.{3,16}\/)?.{3,128}\.s?html?(?![^\/]*?(?:%24|\$|\?X\-Amz\-))/i
 uri             __GB_S3_HTM3            /^https?:\/\/s3\.(?:[a-z0-9-]+)\.amazonaws\.com\/(?!.*(?:Un)?subscribe\.html?)(?:[a-z0-9-\.]+)\/.{1,64}\.s?html?(?![^\/]*?(?:%24|\$|\?X\-Amz\-))/i
-uri             __GB_S3_HTMCUB          /^https?:\/\/s3\.cubbit\.eu\/(?:[a-z0-9-\.]+)\/.{1,64}\.s?html?/i
+uri             __GB_S3_HTMCUB          /^https?:\/\/(?:[\w.-]+\.)?s3\.cubbit\.eu\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
 uri             __GB_S3_GOOG            /^https?:\/\/storage\.googleapis\.com\/(?:[a-z0-9-\.]+)\/.{1,256}\.s?html?/i
-uri             __GB_S3_ORACLE          /^https?:\/\/objectstorage\.(?:[a-z0-9-\.]+)\.oraclecloud\.com\/\w\/(?:[a-z0-9-\.]+)\/.{1,64}\.html?/i
- 
-meta		GB_S3_HTM		( __GB_S3_HTM1 +  __GB_S3_HTM2 + __GB_S3_HTM3 + __GB_S3_HTMCUB + __GB_S3_GOOG + __GB_S3_ORACLE >= 1 ) 
-describe        GB_S3_HTM               .html link stored on S3
+uri             __GB_S3_ORACLE          /^https?:\/\/(?:objectstorage\.[a-z0-9-\.]+\.oraclecloud\.com|[\w-]+\.objectstorage\.[a-z0-9-]+\.oci\.customer-oci\.com)\/\w\/(?:[a-z0-9-\.]+)\/.{1,64}\.s?html?/i
+# S3 compatible providers, presigned urls (?X-Amz-) are not excluded
+uri             __GB_S3_WASABI          /^https?:\/\/(?:[\w.-]+\.)?s3(?:\.[a-z0-9-]+)?\.wasabisys\.com\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_DOSPACES        /^https?:\/\/(?:[\w.-]+\.)?[a-z]{3}\d\.(?:cdn\.)?digitaloceanspaces\.com\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_LINODE          /^https?:\/\/(?:[\w.-]+\.)?[a-z]{2}-[a-z]+-\d+\.linodeobjects\.com\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_BACKBLAZE       /^https?:\/\/(?:(?:[\w.-]+\.)?s3\.[a-z]{2}-[a-z]+-\d{3}\.backblazeb2\.com|[a-z]\d{3}\.backblazeb2\.com)\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_SCALEWAY        /^https?:\/\/(?:[\w.-]+\.)?s3\.[a-z]{2}-[a-z]{3}\.scw\.cloud\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_OVH             /^https?:\/\/(?:(?:[\w.-]+\.)?s3\.[a-z0-9-]+\.(?:io|perf)\.cloud\.ovh\.(?:net|us)|storage\.[a-z0-9-]+\.cloud\.ovh\.net\/v1\/AUTH_\w+)\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_IONOS           /^https?:\/\/(?:[\w.-]+\.)?s3[.-][a-z]{2}-[a-z]+-\d+\.ionoscloud\.com\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_VULTR           /^https?:\/\/[a-z]{3}\d\.vultrobjects\.com\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_CONTABO         /^https?:\/\/[a-z]{2,3}\d\.contabostorage\.com\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_IDRIVE          /^https?:\/\/[\w.-]+\.idrivee2(?:-\d+)?\.com\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_HETZNER         /^https?:\/\/(?:[\w.-]+\.)?[a-z]{3}\d\.your-objectstorage\.com\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_FILEBASE        /^https?:\/\/(?:[\w.-]+\.)?s3\.filebase\.com\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_TEBI            /^https?:\/\/(?:[\w.-]+\.)?s3\.tebi\.io\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_YANDEX          /^https?:\/\/(?:[\w.-]+\.)?storage\.yandexcloud\.net\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_TENCENT         /^https?:\/\/[\w-]+\.cos\.[a-z0-9-]+\.myqcloud\.com\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_ALIYUN          /^https?:\/\/[\w-]+\.oss-[a-z0-9-]+\.aliyuncs\.com\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_HUAWEI          /^https?:\/\/[\w-]+\.obs\.[a-z0-9-]+\.myhuaweicloud\.com\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_IBM             /^https?:\/\/(?:[\w.-]+\.)?s3\.(?:[a-z0-9-]+\.)?cloud-object-storage\.appdomain\.cloud\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_EXOSCALE        /^https?:\/\/(?:[\w.-]+\.)?sos-[a-z]{2}-[a-z]{3}-\d\.exo\.io\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_SYNOLOGY        /^https?:\/\/(?:[\w.-]+\.)?[a-z]{2}-\d{3}\.s3\.synologyc2\.net\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_NCLOUD          /^https?:\/\/[a-z]{2}\.object\.(?:fin-)?ncloudstorage\.com\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+uri             __GB_S3_FIREBASE        /^https?:\/\/firebasestorage\.googleapis\.com\/v0\/b\/[\w.-]+\/o\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
+
+meta		GB_S3_HTM		( __GB_S3_HTM1 || __GB_S3_HTM2 || __GB_S3_HTM3 || __GB_S3_HTMCUB || __GB_S3_GOOG || __GB_S3_ORACLE || __GB_S3_WASABI || __GB_S3_DOSPACES || __GB_S3_LINODE || __GB_S3_BACKBLAZE || __GB_S3_SCALEWAY || __GB_S3_OVH || __GB_S3_IONOS || __GB_S3_VULTR || __GB_S3_CONTABO || __GB_S3_IDRIVE || __GB_S3_HETZNER || __GB_S3_FILEBASE || __GB_S3_TEBI || __GB_S3_YANDEX || __GB_S3_TENCENT || __GB_S3_ALIYUN || __GB_S3_HUAWEI || __GB_S3_IBM || __GB_S3_EXOSCALE || __GB_S3_SYNOLOGY || __GB_S3_NCLOUD || __GB_S3_FIREBASE )
+describe        GB_S3_HTM               .html link stored on S3-compatible object storage
 score           GB_S3_HTM               6.5
 
 meta            GB_S3_HTM_MANY          ( GB_S3_HTM && KAM_MANYTO )
@@ -10190,7 +10198,7 @@ describe	KAM_FAKE_SCORE		Fake Score Emails
 score		KAM_FAKE_SCORE		7.5
 
 #blob
-uri		__KAM_BLOBHTML1		/.*\.blob\.core\.windows\.net\/.*html?/i
+uri		__KAM_BLOBHTML1		m;^https?://[\w-]+\.(?:blob|web)\.core\.windows\.net/[^?\#]{0,256}\.s?html?(?:[?\#]|$);i
 
 meta		KAM_BLOBHTML		( __KAM_BLOBHTML1 + FREEMAIL_FROM >= 2 )
 describe	KAM_BLOBHTML		Windows Blob Likely Spam
@@ -10207,7 +10215,7 @@ body            FUZZY_WALLET            /(?=<W>)(?!(?:v|w)allet)<W><A><L><L><E><
 body            __KAM_LOTTO2            /(?:(?:ticket|serial|lucky) number|secret pin ?code|batch number|(?:lotto|lottery|winner|winning|claim.{1,20}prize) reference number|promotion date)/is
 
 # Cloudflare r2.dev public cloud
-uri             __GB_R2DEVHTML1         /https?:\/\/pub\-\w+\.r2\.dev\/.{1,32}\.html?/
+uri             __GB_R2DEVHTML1         /^https?:\/\/pub\-\w+\.r2\.dev\/[^?\#]{1,128}\.s?html?(?:[?\#]|$)/i
 
 meta		GB_R2DEVHTML		( __GB_R2DEVHTML1 + FREEMAIL_FROM >= 2 )
 describe	GB_R2DEVHTML		Cloudflare r2.dev Likely Spam
