@@ -73,6 +73,7 @@ ifplugin Mail::SpamAssassin::Plugin::URIDNSBL
     util_rb_2tld stackerbee.com
     util_rb_2tld tecchein.cam
     util_rb_2tld trycloudflare.com
+    util_rb_2tld vip6-vn.net
     util_rb_2tld webinargeek.com
     util_rb_2tld weinter.digital
     util_rb_2tld wetransfer.com
