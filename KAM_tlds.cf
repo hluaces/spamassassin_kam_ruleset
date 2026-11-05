@@ -3,6 +3,7 @@ ifplugin Mail::SpamAssassin::Plugin::URIDNSBL
   if (version >= 3.003000)
     #HOSTS THAT BEHAVE LIKE TLDS, SUCH AS BLOGSPOT.COM AND OTHER FREE HOSTING - NOTE BLOGSPOT is in 20_aux_tlds.cf ALREADY
     #ASF listed TLDs are in /var/lib/spamassassin/4.000003/updates_spamassassin_org/20_aux_tlds.cf
+    util_rb_2tld 100cn.net
     util_rb_2tld 4everland.app
     util_rb_2tld aifastcloud.com
     util_rb_2tld ap.it
