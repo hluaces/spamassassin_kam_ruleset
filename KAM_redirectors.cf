@@ -8,6 +8,10 @@ if (version >= 4.000000)
     url_redirector_timeout 1
     url_redirector_params (?:adurl|af_web_dp|cm_destination|continue|destination|destURL|goto|h|l|login|location|p1|pval|r|redir|redirect|redirectTo|ret_url|return|returnUrl|referer|service|target|tid|u|url)=(.*)
 
+    if can(Mail::SpamAssassin::Plugin::Redirectors::has_url_skip_redirect_to)
+       url_skip_redirect_to consent.google.com
+    endif
+
     url_redirector .allaincemh.com
     url_redirector .australia4wdrentals.com
     url_redirector .awstrack.me
