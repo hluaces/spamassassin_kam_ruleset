@@ -3243,7 +3243,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules   __GB_OBFU_PHONE0
   body            __GB_OBFU_PHONE0     /(?:\b|\s)(?:\+<NUM1>(?:\s|\-)?\(|\+?(?:<NUM1>)?(?:\(|\-)?(?:<NUM8>)\d|[.(]\d<O2>\d{1,2}[.)]\s)|contact(?:ing)? us at \d<O2>\d |\+\.1\.\s?\.\(\.\d\.\d\.\d\.\)/
   body            __GB_OBFU_PHONE1     /(?!(1\W{0,30})?\d{3}\W{1,30}\d{3}[^a-zA-Z0-9]{1,30}\d{4})\b([1I][^a-zA-Z0-9]{0,30})?[\dOIl]{3}[^a-zA-Z0-9]{1,30}[\dOIl]{3}[^a-zA-Z0-9]{1,30}[\dOIl]{4}\b/
-  body            __GB_OBFU_PHONE_FP   /(?:Ill|I\:\s+)/
+  body            __GB_OBFU_PHONE_FP   /(?:Ill|I\:\s+|___)/
   meta            GB_OBFU_PHONE        ( ( __GB_OBFU_PHONE0 || __GB_OBFU_PHONE1 ) && !__GB_OBFU_PHONE_FP )
   describe        GB_OBFU_PHONE        Obfuscated phone number
   score           GB_OBFU_PHONE        4.0
