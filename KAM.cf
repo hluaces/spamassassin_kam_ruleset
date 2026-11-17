@@ -1182,13 +1182,13 @@ ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   describe	KAM_IFRAME2	Email contains phrase instructing javascript use
   score		KAM_IFRAME2	1.0
   
-  meta		KAM_IFRAME3	(KAM_IFRAME + KAM_IFRAME2 + T_HTML_ATTACH >=3)
+  meta		KAM_IFRAME3	(KAM_IFRAME + KAM_IFRAME2 + HTML_ATTACH >=3)
   score		KAM_IFRAME3	5.0
   describe	KAM_IFRAME3	Likely email exploit - Email shouldn't require javascript in an email attachment
 
   #XEROX SCANS
   header          __KAM_XEROX1    Subject =~ /Scan from a Xerox WorkCentre Pro \#\d+|Scanned from a Xerox Multifunction Device|document from xerox scanner/i
-  meta            KAM_XEROX       (__KAM_XEROX1 + (KAM_IFRAME && T_HTML_ATTACH) + KAM_RAPTOR_ALTERED >= 2)
+  meta            KAM_XEROX       (__KAM_XEROX1 + (KAM_IFRAME && HTML_ATTACH) + KAM_RAPTOR_ALTERED >= 2)
   score           KAM_XEROX       5.0
   describe        KAM_XEROX       Likely Fake Xerox Attachment
 
@@ -1605,7 +1605,7 @@ ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   score		KAM_BADPO	5.0
 endif
 
-meta		KAM_BADPO2	(__KAM_BADPO1 + __KAM_BADPO2 + T_HTML_ATTACH >= 3)
+meta		KAM_BADPO2	(__KAM_BADPO1 + __KAM_BADPO2 + HTML_ATTACH >= 3)
 describe	KAM_BADPO2	Bad Purchase Orders
 score		KAM_BADPO2	5.0
 
@@ -2988,7 +2988,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   header        __GB_EN_TRIPLE  EnvelopeFrom =~ /\@triplekirrigation\.com/
   meta          __GB_NN_TRIPLE  ( __GB_EN_TRIPLE && ARC_VALID && SPF_PASS )
 
-  meta          KAM_MAILBOX     ( (__KAM_MAILBOX1 + __KAM_MAILBOX2 + (__KAM_MAILBOX3 && !__KAM_MAILBOX3FP) >=2) && (T_FREEMAIL_DOC_PDF + (KAM_SENDGRID + KAM_SENDGRID2 >= 1) + HTML_MIME_NO_HTML_TAG + T_HTML_ATTACH + __KAM_WPADMIN) >= 2 ) && !__GB_NN_CLOUDFL && !__GB_NN_ALONDE && !__GB_NN_AME && !__GB_NN_BOX && !__GB_NN_NOLIM && !__GB_NN_PAIRD && !__GB_NN_FITBIT && !__GB_NN_USCIS && !__GB_NN_ASHARP && !__GB_NN_OCCUSC && !__GB_NN_WPENG && !__GB_NN_BUYFOR && !__GB_NN_TRIPLE
+  meta          KAM_MAILBOX     ( (__KAM_MAILBOX1 + __KAM_MAILBOX2 + (__KAM_MAILBOX3 && !__KAM_MAILBOX3FP) >=2) && (T_FREEMAIL_DOC_PDF + (KAM_SENDGRID + KAM_SENDGRID2 >= 1) + HTML_MIME_NO_HTML_TAG + HTML_ATTACH + __KAM_WPADMIN) >= 2 ) && !__GB_NN_CLOUDFL && !__GB_NN_ALONDE && !__GB_NN_AME && !__GB_NN_BOX && !__GB_NN_NOLIM && !__GB_NN_PAIRD && !__GB_NN_FITBIT && !__GB_NN_USCIS && !__GB_NN_ASHARP && !__GB_NN_OCCUSC && !__GB_NN_WPENG && !__GB_NN_BUYFOR && !__GB_NN_TRIPLE
   score         KAM_MAILBOX     8.75
   describe      KAM_MAILBOX     Mailbox Quota Phishing Scams
 
@@ -3101,7 +3101,7 @@ body		__KAM_PRIV1	/private message|horny|sweet ass/i
 body		__KAM_PRIV2	/(personal|private) video/i
 body		__KAM_PRIV3	/the attache?ment|attached file/i
 
-meta		KAM_PRIV	(__KAM_PRIV1 + __KAM_PRIV2 + __KAM_PRIV3 >=2 && T_HTML_ATTACH)
+meta		KAM_PRIV	(__KAM_PRIV1 + __KAM_PRIV2 + __KAM_PRIV3 >=2 && HTML_ATTACH)
 describe	KAM_PRIV	Private Messages using Exploits in attached HTML files
 score		KAM_PRIV	5.0
 
@@ -3308,7 +3308,7 @@ score           GB_FAKE_VENMO           3.0
 
 header          __GB_FROM_PAYPAL        From:name =~ /Paypal/i
 header          __GB_ENVFROM_PAYPAL     EnvelopeFrom =~ /(?:@|=)paypal\.com(?:$|=)/
-meta            GB_PAYPAL_BTC_PHONE     ( ( __GB_FROM_PAYPAL && !__GB_ENVFROM_PAYPAL ) && __GB_BTC1 && ( __GB_PHONE  || GB_OBFU_PHONE ) && MONEY_NOHTML )
+meta            GB_PAYPAL_BTC_PHONE     ( ( __GB_FROM_PAYPAL && !__GB_ENVFROM_PAYPAL ) && __GB_BTC1 && ( __GB_PHONE  || GB_OBFU_PHONE ) && LOTS_OF_MONEY )
 describe        GB_PAYPAL_BTC_PHONE     Paypal scam
 score           GB_PAYPAL_BTC_PHONE     3.0
 
@@ -6496,7 +6496,7 @@ ifplugin Mail::SpamAssassin::Plugin::MIMEHeader
   body            __KAM_INVOICEPO2        /invoice copies|EFT PROCESS|contract signed|attached enquiry|see the attached|Company name\:/i
   tflags	  __KAM_INVOICEPO2	  nosubject
   
-  meta            KAM_INVOICEPO           (__KAM_INVOICEPO1 + __KAM_INVOICEPO2 + (KAM_HTMLINVOICE + KAM_HTMLINVOICE2 + T_HTML_ATTACH >= 1) >= 3)
+  meta            KAM_INVOICEPO           (__KAM_INVOICEPO1 + __KAM_INVOICEPO2 + (KAM_HTMLINVOICE + KAM_HTMLINVOICE2 + HTML_ATTACH >= 1) >= 3)
   describe        KAM_INVOICEPO           Invoice scam
   score           KAM_INVOICEPO           4.5
 
@@ -7767,11 +7767,11 @@ body		__KAM_FAKE_FAX4		/invoice|xerox scanner|recipient view only|click below to
 tflags		__KAM_FAKE_FAX4		nosubject
 uri		__KAM_FAKE_FAX5		/\/s3\.|quarantine|myqcloud/i
 
-meta		KAM_FAKE_FAX		((T_HTML_ATTACH + __KAM_FAKE_FAX1 + __KAM_FAKE_FAX5 >= 1) + __KAM_FAKE_FAX2 + __KAM_FAKE_FAX3 + __KAM_FAKE_FAX4 >= 4)
+meta		KAM_FAKE_FAX		((HTML_ATTACH + __KAM_FAKE_FAX1 + __KAM_FAKE_FAX5 >= 1) + __KAM_FAKE_FAX2 + __KAM_FAKE_FAX3 + __KAM_FAKE_FAX4 >= 4)
 describe	KAM_FAKE_FAX		Fake Fax Scam
 score		KAM_FAKE_FAX		8.0
 
-meta		KAM_FAKE_FAX2		( T_HTML_ATTACH + GB_BADJS + __KAM_FAKE_FAX1 + __KAM_FAKE_FAX3 >= 4 ) && !KAM_FAKE_FAX
+meta		KAM_FAKE_FAX2		( HTML_ATTACH + GB_BADJS + __KAM_FAKE_FAX1 + __KAM_FAKE_FAX3 >= 4 ) && !KAM_FAKE_FAX
 describe	KAM_FAKE_FAX2		Fake Fax Scam
 score		KAM_FAKE_FAX2		8.0
 
@@ -7783,7 +7783,7 @@ describe	KAM_FAKE_TRUST		Scams about trusted sources
 score		KAM_FAKE_TRUST		3.5
 
 ifplugin Mail::SpamAssassin::Plugin::MIMEHeader
-  #SHTML ATTACHMENT ADD TO T_HTML_ATTACH! - 2022-01-14
+  #SHTML ATTACHMENT ADD TO HTML_ATTACH! - 2022-01-14
   mimeheader	   __KAM_SHTML_ATTACH      Content-Type =~ /\b(application\/octet-string|text\/html)\b.+\.shtml?\b/i
 endif
 
@@ -7793,32 +7793,32 @@ rawbody         __GB_JS_FUNCTION        /(?:\=|\:)"?(?:function|eval)\(/
 rawbody         __GB_JS_OBFU            /(?:script\s+src|onload)="?(?:\&\#x|data\:text\/javascript)|\<svg\s+onload\=|var\s+_0x[a-z0-9]{1,6}(?:\s+)?\=|window\.(?:atob|location|href)/
 ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   header	__GB_RAPTOR_ZERO_P	X-Raptor-ZeroDay =~ /permitted/i
-  meta          GB_BADJS                ( ( __GB_JS_UNESCAPE || __GB_JS_FUNCTION || __GB_JS_OBFU ) && ( __KAM_SHTML_ATTACH || T_HTML_ATTACH || OBFU_HTML_ATTACH || UNICODE_OBFU_ASC ) && !__GB_RAPTOR_ZERO_P )
+  meta          GB_BADJS                ( ( __GB_JS_UNESCAPE || __GB_JS_FUNCTION || __GB_JS_OBFU ) && ( __KAM_SHTML_ATTACH || HTML_ATTACH || OBFU_HTML_ATTACH || UNICODE_OBFU_ASC ) && !__GB_RAPTOR_ZERO_P )
   describe	GB_BADJS		Bad html attachment
   score		GB_BADJS		4.0
 else
-  meta          GB_BADJS                ( ( __GB_JS_UNESCAPE || __GB_JS_FUNCTION || __GB_JS_OBFU ) && ( __KAM_SHTML_ATTACH || T_HTML_ATTACH || OBFU_HTML_ATTACH || UNICODE_OBFU_ASC ) )
+  meta          GB_BADJS                ( ( __GB_JS_UNESCAPE || __GB_JS_FUNCTION || __GB_JS_OBFU ) && ( __KAM_SHTML_ATTACH || HTML_ATTACH || OBFU_HTML_ATTACH || UNICODE_OBFU_ASC ) )
   describe	GB_BADJS		Bad html attachment
   score		GB_BADJS		4.0
 endif
 #HTML FORM ATTACHED
 rawbody         __GB_HTML_FORM          /\<form\s+.{1,250}(?:method\=|action\=|id\=).{0,100}>/is
 ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
-  meta            GB_HTML_FORM          ( __GB_HTML_FORM && ( T_HTML_ATTACH || OBFU_HTML_ATTACH || UNICODE_OBFU_ASC ) && !__GB_RAPTOR_ZERO_P )
+  meta            GB_HTML_FORM          ( __GB_HTML_FORM && ( HTML_ATTACH || OBFU_HTML_ATTACH || UNICODE_OBFU_ASC ) && !__GB_RAPTOR_ZERO_P )
 else
-  meta            GB_HTML_FORM          ( __GB_HTML_FORM && ( T_HTML_ATTACH || OBFU_HTML_ATTACH || UNICODE_OBFU_ASC ) )
+  meta            GB_HTML_FORM          ( __GB_HTML_FORM && ( HTML_ATTACH || OBFU_HTML_ATTACH || UNICODE_OBFU_ASC ) )
 endif
 describe        GB_HTML_FORM            Html form attached
 score           GB_HTML_FORM            4.0
 
 #FAKE INVOICE
-enlist_addrlist (WLHTMLATTACH)          *@pearson.com
+enlist_addrlist (WLHTMLATTACH)          *@pearson.com *@app.montgomerycountymd.gov
 header          __WLHTMLATTACH          eval:check_from_in_list('WLHTMLATTACH')
 header          __KAM_FAKE_INVOICE1     Subject =~ /(remittance|payment) (receipt|advice)|past.?due|purchase order|(ACH|EFT) (remittance|payment)|invoice (\#|copy)|swift confirmation|overdue invoice|attached receipt|payment confirmation/i
 body            __KAM_FAKE_INVOICE2     /(remittance|Payment) (advice|confirmation|breakdown)|past due invoice|new pro.?forma|attach(ed|ment)|balance paid|proforma invoice/i
 tflags		__KAM_FAKE_INVOICE2	nosubject
 
-meta            KAM_FAKE_INVOICE        ((T_HTML_ATTACH + __KAM_SHTML_ATTACH + KAM_RAPTOR_ALTERED + OLEMACRO_URI_TARGET >= 1) + __KAM_FAKE_INVOICE1 + __KAM_FAKE_INVOICE2 >= 3) && !__WLHTMLATTACH
+meta            KAM_FAKE_INVOICE        ((HTML_ATTACH + __KAM_SHTML_ATTACH + KAM_RAPTOR_ALTERED + OLEMACRO_URI_TARGET >= 1) + __KAM_FAKE_INVOICE1 + __KAM_FAKE_INVOICE2 >= 3) && !__WLHTMLATTACH
 describe        KAM_FAKE_INVOICE        Fake Invoice / Purchase Order Scam 
 score           KAM_FAKE_INVOICE        6.4
 
@@ -8626,7 +8626,7 @@ header		__KAM_PAYROLL_SCANNER1	From =~ /account/i
 header		__KAM_PAYROLL_SCANNER2  Subject =~ /payroll/i
 body		__KAM_PAYROLL_SCANNER3	/e-?mail was sent from \"/i
 
-meta		KAM_PAYROLL_SCANNER	( __KAM_PAYROLL_SCANNER1 + __KAM_PAYROLL_SCANNER2 + __KAM_PAYROLL_SCANNER3 + (T_HTML_ATTACH + __KAM_SHTML_ATTACH >= 1) + KAM_IFRAME >= 5)
+meta		KAM_PAYROLL_SCANNER	( __KAM_PAYROLL_SCANNER1 + __KAM_PAYROLL_SCANNER2 + __KAM_PAYROLL_SCANNER3 + (HTML_ATTACH + __KAM_SHTML_ATTACH >= 1) + KAM_IFRAME >= 5)
 describe	KAM_PAYROLL_SCANNER	Payroll Scam Emails
 score		KAM_PAYROLL_SCANNER	7.5
 
@@ -8637,7 +8637,7 @@ describe	KAM_HTTP_REFRESH	Contains an http refresh
 score		KAM_HTTP_REFRESH	1.0
 
 #BAD HTML MESSAGES
-meta		KAM_BAD_HTML 		(KAM_SHORT + (T_HTML_ATTACH + __KAM_SHTML_ATTACH >= 1) + KAM_HTTP_REFRESH + UNWANTED_LANGUAGE_BODY >= 3)
+meta		KAM_BAD_HTML 		(KAM_SHORT + (HTML_ATTACH + __KAM_SHTML_ATTACH >= 1) + KAM_HTTP_REFRESH + UNWANTED_LANGUAGE_BODY >= 3)
 describe	KAM_BAD_HTML		Email With a likely bad or dangerous html attachment
 score		KAM_BAD_HTML		6.5
 
@@ -9022,7 +9022,7 @@ ifplugin Mail::SpamAssassin::Plugin::MIMEHeader
   body		__KAM_BAD_SCAN1	/scanned from MFP|\(\d+\) scanned/i
   header	__KAM_BAD_SCAN2	Subject =~ /scan(ned)? image from MFP/i
 
-  meta		KAM_BAD_SCAN	( __KAM_BAD_SCAN1 + __KAM_BAD_SCAN2 + (T_HTML_ATTACH + __KAM_VM5 >= 1) >= 3)
+  meta		KAM_BAD_SCAN	( __KAM_BAD_SCAN1 + __KAM_BAD_SCAN2 + (HTML_ATTACH + __KAM_VM5 >= 1) >= 3)
   describe	KAM_BAD_SCAN	Likely a fake scan
   score		KAM_BAD_SCAN	6.5
 endif
@@ -9085,7 +9085,7 @@ body		__KAM_FAKE_PO1 		/status on our purchase order/i
 header        	__KAM_FAKE_PO2 		Subject =~ /PO \d+/i
 body		__KAM_FAKE_PO3		/attached/i
 
-meta            KAM_FAKE_PO	      	(__KAM_FAKE_PO1 + __KAM_FAKE_PO2 + __KAM_FAKE_PO3 + T_HTML_ATTACH >= 4)
+meta            KAM_FAKE_PO	      	(__KAM_FAKE_PO1 + __KAM_FAKE_PO2 + __KAM_FAKE_PO3 + HTML_ATTACH >= 4)
 describe        KAM_FAKE_PO      	Fake Purchase Orders
 score           KAM_FAKE_PO      	6.0
 
@@ -9113,7 +9113,7 @@ ifplugin Mail::SpamAssassin::Plugin::MIMEHeader
   mimeheader    __KAM_FAKE_DOCUSIGN1 	Content-Type =~ /docusign\.png/i
   header	__KAM_FAKE_DOCUSIGN2	Subject =~ /D0cuSign\: Signature Required/i
  
-  meta 		KAM_FAKE_DOCUSIGN	(__KAM_FAKE_DOCUSIGN1 + T_HTML_ATTACH >= 2) || (__KAM_FAKE_DOCUSIGN2)
+  meta 		KAM_FAKE_DOCUSIGN	(__KAM_FAKE_DOCUSIGN1 + HTML_ATTACH >= 2) || (__KAM_FAKE_DOCUSIGN2)
   describe	KAM_FAKE_DOCUSIGN	Fake Docusign Document
   score		KAM_FAKE_DOCUSIGN	3.0
 endif
@@ -9506,7 +9506,7 @@ score		KAM_COPOUT		4.5
 
 #DOMAIN/URI TEST CONCEPT
 ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
-  replace_tag	BADCALENDLYURIS    	(?:jpcalendly|michael\-2900|avolinq|otto\-demosho|jprecruiting|stella\-ridge|nivaai|guammi\-marketing|sethg\-erc|marc\-alderson|randy\-wimmer|video\-animation|julius\-frago|growthtitan|byte\-bridge\-team|flipcausedemo|techerp|leadoverload\-team|twiz|vissia\-ac|eventgives|sephacquisition|mattia\-100|doug\-376|byron\-lewis|selo\-ai|elevatemkt|business-gps-tetsch|nandreaatos|stephanie\-alic|.*praxis\-business\-brokers\-introduction|tony\-tarkowski|jvrtechllc|fractionl\/sonia-rosa|\-spv|2jm\-9wc\-m84|adrianaidid|bilal\-saeed\-|adobosolutions\-calendar\-4tof|verticalsols12|cyrusrsandoval77|fbfb|ikefontaine|ryan\-gonyo|gunaatita|mhoan867|paulam\-leadsignite|mktg\-sales\-leads|marketingteam\-cbox|leadstouchmarketingcal|appventurez\-mobi\-tech|darlyn\-tindoy\-powerhouse\-unlimited|appventurezmobi|crownglobe|revhero\-demo\-group|rolling\-adz|insyncmedia|dnathan\-3|kevin\-wright|joedalton|pathos\-new\-clients|juanguevaratv|investment\-banking\-group|shieldbar|trybusyseed|cartcompound|webclicks\-info)
+  replace_tag	BADCALENDLYURIS    	(?:jpcalendly|michael\-2900|avolinq|otto\-demosho|jprecruiting|stella\-ridge|nivaai|guammi\-marketing|sethg\-erc|marc\-alderson|randy\-wimmer|video\-animation|julius\-frago|growthtitan|byte\-bridge\-team|flipcausedemo|techerp|leadoverload\-team|twiz|vissia\-ac|eventgives|sephacquisition|mattia\-100|doug\-376|byron\-lewis|selo\-ai|elevatemkt|business-gps-tetsch|nandreaatos|stephanie\-alic|.*praxis\-business\-brokers\-introduction|tony\-tarkowski|jvrtechllc|fractionl\/sonia-rosa|\-spv|2jm\-9wc\-m84|adrianaidid|bilal\-saeed\-|adobosolutions\-calendar\-4tof|verticalsols12|cyrusrsandoval77|fbfb|ikefontaine|ryan\-gonyo|gunaatita|mhoan867|paulam\-leadsignite|mktg\-sales\-leads|marketingteam\-cbox|leadstouchmarketingcal|appventurez\-mobi\-tech|darlyn\-tindoy\-powerhouse\-unlimited|appventurezmobi|crownglobe|revhero\-demo\-group|rolling\-adz|insyncmedia|dnathan\-3|kevin\-wright|joedalton|pathos\-new\-clients|juanguevaratv|investment\-banking\-group|shieldbar|trybusyseed|cartcompound|webclicks\-info|ignisglobal)
   replace_rules 	__KAM_BADCALENDLY
   uri 		__KAM_BADCALENDLY     	/https?\:\/\/(www\.)?calendly\.com\/(d\/)?<BADCALENDLYURIS>(?:\/|\?|\b|$)/i
 
@@ -9612,7 +9612,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   score           GB_BADGSTORAGEURIS     9.0
   tflags          GB_BADGSTORAGEURIS     net      
 
-  replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO|6IYXOtcD7gLgGRcRJ|yvKOJjPzKKYTrNTYC|9sr0urs78RhA27vsH|1LfEHg6Eh8KAvtpA8|19W5MO9Zs8i6dShpF|hkGn2sK4R4ZG6QNwn|xxsGrwrRx4uXvQFtc|29kIUjX7hBzCwIvWZ|yKe2eGgxQi5rzxtWa)
+  replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO|6IYXOtcD7gLgGRcRJ|yvKOJjPzKKYTrNTYC|9sr0urs78RhA27vsH|1LfEHg6Eh8KAvtpA8|19W5MO9Zs8i6dShpF|hkGn2sK4R4ZG6QNwn|xxsGrwrRx4uXvQFtc|29kIUjX7hBzCwIvWZ|yKe2eGgxQi5rzxtWa|qwQnyQI4FJDD0Xc0A)
   replace_rules   __GB_BADSHARE_GOOGLE
   uri             __GB_BADSHARE_GOOGLE   /https?:\/\/(?:share\.google\/|(?:www\.)?google\.[a-z.]{2,6}\/share\.google\?q\=)<BADSHAREGOOGLEURIS>(?:\/|\?|&|\b|$)/i
 
@@ -9642,7 +9642,7 @@ endif
 header		__KAM_FEDEX1		From:name =~ /Fedex/i
 header		__KAM_FEDEX2		From:addr !~ /fedex/i
 
-meta		KAM_FEDEX		(__KAM_FEDEX1 + __KAM_FEDEX2 + T_HTML_ATTACH >= 3)
+meta		KAM_FEDEX		(__KAM_FEDEX1 + __KAM_FEDEX2 + HTML_ATTACH >= 3)
 describe	KAM_FEDEX		Fake FedEx notice
 score		KAM_FEDEX		4.5
 
@@ -9783,7 +9783,7 @@ score		KAM_FAKE_SA_POST	4.0
 body		__KAM_FAKE_BENEFIT1	/attached/i
 body		__KAM_FAKE_BENEFIT2	/benefits? enrollment/i
 
-meta		KAM_FAKE_BENEFIT	( __KAM_FAKE_BENEFIT1 + __KAM_FAKE_BENEFIT2 + T_HTML_ATTACH >= 3 )
+meta		KAM_FAKE_BENEFIT	( __KAM_FAKE_BENEFIT1 + __KAM_FAKE_BENEFIT2 + HTML_ATTACH >= 3 )
 describe	KAM_FAKE_BENEFIT	Likely fake benefit email
 score		KAM_FAKE_BENEFIT	4.5
 
@@ -10517,7 +10517,7 @@ describe        __RP_RANDOM_ONMS        Bounce path routed through a randomly-pe
 header          __FROM_KNOWN_BRAND      From =~ /\@(order\.|store\.)?(dell|epson|paypal|amazon|apple|usps|fedex|ups)\.com/i
 describe        __FROM_KNOWN_BRAND      From header claims a well-known transactional brand domain
 
-meta            GB_DKIM_REPLAY_ARC_CHAIN   (DKIM_VALID && __FROM_KNOWN_BRAND && MANY_ARC_SEALS)
+meta            GB_DKIM_REPLAY_ARC_CHAIN   (DKIM_VALID && __FROM_KNOWN_BRAND && GB_MANY_ARC_SEALS)
 describe        GB_DKIM_REPLAY_ARC_CHAIN   Brand DKIM-signed mail with abnormally long ARC chain, possible DKIM replay
 score           GB_DKIM_REPLAY_ARC_CHAIN   4.5
 
@@ -10741,7 +10741,7 @@ header		__KAM_FAMILYOFFICEMANDA1	Subject =~ /purchase|Invest(or|ment)|acquisitio
  #FAMILY OFFICE
 body		__KAM_FAMILYOFFICEMANDA2	/family.?office|(private equity|PE) Firm/i
  #ACQUIRE/PURCHASE
-body		__KAM_FAMILYOFFICEMANDA3	/(making an offer on|acquiring|investing in) (business|compan)|interest(ed)? in making an investment|(interest|looking|seeking) (in|to|at) (acquir|invest)/i
+body		__KAM_FAMILYOFFICEMANDA3	/(making an offer on|acquiring|investing in) (business|compan)|interest(ed)? in making an investment|(interest(ed)?|looking|seeking) (in|to|at) (acquir|invest)/i
  #BRAND
 body		__KAM_FAMILYOFFICEMANDA4	/Synergy Advisors|Meridian|(evergreen|Riverside|bluestone|private capital|capital markets?) Advisory/i
  #TITLE
@@ -10834,6 +10834,8 @@ meta		KAM_INVOICE_OBFU_LOW	( (__KAM_INVOICE_OBFU1A + __KAM_INVOICE_OBFU1B >= 1) 
 describe        KAM_INVOICE_OBFU_LOW    Fake Amazon, PayPal, GeekSquad, etc. Invoices & Similar Notice - Lower Confidence
 score           KAM_INVOICE_OBFU_LOW    4.5
 
-
+#Funding Spam
+#header		KAM_FUNDING1		From:addr =~ /(\.(co|de)>?$/i
+#header		KAM_FUNDING2		Subject =~ /cushion/i
 
 #EOF
