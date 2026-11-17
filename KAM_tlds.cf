@@ -122,6 +122,16 @@ ifplugin Mail::SpamAssassin::Plugin::URIDNSBL
     util_rb_3tld us-east-2.awsapprunner.com
     util_rb_3tld l.rasa.io
     util_rb_3tld web.val.run
+    util_rb_3tld na1.hs-salescrm-engage.com
+    util_rb_3tld na2.hs-salescrm-engage.com
+    util_rb_3tld na3.hs-salescrm-engage.com
+    util_rb_3tld eu1.hs-salescrm-engage.com
+    util_rb_3tld ap1.hs-salescrm-engage.com
+    util_rb_3tld na1.hs-sales-engage.com
+    util_rb_3tld na2.hs-sales-engage.com
+    util_rb_3tld na3.hs-sales-engage.com
+    util_rb_3tld eu1.hs-sales-engage.com
+    util_rb_3tld ap1.hs-sales-engage.com
   endif
 
   if can(Mail::SpamAssassin::Conf::has_util_rb_4tld)

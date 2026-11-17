@@ -30,6 +30,8 @@ if (version >= 4.000000)
       url_redirector links.notification.intuit.com/ls/click
       url_redirector links.notification.intuit.com/ss/c
       url_redirector linkprotect.cudasvc.com/url
+      # Committed to ASF on 11/17/2026
+      url_redirector login.microsoftonline.com/common/oauth2/v2.0/authorize
       url_redirector_get securelinks.cloud-security.net/v
     endif
     url_redirector .cc.rs6.net
