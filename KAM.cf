@@ -1067,7 +1067,7 @@ ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   score           KAM_RPTR_BADHOST        9.0
 
   #NOTLS WELCOMELIST
-  enlist_addrlist (WLNOTLS)               *@4imprint.com *@bellnet.ca *@berglist.com *@enom.com *@name-services.com *@trust-guard.com *@vzwpix.com *@trick-tools.com *@tictactel.net *@COSCON.com *@intelcom.ca *@jeffmartinauctioneers.com *@hlag.com *@cbsa-asfc.gc.ca *@kpneuscommercial.ca *@central-insurance.com *@services.capitalgroup.com *@williamsfoodequipment.com *@cn.gree.com *@nsaarc.net *@smigroup.net *@news1.naylorconnect.com *@rose.net *@smigroup.net *@bluemountain.com *@actsst.com *@connectwise.userecho.com *@kegland.cn *@bell.net *@email.crayola.com *@daemarinc.com *@power-link.ca *@e.johnnyseeds.com *@station-22.com *@survivalfootball.com *@mapyourshow.com *@vzwpix.com *@a25csc.com *@anchorglass.com *@nfpa.org *@paulpedneaultinc.com *@plomberielatulippe.ca *@cogecomedia.com *@transportag.com *@whmcs.com *@usgbc.org *@liverani.com *@crutchfield.com *@psmj.com *@initialpublications.com *@studentaid.gov *@sympatico.ca *@boisaco.com *@charityengine.net *@mvpbanking.com *@nutraingredients.com *@bloomingdalecom.net *@yamata.com.tr *@tulsachain.com *@ooma.com *@retirement.adprsportal.com *@cm01.charityengine.net *@CenturyLink.net *@mail.duluthtrading.com *@cst-l.com *@allstarhealth.com *@milwpc.com *@somar.co.jp *@ss-industrialsupply.com
+  enlist_addrlist (WLNOTLS)               *@4imprint.com *@bellnet.ca *@berglist.com *@enom.com *@name-services.com *@trust-guard.com *@vzwpix.com *@trick-tools.com *@tictactel.net *@COSCON.com *@intelcom.ca *@jeffmartinauctioneers.com *@hlag.com *@cbsa-asfc.gc.ca *@kpneuscommercial.ca *@central-insurance.com *@services.capitalgroup.com *@williamsfoodequipment.com *@cn.gree.com *@nsaarc.net *@smigroup.net *@news1.naylorconnect.com *@rose.net *@smigroup.net *@bluemountain.com *@actsst.com *@connectwise.userecho.com *@kegland.cn *@bell.net *@email.crayola.com *@daemarinc.com *@power-link.ca *@e.johnnyseeds.com *@station-22.com *@survivalfootball.com *@mapyourshow.com *@vzwpix.com *@a25csc.com *@anchorglass.com *@nfpa.org *@paulpedneaultinc.com *@plomberielatulippe.ca *@cogecomedia.com *@transportag.com *@whmcs.com *@usgbc.org *@liverani.com *@crutchfield.com *@psmj.com *@initialpublications.com *@studentaid.gov *@sympatico.ca *@boisaco.com *@charityengine.net *@mvpbanking.com *@nutraingredients.com *@bloomingdalecom.net *@yamata.com.tr *@tulsachain.com *@ooma.com *@retirement.adprsportal.com *@cm01.charityengine.net *@CenturyLink.net *@mail.duluthtrading.com *@cst-l.com *@allstarhealth.com *@milwpc.com *@somar.co.jp *@ss-industrialsupply.com *@utilitiesbp.com
   header          __WLNOTLS               eval:check_from_in_list('WLNOTLS')
 
   #NOTLS - For example, Google now also doesn't allow email without TLS: https://support.google.com/a/answer/81126?hl=en
@@ -9612,7 +9612,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   score           GB_BADGSTORAGEURIS     9.0
   tflags          GB_BADGSTORAGEURIS     net      
 
-  replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO|6IYXOtcD7gLgGRcRJ|yvKOJjPzKKYTrNTYC|9sr0urs78RhA27vsH|1LfEHg6Eh8KAvtpA8|19W5MO9Zs8i6dShpF|hkGn2sK4R4ZG6QNwn|xxsGrwrRx4uXvQFtc|29kIUjX7hBzCwIvWZ|yKe2eGgxQi5rzxtWa|qwQnyQI4FJDD0Xc0A)
+  replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO|6IYXOtcD7gLgGRcRJ|yvKOJjPzKKYTrNTYC|9sr0urs78RhA27vsH|1LfEHg6Eh8KAvtpA8|19W5MO9Zs8i6dShpF|hkGn2sK4R4ZG6QNwn|xxsGrwrRx4uXvQFtc|29kIUjX7hBzCwIvWZ|yKe2eGgxQi5rzxtWa|qwQnyQI4FJDD0Xc0A|hZiIS9Nx6cWrYKP6sy)
   replace_rules   __GB_BADSHARE_GOOGLE
   uri             __GB_BADSHARE_GOOGLE   /https?:\/\/(?:share\.google\/|(?:www\.)?google\.[a-z.]{2,6}\/share\.google\?q\=)<BADSHAREGOOGLEURIS>(?:\/|\?|&|\b|$)/i
 
@@ -10834,8 +10834,17 @@ meta		KAM_INVOICE_OBFU_LOW	( (__KAM_INVOICE_OBFU1A + __KAM_INVOICE_OBFU1B >= 1) 
 describe        KAM_INVOICE_OBFU_LOW    Fake Amazon, PayPal, GeekSquad, etc. Invoices & Similar Notice - Lower Confidence
 score           KAM_INVOICE_OBFU_LOW    4.5
 
-#Funding Spam
-#header		KAM_FUNDING1		From:addr =~ /(\.(co|de)>?$/i
-#header		KAM_FUNDING2		Subject =~ /cushion/i
+#FUNDING SPAM
+ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
+  header	__KAM_FUNDING1		From:addr =~ /\.(co|de)>?$/i
+  header	__KAM_FUNDING2		Subject =~ /cushion|bridge.?line/i
+  body		__KAM_FUNDING3		/(providing|working) capital/i
+  tflags	__KAM_FUNDING3		nosubject
+  
+  meta		KAM_FUNDING		( __KAM_FUNDING1 + __KAM_FUNDING2 + __KAM_FUNDING3 >= 2 ) && (KAM_RAPTOR_NEW >= 1 )
+  describe	KAM_FUNDING		Funding Spams
+  score		KAM_FUNDING		4.5
+endif
+
 
 #EOF
