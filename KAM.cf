@@ -10837,8 +10837,8 @@ score           KAM_INVOICE_OBFU_LOW    4.5
 #FUNDING SPAM
 ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   header	__KAM_FUNDING1		From:addr =~ /\.(co|de)>?$/i
-  header	__KAM_FUNDING2		Subject =~ /cushion|bridge.?line/i
-  body		__KAM_FUNDING3		/(providing|working) capital/i
+  header	__KAM_FUNDING2		Subject =~ /cushion|bridge.?line|heloc/i
+  body		__KAM_FUNDING3		/(providing|working) capital|business HELOC/i
   tflags	__KAM_FUNDING3		nosubject
   
   meta		KAM_FUNDING		( __KAM_FUNDING1 + __KAM_FUNDING2 + __KAM_FUNDING3 >= 2 ) && (KAM_RAPTOR_NEW >= 1 )
