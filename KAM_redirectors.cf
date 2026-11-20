@@ -49,6 +49,7 @@ if (version >= 4.000000)
     url_redirector auctiva.com
     url_redirector awin1.com
     url_redirector bing.com
+    url_redirector c.gle
     url_redirector ccbclibrary.ccbcmd.edu
     url_redirector cqbbs.cc
     url_redirector cdn.dragon.cere.network
