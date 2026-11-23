@@ -3278,7 +3278,7 @@ replace_rules   __GB_FRAUD_PAYPAL
   header          __GB_FROM_YOUSIGN       From:addr =~ /\@yousign\.(?:app|com)/
   header          __GB_FROM_INTUIT        From:addr =~ /\@notification\.intuit\.com/
   # match on invisible UTF-8 chars and literal separators (., -, parens) as well
-  body            __GB_PHONE              /(?<![1-9A-Za-z])((?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()\s]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])/
+  body            __GB_PHONE              /(?<![1-9A-Za-z])((?:\+?1[\s.\-]?)?(?:\(\d{3}\)|\d{3})[\s.\-]?\d{3}[\s.\-]\d{4}(?![\dA-Za-z])|(?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()\s]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])/
   body            __GB_FRAUD_PAYPAL       /Fraud\s+Alert|<O2><R2><D2><E2><R2>|recognize\s+the\s+seller|Quickly\s+inform\s+us|(?:PayPal)(?:Support)?(?:Team)?\s+Immediately|we do\s?n.{1,3}t (?:hear|receive any communication) from you|unauthorized charge|made in error|BTC order|Crypto currency|do.{1,3}t hesitate to contact us immediately|did\s?n.{1,3}t made this order|seconds? for your account to reflect this transaction|Bitcoin|Blockchain/i
 endif
 ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
@@ -7560,7 +7560,7 @@ score		KAM_VERIZON		9.5
 header		__KAM_DOCUSIGN1		Subject =~ /New e-DocuSign Signature|new e-signature docusign|docusign electronic signature|transfer notice|docusign (electronic|signature) service|docusign document|please_complete_document|Complete via DocuSign|Review Your Assigned Document/i
 header		__KAM_DOCUSIGN2		From:name =~ /docusign/i
 header		__KAM_DOCUSIGN2A	From:name =~ /docusign|docshare/i
-header		__KAM_DOCUSIGN3		From:addr !~ /docusign/i
+header		__KAM_DOCUSIGN3		From:addr !~ /\@docusign\./i
 
 uri		__KAM_DOCUSIGN4		/\.weebly\.com|(?:docs|map)\.google\.|onedrive\.live\.com|\.linodeobjects\.com|\.oraclecloud\.com|\.cubbit\.eu/i
 
@@ -8538,7 +8538,7 @@ if (version >= 4.000000)
             replace_rules GB_PHONE_RBL
             # body          GB_PHONE_RBL          eval:check_hashbl_bodyre_phone('wild.pccc.com', 'raw/max=10/shuffle/num/case/replace', '(?<![1-9])((?:(?:\+)?(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){1,3}[^a-zA-Z0-9]{0,2})?(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){2,3}[^a-zA-Z0-9]*(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){3,4}[^a-zA-Z0-9]*(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){4,6})(?!\d)', '127.0.1.16')
             # match on invisible UTF-8 chars and literal separators (., -, parens) as well
-            body          GB_PHONE_RBL          eval:check_hashbl_bodyre_phone('wild.pccc.com', 'raw/max=10/shuffle/num/case/replace', '(?<![1-9A-Za-z])((?:\+)?(?:(?:(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>)(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()\s]){0,4}){8,13}(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>)|(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){9,15}))(?![\dA-Za-z])', '127.0.1.16')
+            body          GB_PHONE_RBL          eval:check_hashbl_bodyre_phone('wild.pccc.com', 'raw/max=10/shuffle/num/case/replace', '(?<![1-9A-Za-z])((?:\+?1[\s.\-]?)?(?:\((?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){3}\)|(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){3})[\s.\-]?(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){3}[\s.\-](?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){4}(?![\dA-Za-z])|(?:\+)?(?:(?:(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>)(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()\s]){0,4}){8,13}(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>)|(?:<N0>|<N1>|<N2>|<N3>|<N4>|<N5>|<N6>|<N7>|<N8>|<N9>){9,15}))(?![\dA-Za-z])', '127.0.1.16')
             priority      GB_PHONE_RBL          -100
             tflags        GB_PHONE_RBL          net
             describe      GB_PHONE_RBL          Message contains phone number found on blocklist (https://raptor.pccc.com/RBL)
@@ -8553,10 +8553,10 @@ if (version >= 4.000000)
           score         GB_PHONE_RBL_RAW      10.0
         endif
         # XXX keep in sync with __GB_PHONE rule
-        body            T_GB_HAS_PHONE        /(?<![1-9A-Za-z])((?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()\s]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])/
+        body            T_GB_HAS_PHONE        /(?<![1-9A-Za-z])((?:\+?1[\s.\-]?)?(?:\(\d{3}\)|\d{3})[\s.\-]?\d{3}[\s.\-]\d{4}(?![\dA-Za-z])|(?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()\s]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])/
         describe        T_GB_HAS_PHONE        Email body contains a phone number
       else
-        body          GB_PHONE_RBL          eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/num/', '(?<![1-9A-Za-z])((?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()\s]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])', '127.0.1.16')
+        body          GB_PHONE_RBL          eval:check_hashbl_bodyre('wild.pccc.com', 'raw/max=10/shuffle/num/', '(?<![1-9A-Za-z])((?:\+?1[\s.\-]?)?(?:\(\d{3}\)|\d{3})[\s.\-]?\d{3}[\s.\-]\d{4}(?![\dA-Za-z])|(?:(?:\d(?:\xe2\x80[\x8e-\x8f\x91]|[.\-()\s]){0,4}){8,13}\d|\d{9,15}))(?![\dA-Za-z])', '127.0.1.16')
         priority      GB_PHONE_RBL          -100
         tflags        GB_PHONE_RBL          net
         describe      GB_PHONE_RBL          Message contains phone number found on blocklist (https://raptor.pccc.com/RBL)
@@ -9457,6 +9457,13 @@ ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   # describe	UNWANTED_LB_EXTRACT_CO  Compensate unwanted language rule score when data are extracted from images 
   # score		UNWANTED_LB_EXTRACT_CO  -2.5
   # tflags	UNWANTED_LB_EXTRACT_CO  nice
+  ifplugin Mail::SpamAssassin::Plugin::TextCat
+    header   __GB_LANG_CJK              X-Languages =~ /\b(?:zh|ja|ko)\b/
+    header   __GB_FROMDOTNET            From:addr =~ /(\.(?:net))>?$/i
+    meta     GB_UNWANTED_DIVID          ( __GB_LANG_CJK && __GB_FROMDOTNET && UNWANTED_LANGUAGE_BODY && KAM_ASCII_DIVIDERS )
+    describe GB_UNWANTED_DIVID          Japanese .net spam campaign
+    score    GB_UNWANTED_DIVID          6.0
+  endif
 endif
 
 #ADVIDS
@@ -10267,13 +10274,17 @@ body		__KAM_PIANO1		/(dead|late) (spouse|husband)/i
   #PIANO
 body		__KAM_PIANO2		/(Yamaha|grand) piano|baby grand/i
   #COST
-body		__KAM_PIANO3		/free|gifting|offering|giv(e|ing) away|go to someone/i
+body		__KAM_PIANO3		/free|gifting|offering|giv(e|ing) away|(pass it on|go) to someone/i
   #SUBJ
 header		__KAM_PIANO4		Subject =~ /want this|(beautiful|grand) piano|instrument|piano donation|baby grand|['`] +piano|yamaha piano/i
 
 meta		KAM_PIANO		( __KAM_PIANO1 + __KAM_PIANO2 + __KAM_PIANO3 + __KAM_PIANO4 + (KAM_EDU_FROM + FREEMAIL_FROM >= 1) >= 5 )
 describe	KAM_PIANO		Likely Piano Scam (yes, Piano Scams are a real thing apparently. "Sing us a song, you're the piano scam...") 
 score		KAM_PIANO		7.5
+
+meta            KAM_PIANO_LOW           ( __KAM_PIANO1 + __KAM_PIANO2 + __KAM_PIANO3 + __KAM_PIANO4 + (KAM_EDU_FROM + FREEMAIL_FROM >= 1) >= 4 )
+describe        KAM_PIANO_LOW           Possible Piano Scam (yes, Piano Scams are a real thing apparently. "Sing us a song, you're the piano scam...")
+score           KAM_PIANO_LOW           6.0
 
 ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   # AP/AR SCAM
@@ -10846,5 +10857,13 @@ ifplugin Mail::SpamAssassin::Plugin::RaptorOnly
   score		KAM_FUNDING		4.5
 endif
 
+
+#RIVERSIDE
+#  Allow https://riverside.com/studio but not anything else
+uri		__KAM_RIVERSIDE_STUDIO1		/(^|\/)riverside.com\/studio\//i
+
+meta		KAM_RIVERSIDE_STUDIO		( __KAM_RIVERSIDE_STUDIO1 + KAM_BODY_URIBL_PCCC >= 2 )
+describe	KAM_RIVERSIDE_STUDIO		Allowing Riverside Studio Links
+score		KAM_RIVERSIDE_STUDIO		-9.0
 
 #EOF
