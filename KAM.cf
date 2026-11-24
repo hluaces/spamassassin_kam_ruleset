@@ -9557,7 +9557,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   replace_rules	__KAM_BADWHATSAPPURIS	
   uri           __KAM_BADWHATSAPPURIS   /https?\:\/\/(?:wa\.me\/|api\.whatsapp\.com\/send\?phone=)<BADWHATSAPPURIS>(?:\/|\?|\&|\b|$)/i
 
-  replace_tag	BADFLOWCODEURIS		(?:signalsdefense|rAcrHS8hy|e3PAv7A7yz)
+  replace_tag	BADFLOWCODEURIS		(?:signalsdefense|rAcrHS8hy|e3PAv7A7yz|PVWkAoF3r)
   replace_rules   __KAM_BADFLOWCODEURIS
   uri             __KAM_BADFLOWCODEURIS   /https?\:\/\/(flow\.page|flowcode\.com\/p)\/<BADFLOWCODEURIS>(?:\/|\?|\b|$)/i
 
