@@ -9619,7 +9619,7 @@ ifplugin Mail::SpamAssassin::Plugin::ReplaceTags
   score           GB_BADGSTORAGEURIS     9.0
   tflags          GB_BADGSTORAGEURIS     net      
 
-  replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO|6IYXOtcD7gLgGRcRJ|yvKOJjPzKKYTrNTYC|9sr0urs78RhA27vsH|1LfEHg6Eh8KAvtpA8|19W5MO9Zs8i6dShpF|hkGn2sK4R4ZG6QNwn|xxsGrwrRx4uXvQFtc|29kIUjX7hBzCwIvWZ|yKe2eGgxQi5rzxtWa|qwQnyQI4FJDD0Xc0A|hZiIS9Nx6cWrYKP6sy)
+  replace_tag     BADSHAREGOOGLEURIS     (?:s2KHVnOkV1WhrCzJO|6IYXOtcD7gLgGRcRJ|yvKOJjPzKKYTrNTYC|9sr0urs78RhA27vsH|1LfEHg6Eh8KAvtpA8|19W5MO9Zs8i6dShpF|hkGn2sK4R4ZG6QNwn|xxsGrwrRx4uXvQFtc|29kIUjX7hBzCwIvWZ|yKe2eGgxQi5rzxtWa|qwQnyQI4FJDD0Xc0A|hZiIS9Nx6cWrYKP6sy|Pt9pUXWXZwSaujnko)
   replace_rules   __GB_BADSHARE_GOOGLE
   uri             __GB_BADSHARE_GOOGLE   /https?:\/\/(?:share\.google\/|(?:www\.)?google\.[a-z.]{2,6}\/share\.google\?q\=)<BADSHAREGOOGLEURIS>(?:\/|\?|&|\b|$)/i
 
