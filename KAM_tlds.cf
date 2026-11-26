@@ -46,6 +46,7 @@ ifplugin Mail::SpamAssassin::Plugin::URIDNSBL
     util_rb_2tld intelycare.com
     util_rb_2tld it.com
     util_rb_2tld mailjindo.com
+    util_rb_2tld heteml.net
     util_rb_2tld hobby-site.com
     util_rb_2tld go2cloud.org
     util_rb_2tld jimdosite.com 
@@ -59,6 +60,8 @@ ifplugin Mail::SpamAssassin::Plugin::URIDNSBL
     util_rb_2tld moreonline.space
     util_rb_2tld nichesite.org
     util_rb_2tld nxcli.io
+    # XXX committed to ASF on 11/25/2026
+    util_rb_2tld onlinewebcrm.com
     util_rb_2tld onmicrosoft.com
     util_rb_2tld onrender.com
     util_rb_2tld onthewifi.com
